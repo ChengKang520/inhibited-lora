@@ -54,19 +54,19 @@ Although LoRA and InA has the same answer, but from the average attention heatma
 ## How does Shunting Inhibition effect LoRA?
 
 InA also inserts trainable inhibition matrices into transformer layers to approximate the weight updates. By using a low-rank decomposition $W_0 + \Delta = W_0 + W_{down}$, where $W_{down} \in {R^{d\times{r}}}$, $W_{up} \in {R^{r\times{k}}}$, $Th \in {R^{M\times{1}}}$, InA updates the $Query$ and $Key$ projection matrices ($W_{q},W_{k}$) in the multi-head attention sub-layer. For the specific input $H$, InA modifies the projection output $H_{o}$ as:
-\begin{equation}
-    H_{o} \leftarrow H_{o}+s \cdot f(HW_{down}-Th)W_{up},
-\end{equation}
+
+$$H_{o} \leftarrow H_{o}+s \cdot f(HW_{down}-Th)W_{up}$$,
+
 where $s \in \{0, 1\}$ is a tunable scalar hyperparameter, and $Th$ is the threshold. 
 
 \textbf{Notation.} We denote input hidden vectors as $H \in {R^{M\times{d}}}$ and the output of self-attention as $\bar{H}_{o} \in {R^{M \times{d}}}$. $W_{k}, W_{q}, W_{v} \in {R^{d\times{d}}}$ are the projection matrices.
 
 \textbf{Motivation.}  The motivation of InA on Transformer is to assemble a flexible gate with an adjustable inhibition vector to fine-tune downstream tasks. In addition, it should be able to automatically learn to rarefy tense features without sparsity settings. Under transfer learning, pre-trained language models can provide features for downstream tasks. The inhibition vector with a gate mechanism can learn to adjust and inhibit the provided features, and it finally makes tunable weights fit into a specific downstream task by fine-tuning. We formulate the linear InA layer as:
-\begin{gather} \label{eq7}
-I_{k}=f(HW_{k\_down}-Th_{k})W_{k\_up}, \\
-I_{q}=f(HW_{q\_down}-Th_{q})W_{q\_up},
-\end{gather}
-\noindent where $I_{k} \in {R^{M\times{d}}}$ and $I_{q} \in {R^{M\times{d}}}$, respectively, is the $Inhibition$ matrix in $Key$ side and $Query$ side; $f$ is the activation function; $Th_{k} \in {R^{M\times{1}}}$ is the product of $max(HW_{k\_down}) \times Inh_{p}$ in terms of the column-wise maximization and $Th_{q} \in {R^{M\times{1}}}$ is the product of $max(HW_{q\_down}) \times Inh_{p}$ in terms of the column-wise maximization. 
+
+$$I_{k}=f(HW_{k\_down}-Th_{k})W_{k\_up}$$, \\
+$$I_{q}=f(HW_{q\_down}-Th_{q})W_{q\_up}$$,
+
+\noindent where $I_{k} \in {R^{M\times{d}}}$ and $I_{q} \in {R^{M\times{d}}}$, respectively, is the $Inhibition$ matrix in $Key$ side and $Query$ side; $f$ is the activation function; $Th_{k} \in {R^{M\times{1}}}$ is the product of $max(HW_{k\__down}) \times Inh_{p}$ in terms of the column-wise maximization and $Th_{q} \in {R^{M\times{1}}}$ is the product of $max(HW_{q\_down}) \times Inh_{p}$ in terms of the column-wise maximization. 
 
 
 
