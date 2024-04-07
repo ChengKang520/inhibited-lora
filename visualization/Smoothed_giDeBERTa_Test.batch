@@ -1,0 +1,27 @@
+#!/bin/sh
+#SBATCH --partition=amdgpulong
+#SBATCH --time=72:00:00
+#SBATCH --gres=gpu:4
+#SBATCH --mem-per-gpu=32000
+#SBATCH --job-name=SgiDeBERTa_Test
+#SBATCH --err=SgiDeBERTa_Test.err
+#SBATCH --out=SgiDeBERTa_Test.out
+#SBATCH --mail-user=kangchen@fel.cvut.cz    # where send info about job
+#SBATCH --mail-type=ALL              # what to send, valid type values are NONE, BEGIN, END, FAIL, REQUEUE, ALL
+
+/bin/hostname
+srun -l /bin/hostname
+srun -l /bin/pwd
+ml PyTorch/1.10.0-foss-2021a-CUDA-11.3.1
+cd /home/kangchen/Rehrearsal_TransferLearning/python_script/BERT-GLUE/
+source EnvAMD/bin/activate
+python transformers/examples/pytorch/text-classification/run_glue.py --model_name_or_path microsoft/deberta-v3-large --task_name cola --do_train --do_eval --num_train_epochs 10 --overwrite_output_dir --output_dir output_final/Smoothed_giDeBERTa_Test/CoLA/
+python transformers/examples/pytorch/text-classification/run_glue.py --model_name_or_path microsoft/deberta-v3-large --task_name mrpc --do_train --do_eval --num_train_epochs 10 --overwrite_output_dir --output_dir output_final/Smoothed_giDeBERTa_Test/MRPC/
+python transformers/examples/pytorch/text-classification/run_glue.py --model_name_or_path microsoft/deberta-v3-large --task_name rte --do_train --do_eval --num_train_epochs 10 --overwrite_output_dir --output_dir output_final/Smoothed_giDeBERTa_Test/RTE/
+python transformers/examples/pytorch/text-classification/run_glue.py --model_name_or_path microsoft/deberta-v3-large --task_name wnli --do_train --do_eval --num_train_epochs 10 --overwrite_output_dir --output_dir output_final/Smoothed_giDeBERTa_Test/WNLI/
+python transformers/examples/pytorch/text-classification/run_glue.py --model_name_or_path microsoft/deberta-v3-large --task_name stsb --do_train --do_eval --num_train_epochs 10 --overwrite_output_dir --output_dir output_final/Smoothed_giDeBERTa_Test/STSB/
+python transformers/examples/pytorch/text-classification/run_glue.py --model_name_or_path microsoft/deberta-v3-large --task_name qqp --do_train --do_eval --num_train_epochs 10 --overwrite_output_dir --output_dir output_final/Smoothed_giDeBERTa_Test/QQP/
+python transformers/examples/pytorch/text-classification/run_glue.py --model_name_or_path microsoft/deberta-v3-large --task_name mnli --do_train --do_eval --num_train_epochs 10 --overwrite_output_dir --output_dir output_final/Smoothed_giDeBERTa_Test/MNLI/
+python transformers/examples/pytorch/text-classification/run_glue.py --model_name_or_path microsoft/deberta-v3-large --task_name qnli --do_train --do_eval --num_train_epochs 10 --overwrite_output_dir --output_dir output_final/Smoothed_giDeBERTa_Test/QNLI/
+python transformers/examples/pytorch/text-classification/run_glue.py --model_name_or_path microsoft/deberta-v3-large --task_name sst2 --do_train --do_eval --num_train_epochs 10 --overwrite_output_dir --output_dir output_final/Smoothed_giDeBERTa_Test/SST2/
+cd /home/kangchen/Rehrearsal_TransferLearning/python_script/BERT-GLUE/EnvAMD/lib/python3.9/site-packages/transformers/models/deberta_v2/

@@ -1,0 +1,21 @@
+#!/bin/sh
+#SBATCH --partition=amdgpulong
+#SBATCH --time=72:00:00
+#SBATCH --gres=gpu:4
+#SBATCH --mem-per-gpu=32000
+#SBATCH --job-name=giBERT90
+#SBATCH --err=giBERT90.err 
+#SBATCH --out=giBERT90.out 
+#SBATCH --mail-user=kangchen@fel.cvut.cz    # where send info about job
+#SBATCH --mail-type=ALL              # what to send, valid type values are NONE, BEGIN, END, FAIL, REQUEUE, ALL
+
+/bin/hostname
+srun -l /bin/hostname
+srun -l /bin/pwd
+ml PyTorch/1.10.0-foss-2021a-CUDA-11.3.1
+cd /home/kangchen/Rehrearsal_TransferLearning/python_script/BERT-GLUE/
+source EnvAMD/bin/activate
+python transformers/examples/pytorch/token-classification/run_ner.py --model_name_or_path bert-large-cased --dataset_name conll2003 --do_train --do_eval --num_train_epochs 5 --overwrite_output_dir --output_dir output_final/BERT_90_on_two/NER/
+python transformers/examples/pytorch/question-answering/run_qa.py --model_name_or_path bert-large-cased --dataset_name squad --do_train --do_eval --num_train_epochs 5 --per_device_train_batch_size 8 --learning_rate 3e-5 --report_to tensorboard --evaluation_strategy epoch --save_total_limit 1 --logging_strategy steps --save_strategy epoch --logging_steps 200 --overwrite_output_dir --output_dir output_final/BERT_90_on_two/SQuAD_v1/
+python transformers/examples/pytorch/question-answering/run_qa.py --model_name_or_path bert-large-cased --dataset_name squad_v2 --do_train --do_eval --num_train_epochs 5 --per_device_train_batch_size 8 --learning_rate 3e-5 --report_to tensorboard --evaluation_strategy epoch --save_total_limit 1 --logging_strategy steps --save_strategy epoch --logging_steps 200 --overwrite_output_dir --output_dir output_final/BERT_90_on_two/SQuAD_v2/ --version_2_with_negative
+python transformers/examples/pytorch/multiple-choice/run_swag.py --model_name_or_path bert-large-cased --do_train --do_eval --num_train_epochs 5 --overwrite_output_dir --output_dir output_final/BERT_90_on_two/SWAG/
