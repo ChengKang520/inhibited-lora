@@ -59,7 +59,7 @@ $$H_{o} \leftarrow H_{o}+s \cdot f(HW_{down}-Th)W_{up},$$
 
 where $s \in \{0, 1\}$ is a tunable scalar hyperparameter, and $Th$ is the threshold. 
 
-**Notation.** We denote input hidden vectors as $H \in R^{M \times {d}}$ and the output of self-attention as ${H}_o \in R^{M \times {d}}$. $W_{k}, W_{q}, W_{v} \in R^{d \times {d}}$ are the projection matrices.
+**Notation.** We denote input hidden vectors as $H \in R^{M \times {d}}$ and the output of self-attention as $H_o \in R^{M \times {d}}$. $W_{k}, W_{q}, W_{v} \in R^{d \times {d}}$ are the projection matrices.
 
 **Motivation.**  The motivation of InA on Transformer is to assemble a flexible gate with an adjustable inhibition vector to fine-tune downstream tasks. In addition, it should be able to automatically learn to rarefy tense features without sparsity settings. Under transfer learning, pre-trained language models can provide features for downstream tasks. The inhibition vector with a gate mechanism can learn to adjust and inhibit the provided features, and it finally makes tunable weights fit into a specific downstream task by fine-tuning. We formulate the linear InA layer as:
 
