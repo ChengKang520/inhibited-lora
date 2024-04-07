@@ -59,14 +59,14 @@ $$H_{o} \leftarrow H_{o}+s \cdot f(HW_{down}-Th)W_{up},$$
 
 where $s \in \{0, 1\}$ is a tunable scalar hyperparameter, and $Th$ is the threshold. 
 
-\textbf{Notation.} We denote input hidden vectors as $H \in {R^{M\times{d}}}$ and the output of self-attention as ${H}_{o} \in {R^{M \times{d}}}$. $W_{k}, W_{q}, W_{v} \in {R^{d\times{d}}}$ are the projection matrices.
+**Notation.** We denote input hidden vectors as $H \in {R^{M\times{d}}}$ and the output of self-attention as ${H}_{o} \in {R^{M \times{d}}}$. $W_{k}, W_{q}, W_{v} \in {R^{d\times{d}}}$ are the projection matrices.
 
-\textbf{Motivation.}  The motivation of InA on Transformer is to assemble a flexible gate with an adjustable inhibition vector to fine-tune downstream tasks. In addition, it should be able to automatically learn to rarefy tense features without sparsity settings. Under transfer learning, pre-trained language models can provide features for downstream tasks. The inhibition vector with a gate mechanism can learn to adjust and inhibit the provided features, and it finally makes tunable weights fit into a specific downstream task by fine-tuning. We formulate the linear InA layer as:
+**Motivation.**  The motivation of InA on Transformer is to assemble a flexible gate with an adjustable inhibition vector to fine-tune downstream tasks. In addition, it should be able to automatically learn to rarefy tense features without sparsity settings. Under transfer learning, pre-trained language models can provide features for downstream tasks. The inhibition vector with a gate mechanism can learn to adjust and inhibit the provided features, and it finally makes tunable weights fit into a specific downstream task by fine-tuning. We formulate the linear InA layer as:
 
-$$I_{k}=f(HW_{k\_down}-Th_{k})W_{k\_up}$$,
-$$I_{q}=f(HW_{q\_down}-Th_{q})W_{q\_up}$$,
+$$I_{k}=f(HW_{k\_down}-Th_{k})W_{k\_up},$$
+$$I_{q}=f(HW_{q\_down}-Th_{q})W_{q\_up},$$
 
-\noindent where $I_{k} \in {R^{M\times{d}}}$ and $I_{q} \in {R^{M\times{d}}}$, respectively, is the $Inhibition$ matrix in $Key$ side and $Query$ side; $f$ is the activation function; $Th_{k} \in {R^{M\times{1}}}$ is the product of $\max(HW_{k\__down}) \times Inh_{p}$ in terms of the column-wise maximization and $Th_{q} \in {R^{M\times{1}}}$ is the product of $max(HW_{q\_down}) \times Inh_{p}$ in terms of the column-wise maximization. 
+where $I_{k} \in {R^{M\times{d}}}$ and $I_{q} \in {R^{M\times{d}}}$, respectively, is the $Inhibition$ matrix in $Key$ side and $Query$ side; $f$ is the activation function; $Th_{k} \in {R^{M\times{1}}}$ is the product of $\max(HW_{k\__down}) \times Inh_{p}$ in terms of the column-wise maximization and $Th_{q} \in {R^{M\times{1}}}$ is the product of $\max(HW_{q\_down}) \times Inh_{p}$ in terms of the column-wise maximization. 
 
 
 
