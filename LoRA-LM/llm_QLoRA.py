@@ -49,8 +49,8 @@ class SquadDataCollator(DataCollatorForLanguageModeling):
 
         # Only apply cross entropy loss to the answer part of the labels
         for idx, label in enumerate(batch["labels"]):
-            print("************  Value  ************")
-            print(label)
+            # print("************  Value  ************")
+            # print(label)
             answer_end = torch.where(label == -100)[0][0]
             answer_start = torch.where(label == self.answer_start_token_id)[0][-1]
             label[:answer_start] = -100

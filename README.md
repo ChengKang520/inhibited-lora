@@ -71,7 +71,7 @@ where $I_{k} \in {R^{M\times{d}}}$ and $I_{q} \in {R^{M\times{d}}}$, respectivel
 
 ## Reproduction
 
-This repository is a tutorial for finetuning LLMs with InA on Alpaca datasets! So here's how to reproduce:
+This repository is a tutorial for finetuning LMs and LLMs with InA on GLUE, SquAD datasets! So here's how to reproduce:
 
 ## Installation
 
@@ -79,43 +79,71 @@ This repository is a tutorial for finetuning LLMs with InA on Alpaca datasets! S
 
 ```bash
 $ pip install -r requirements.txt
-$ pip install -e peft-0.10.0
+$ pip install -e peft-0.10.0/
 ```
 
 
-## Finetune on Benchmarks
+## Finetune on GLUE Benchmarks
 
 Reference finetune method provide by [tloen/alpaca-lora](https://github.com/tloen/alpaca-lora) 
 
-1. Run on 1 GPU with Colab: https://colab.research.google.com/drive/1QvtrJpikkkNKSbwwG766SIGbBw2TQRd5?usp=sharing
+1. Run on 1 GPU with Colab: 
 
-  - `LLaMA`
+  - `RoBERTa-large`
     ```bash
-    $ cd finetune/
-    $ python finetune.py --base_model decapoda-research/llama-7b-hf --data_dir ../data/alpaca-en-zh.json --output_dir ../finetuned/llama-7b-hf_alpaca-en-zh --threshold_ratio_inhi 0.3 --lora_target_modules '["q_proj", "v_proj"]'
+    cd LoRA-LM/
+    python lm_QLoRA.py \
+    --model_name FacebookAI/roberta-large \
+    --dataset_name data/squad_v2/ \
+    --lora_r 8 \
+    --lora_alpha 16 \
+    --lora_inhibition 0.3 \
+    --lora_dropout 0.1 \
+    --num_warmup_epochs 1 \
+    --num_train_epochs 10 \
+    --batch_size 16 \
+    --output_dir Output_PEFT
     ```
   
-  - `BLOOM`
+  - `Llama2-7B`
     ```bash
-    $ cd finetune/
-    $ python finetune.py --base_model bigscience/bloomz-7b1-mt --data_dir ../data/alpaca-en-zh.json --output_dir ../finetuned/bloomz-7b1-mt_alpaca-en-zh --threshold_ratio_inhi 0.3 --lora_target_modules '["query_key_value"]'
+    cd LoRA-LM/
+    python llm_QLoRA.py \
+    --model_name meta-llama/Llama-2-7b-chat-hf \
+    --dataset_name data/squad_v2/ \
+    --lora_alpha 16 \
+    --lora_inhibition 0.3 \
+    --lora_dropout 0.1 \
+    --bf16 \
+    --max_seq_length 4096 \
+    --per_device_train_batch_size 2 \
+    --gradient_accumulation_steps 2 \
+    --max_steps 10000 \
+    --merge_and_push \
+    --save_steps 1000 \
+    --learning_rate=2e-7 \
+    --output_dir Output_PEFT/Llama-2-7b-chat-hf
     ```
-
-2. Use `torchrun` for distributed training on Multi-GPUs
-
-  - `LLaMA`
+  
+  - `Llama3-8B`
     ```bash
-    $ cd finetune/
-    $ torchrun --standalone --nnodes=1 --nproc_per_node=4 finetune.py --base_model decapoda-research/llama-7b-hf --data_dir ../data/alpaca-en-zh.json --output_dir ../finetuned/llama-7b-hf_alpaca-en-zh --threshold_ratio_inhi 0.3 --lora_target_modules '["q_proj", "v_proj"]'
+    cd LoRA-LM/
+    python llm_QLoRA.py \
+    --model_name meta-llama/Meta-Llama-3-8B \
+    --dataset_name data/squad_v2/ \
+    --lora_alpha 16 \
+    --lora_inhibition 0.3 \
+    --lora_dropout 0.1 \
+    --bf16 \
+    --max_seq_length 4096 \
+    --per_device_train_batch_size 2 \
+    --gradient_accumulation_steps 2 \
+    --max_steps 10000 \
+    --merge_and_push \
+    --save_steps 1000 \
+    --learning_rate=2e-7 \
+    --output_dir Output_PEFT/Llama-2-7b-chat-hf
     ```
-
-  - `BLOOM`
-    ```bash
-    $ cd finetune/
-    $ torchrun --standalone --nnodes=1 --nproc_per_node=4 finetune.py --base_model bigscience/bloomz-7b1-mt --data_dir ../data/alpaca-en-zh.json --output_dir ../finetuned/bloomz-7b1-mt_alpaca-en-zh --threshold_ratio_inhi 0.3 --lora_target_modules '["query_key_value"]'
-    ```
-
-![](https://i.imgur.com/Czw3AAx.png)
 
 
 
