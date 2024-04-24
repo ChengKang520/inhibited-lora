@@ -69,6 +69,7 @@ $$I_{q}=f(HW_{q-down}-Th_{q})W_{q-up},$$
 where $I_{k} \in {R^{M\times{d}}}$ and $I_{q} \in {R^{M\times{d}}}$, respectively, is the $Inhibition$ matrix in $Key$ side and $Query$ side; $f$ is the activation function; $Th_{k} \in {R^{M\times{1}}}$ is the product of $\max(HW_{k-down}) \times Inh_{p}$ in terms of the column-wise maximization and $Th_{q} \in {R^{M\times{1}}}$ is the product of $\max(HW_{q-down}) \times Inh_{p}$ in terms of the column-wise maximization. 
 
 
+## Reproduction
 
 This repository is a tutorial for finetuning LLMs with InA on Alpaca datasets! So here's how to reproduce:
 
@@ -78,12 +79,7 @@ This repository is a tutorial for finetuning LLMs with InA on Alpaca datasets! S
 
 ```bash
 $ pip install -r requirements.txt
-```
-
-2. Install PyTorch at compatible version with CUDA
-
-```bash
-$ pip install torch==1.13.1+cu116 torchvision==0.14.1+cu116 torchaudio==0.13.1+cu116 --extra-index-url https://download.pytorch.org/whl/cu116
+$ pip install -e peft-0.10.0
 ```
 
 

@@ -1,0 +1,51 @@
+#!/bin/sh
+#SBATCH --partition=amdgpu
+#SBATCH --time=24:00:00
+#SBATCH --gres=gpu:2
+#SBATCH --ntasks-per-node=1 # tasks per node
+#SBATCH --mem-per-gpu=120000
+#SBATCH --job-name=llama2_squad
+#SBATCH --err=llama2_InA_squad.err
+#SBATCH --out=llama2_InA_squad.out
+#SBATCH --mail-user=kangchen@fel.cvut.cz    # where send info about job
+#SBATCH --mail-type=ALL              # what to sen  d, valid type values are NONE, BEGIN, END, FAIL, REQUEUE, ALL
+
+/bin/hostnamesbatch
+srun -l /bin/hostname
+srun -l /bin/pwd
+
+ml Python/3.10.4-GCCcore-11.3.0
+source /home/kangchen/Chatbot/Psych_BioGPT/EnvLlama/bin/activate
+cd /home/kangchen/inhibited_lora/LoRA-LM/
+
+python llm_QLoRA.py \
+--model_name meta-llama/Llama-2-7b-chat-hf \
+--dataset_name data/squad_v2/ \
+--lora_alpha 16 \
+--lora_inhibition 0.3 \
+--lora_dropout 0.1 \
+--bf16 \
+--max_seq_length 4096 \
+--per_device_train_batch_size 2 \
+--gradient_accumulation_steps 2 \
+--max_steps 10000 \
+--merge_and_push \
+--save_steps 1000 \
+--learning_rate=2e-7 \
+--output_dir Output_PEFT/Llama-2-7b-chat-hf
+
+#python llm_visualize.py \
+#--model_name meta-llama/Meta-Llama-3-8B \
+#--dataset_name data/squad_v2 \
+#--bf16 \
+#--max_seq_length 4096 \
+#--per_device_train_batch_size 4 \
+#--gradient_accumulation_steps 4 \
+#--max_steps 10000 \
+#--merge_and_push \
+#--save_steps 1000 \
+#--learning_rate=2e-7
+
+
+python test_llama_squad.py --adapter_name=results/final_checkpoints
+

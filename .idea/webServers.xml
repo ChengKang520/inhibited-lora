@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="3bb4d9f9-1d23-4cf4-bfeb-fcf6e5f68dc6" name="Inhibited_LoRA">
+        <fileTransfer rootFolder="/home/kangchen/inhibited_lora/" accessType="SFTP" host="login3.rci.cvut.cz" port="22" sshConfigId="911e4c32-ef08-4594-a7b4-9ded6a298702" sshConfig="kangchen@login3.rci.cvut.cz:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
