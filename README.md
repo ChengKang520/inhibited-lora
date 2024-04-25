@@ -106,7 +106,7 @@ $ pip install -e peft-0.10.0/
     --output_dir Output_PEFT
     ```
   
-  - `Llama2-7B`
+  - `Llama2-7B` needs 2 GPUs
     ```bash
     cd LoRA-LM/
     python llm_QLoRA.py \
@@ -126,7 +126,7 @@ $ pip install -e peft-0.10.0/
     --output_dir Output_PEFT/Llama-2-7b-chat-hf
     ```
   
-  - `Llama3-8B`
+  - `Llama3-8B` needs 2 GPUs
     ```bash
     cd LoRA-LM/
     python llm_QLoRA.py \
@@ -146,14 +146,17 @@ $ pip install -e peft-0.10.0/
     --output_dir Output_PEFT/Meta-Llama-3-8B
     ```
 
-### 2. Visualization of Average Attention Heatmap
+### 2. Visualization of Average Attention Heatmap 
+
+  Check out how shunting inhibition can benefit the selection of attention scores from the [README.md](results/README.md) 
+
 
   - `RoBERTa-large`
     ```bash
     cd visualization/
     python visualize_lm.py
     ```
-  
+
   - `Llama2-7B`
     ```bash
     cd visualization/
@@ -162,7 +165,7 @@ $ pip install -e peft-0.10.0/
 
 ## Acknowledgements
 
-Cheng Kang, Jindrich Prokop and Daniel Novak are supported by the Czech Technical University in Prague (grant number: SGS22/165/OHK3/3T/13), the Research Centre for Informatics (grant number: CZ.02.1.01/0.0/0.0/$ $160\_19/0000765), and the Brain Dynamics(grant number: CZ.02.01.01/00/22\_008/0004643). We thank Yong Hu, Huiyu Zhou and Daniel Novak for proofreading the paper and providing insightful comments. We also thank the anonymous reviewers for valuable discussions.
+Cheng Kang, Jindrich Prokop and Daniel Novak are supported by the Czech Technical University in Prague (grant number: SGS22/165/OHK3/3T/13), the Research Centre for Informatics (grant number: CZ.02.1.01/0.0/0.0/160\_19/0000765), and the Brain Dynamics(grant number: CZ.02.01.01/00/22\_008/0004643). We thank Yong Hu, Huiyu Zhou and Daniel Novak for proofreading the paper and providing insightful comments. We also thank the anonymous reviewers for valuable discussions.
 
 
 ## Citing this work

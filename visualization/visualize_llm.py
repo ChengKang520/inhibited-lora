@@ -42,21 +42,10 @@ class ScriptArguments:
         default="/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/Llama-2-7b-chat-hf/final_checkpoints",
     )
     quantize: Optional[bool] = field(default=False)
-    dataset: Optional[str] = field(
-        default="/home/kangchen/inhibited_lora/LoRA-LM/data/squad_v2",
+    task: Optional[str] = field(
+        default="squad_v2",
     )
     output_csv_file: Optional[str] = field(default="/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/Llama-2-7b-chat-hf/results.csv")
-    debug: Optional[bool] = field(default=False)
-    shuffle: Optional[bool] = field(default=False)
-    seed: Optional[int] = field(default=None)
-    num_samples: Optional[int] = field(default=None)
-    num_beams: Optional[int] = field(default=1)
-
-
-DEFAULT_SYSTEM_PROMPT = """\
-You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.
-If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.\
-"""
 
 
 def get_model_and_tokenizer(
@@ -149,7 +138,7 @@ inputs = tokenizer(query, return_tensors="pt").to(device)
 # print('#####################################')
 
 select_mode = ["inhibition_no"]
-task = "squad_v2"
+task = script_args.task  #  "squad_v2"
 
 visualize_file = "/home/kangchen/inhibited_lora/visualization/" + task + "/" + script_args.model_name + "/"
 

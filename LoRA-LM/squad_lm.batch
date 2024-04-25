@@ -19,20 +19,8 @@ ml Python/3.10.4-GCCcore-11.3.0
 source /home/kangchen/Chatbot/Psych_BioGPT/EnvLlama/bin/activate
 cd /home/kangchen/inhibited_lora/LoRA-LM/
 
-#python lm_QLoRA.py \
-#--model_name google-bert/bert-large-uncased \
-#--dataset_name data/squad_v2/ \
-#--lora_r 8 \
-#--lora_alpha 16 \
-#--lora_inhibition 0.3 \
-#--lora_dropout 0.1 \
-#--num_warmup_epochs 1 \
-#--num_train_epochs 10 \
-#--batch_size 16 \
-#--output_dir Output_PEFT
-
 python lm_QLoRA.py \
---model_name FacebookAI/roberta-large \
+--model_name google-bert/bert-large-uncased \
 --dataset_name data/squad_v2/ \
 --lora_r 8 \
 --lora_alpha 16 \
@@ -43,5 +31,19 @@ python lm_QLoRA.py \
 --batch_size 16 \
 --output_dir Output_PEFT
 
+#python lm_QLoRA.py \
+#--model_name FacebookAI/roberta-large \
+#--dataset_name data/squad_v2/ \
+#--lora_r 8 \
+#--lora_alpha 16 \
+#--lora_inhibition 0.3 \
+#--lora_dropout 0.1 \
+#--num_warmup_epochs 1 \
+#--num_train_epochs 10 \
+#--batch_size 16 \
+#--output_dir Output_PEFT
+
 cd /home/kangchen/inhibited_lora/visualization/
+python visualize_lm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/FacebookAI/roberta-large/ --task="squad_v2"
+
 

@@ -322,7 +322,7 @@ class LoraLayer(BaseTunerLayer):
             lora_A_temp = lora_A(dropout(sub_batch))
             out_, inds_ = torch.max(lora_A_temp, dim=2)
             out_ = out_.unsqueeze(2)
-            lora_ina_temp = lora_A(dropout(x)) - out_ * lora_inhibition
+            lora_ina_temp = torch.nn.functional.leaky_relu(lora_A_temp - out_ * lora_inhibition)
             lora_output = lora_B(lora_ina_temp) * scaling
 
             # lora_output = lora_B(lora_A(dropout(sub_batch))) * scaling
@@ -703,12 +703,17 @@ class Embedding(nn.Module, LoraLayer):
 
             embedding_A = self.lora_embedding_A[active_adapter].T
             embedding_B = self.lora_embedding_B[active_adapter].T
+            lora_inhibition = self.lora_inhibition[active_adapter]
             scaling = self.scaling[active_adapter]
 
             # getting the sub-batch, passing it to LoRA layers and updating the corresponding indices of the linear
             # layer output
             sub_batch = x[sub_batch_indices_list[i]]
             after_A = self._embed(sub_batch, embedding_A)
+            out_, inds_ = torch.max(after_A, dim=2)
+            out_ = out_.unsqueeze(2)
+            after_A = torch.nn.functional.leaky_relu(after_A - out_ * lora_inhibition)
+
             result[sub_batch_indices_list[i]] += (after_A @ embedding_B) * scaling
 
         return result
@@ -746,8 +751,13 @@ class Embedding(nn.Module, LoraLayer):
                     continue
                 embedding_A = self.lora_embedding_A[active_adapter].T
                 embedding_B = self.lora_embedding_B[active_adapter].T
+                lora_inhibition = self.lora_inhibition[active_adapter]
                 scaling = self.scaling[active_adapter]
+
                 after_A = self._embed(x, embedding_A)
+                out_, inds_ = torch.max(after_A, dim=2)
+                out_ = out_.unsqueeze(2)
+                after_A = torch.nn.functional.leaky_relu(after_A - out_ * lora_inhibition)
                 result = result + (after_A @ embedding_B) * scaling
             result = result.to(torch_result_dtype)
 
@@ -1029,11 +1039,11 @@ class Conv2d(nn.Module, LoraLayer):
                 x = x.to(lora_A.weight.dtype)
 
                 if not self.use_dora[active_adapter]:
-                    print("******************  not BNB  ******************")
+                    # print("******************  not BNB  ******************")
                     lora_A_temp = lora_A(dropout(x))
                     out_, inds_ = torch.max(lora_A_temp, dim=2)
                     out_ = out_.unsqueeze(2)
-                    lora_ina_temp = lora_A(dropout(x)) - out_ * lora_inhibition
+                    lora_ina_temp = torch.nn.functional.leaky_relu(lora_A_temp - out_ * lora_inhibition)
                     result = result + lora_B(lora_ina_temp) * scaling
                     # result = result + lora_B(lora_A(dropout(x))) * scaling
                 else:

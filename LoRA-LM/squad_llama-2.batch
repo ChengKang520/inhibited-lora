@@ -53,5 +53,5 @@ python llm_QLoRA.py \
 
 
 cd /home/kangchen/inhibited_lora/visualization/
-python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/Llama-2-7b-chat-hf/final_checkpoints/
+python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/Llama-2-7b-chat-hf/final_checkpoints/ --task="squad_v2"
 

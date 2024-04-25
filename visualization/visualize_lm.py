@@ -11,11 +11,69 @@ import os
 from transformers import AutoModel, AutoModelForSequenceClassification, AutoModelForQuestionAnswering, AutoTokenizer, BitsAndBytesConfig
 
 
-io_path = pathlib.Path("/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/")
-model_id = "roberta-base" # "roberta-base" or "roberta-large"
+
+
+import csv
+import json
+import logging
+from dataclasses import dataclass, field
+from typing import Optional
+import os
+import transformers
+from datasets import load_from_disk
+from tqdm import tqdm
+from transformers import HfArgumentParser
+import matplotlib.pyplot as plt
+import numpy as np
+import json5
+from threading import Thread
+from typing import Iterator, Optional
+
+from peft import PeftModel
+import torch
+from transformers import (
+    AutoModelForCausalLM,
+    BitsAndBytesConfig,
+    AutoTokenizer,
+    TextIteratorStreamer,
+)
+
+logger = logging.getLogger()
+transformers.logging.set_verbosity_error()
+
+# Set device for model
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# device = 'cpu' # manual overwrite
+print(f"device: {device}")
+
+@dataclass
+class ScriptArguments:
+    model_name: Optional[str] = field(default="meta-llama/Llama-2-7b-chat-hf")
+    tokenizer_name: Optional[str] = field(
+        default=None,
+    )
+    adapter_name: Optional[str] = field(
+        default="/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/FacebookAI/roberta-large/",
+    )
+    quantize: Optional[bool] = field(default=False)
+    task: Optional[str] = field(
+        default="squad_v2",
+    )
+    output_csv_file: Optional[str] = field(default="/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/Llama-2-7b-chat-hf/results.csv")
+
+
+
+parser = HfArgumentParser(ScriptArguments)
+script_args = parser.parse_args_into_dataclasses()[0]
+
+logging.basicConfig(level=logging.DEBUG if script_args.debug else logging.INFO)
+
+
+io_path = pathlib.Path(script_args.adapter_name)
+model_id = script_args.model_name  #  "roberta-base" # "roberta-base" or "roberta-large"
 io_path = io_path / model_id
 
-task = "squad_v2"
+task = script_args.task  #  "squad_v2"
 model = peft.AutoPeftModel.from_pretrained(io_path / f'model_{task}.pth')
 model = model.merge_and_unload()
 
