@@ -1,18 +1,16 @@
 
-
-
-
 import csv
 import json
 import logging
 from dataclasses import dataclass, field
 from typing import Optional
-
+import os
 import transformers
 from datasets import load_from_disk
 from tqdm import tqdm
 from transformers import HfArgumentParser
-
+import matplotlib.pyplot as plt
+import numpy as np
 import json5
 from threading import Thread
 from typing import Iterator, Optional
@@ -29,6 +27,10 @@ from transformers import (
 logger = logging.getLogger()
 transformers.logging.set_verbosity_error()
 
+# Set device for model
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# device = 'cpu' # manual overwrite
+print(f"device: {device}")
 
 @dataclass
 class ScriptArguments:
@@ -37,13 +39,13 @@ class ScriptArguments:
         default=None,
     )
     adapter_name: Optional[str] = field(
-        default="results/final_checkpoints",
+        default="/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/Llama-2-7b-chat-hf/final_checkpoints",
     )
     quantize: Optional[bool] = field(default=False)
     dataset: Optional[str] = field(
-        default="data/squad_v2",
+        default="/home/kangchen/inhibited_lora/LoRA-LM/data/squad_v2",
     )
-    output_csv_file: Optional[str] = field(default="results/results.csv")
+    output_csv_file: Optional[str] = field(default="/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/Llama-2-7b-chat-hf/results.csv")
     debug: Optional[bool] = field(default=False)
     shuffle: Optional[bool] = field(default=False)
     seed: Optional[int] = field(default=None)
@@ -89,99 +91,17 @@ def get_model_and_tokenizer(
 
     return model, tokenizer
 
-
-def get_prompt(
-    message: str, chat_history: list[tuple[str, str]], system_prompt: str
-) -> str:
-    texts = [f"<s>[INST] <<SYS>>\n{system_prompt}\n<</SYS>>\n\n"]
-    # The first user input is _not_ stripped
-    do_strip = False
-    for user_input, response in chat_history:
-        user_input = user_input.strip() if do_strip else user_input
-        do_strip = True
-        texts.append(f"{user_input} [/INST] {response.strip()} </s><s>[INST] ")
-    message = message.strip() if do_strip else message
-    texts.append(f"{message} [/INST]")
-    return "".join(texts)
-
-
-def get_input_token_length(
-    tokenizer: AutoTokenizer,
-    message: str,
-    chat_history: list[tuple[str, str]],
-    system_prompt: str,
-) -> int:
-    prompt = get_prompt(message, chat_history, system_prompt)
-    input_ids = tokenizer([prompt], return_tensors="np", add_special_tokens=False)[
-        "input_ids"
-    ]
-    return input_ids.shape[-1]
-
-
-def run(
-    model: AutoModelForCausalLM,
-    tokenizer: AutoTokenizer,
-    message: str,
-    chat_history: list[tuple[str, str]],
-    system_prompt: str,
-    max_new_tokens: int = 1024,
-) -> Iterator[str]:
-    prompt = get_prompt(message, chat_history, system_prompt)
-    inputs = tokenizer([prompt], return_tensors="pt", add_special_tokens=False).to(
-        "cuda"
-    )
-
-    streamer = TextIteratorStreamer(
-        tokenizer, timeout=10.0, skip_prompt=True, skip_special_tokens=True
-    )
-    generate_kwargs = dict(
-        inputs,
-        streamer=streamer,
-        max_new_tokens=max_new_tokens,
-        do_sample=False,
-    )
-    t = Thread(target=model.generate, kwargs=generate_kwargs)
-    t.start()
-
-    outputs = []
-    for text in streamer:
-        outputs.append(text)
-        yield "".join(outputs)
-
-
-def extract_answer(text):
-    text = text[text.find("{") :]
-    text = text[: text.find("}") + 1]
-    try:
-        # JSON5 is a little less picky than JSON
-        answer = json5.loads(text)["answer"]
-    except:
-        answer = None
-    return answer
-
-def get_answer(prompt, pipeline):
-    response = ""
-    while True:
-        instruction = prompt.find("[/INST] ")
-        if instruction == -1:
-            break
-        instruction += len("[/INST] ")
-        current_prompt = response.strip()
-        current_prompt += prompt[:instruction] + "</s>"
-        logger.debug("Instruction: %s", prompt[:instruction])
-        prompt = prompt[instruction:]
-        prompt = prompt[prompt.find("<s>") :]
-        response = pipeline(
-            current_prompt,
-            do_sample=False,
-            num_beams=script_args.num_beams,
-            num_return_sequences=1,
-            max_new_tokens=512,
-        )[0]["generated_text"]
-        logger.debug("Response: %s", response[len(current_prompt) :].strip())
-
-    response = response[len(current_prompt) :].strip()
-    return extract_answer(response), response
+# def get_input_token_length(
+#     tokenizer: AutoTokenizer,
+#     message: str,
+#     chat_history: list[tuple[str, str]],
+#     system_prompt: str,
+# ) -> int:
+#     prompt = get_prompt(message, chat_history, system_prompt)
+#     input_ids = tokenizer([prompt], return_tensors="np", add_special_tokens=False)[
+#         "input_ids"
+#     ]
+#     return input_ids.shape[-1]
 
 
 
@@ -203,49 +123,102 @@ pipeline = transformers.pipeline(
     tokenizer=tokenizer,
 )
 
+input_text = "I put my red bag in the black bag ."
+output_text = "What is the colour of my bag ?"
+query = f"""
+        Use the following context to answer the question. Think step by step and explain your reasoning.
+        Context:
+        \"\"\"
+        {input_text}
+        \"\"\"
+        
+        Question:
+        \"\"\"
+        {output_text}
+        \"\"\"
+        """
+# print("#############################################")
+# print(query)
+# print("#############################################")
 
-with open(script_args.output_csv_file, "w") as file:
-    writer = csv.writer(file)
-    writer.writerow(
-        [
-            "Context",
-            "Question",
-            "Correct answers",
-            "Model answer",
-            "Full response",
-            "Exact match",
-        ]
-    )
 
-    dataset = load_from_disk(script_args.dataset)["test"]
-    if script_args.shuffle:
-        dataset = dataset.shuffle(seed=script_args.seed)
-    if script_args.num_samples is not None:
-        dataset = dataset.select(range(script_args.num_samples))
+inputs = tokenizer(query, return_tensors="pt").to(device)
 
-    for text in tqdm(dataset["text"]):
-        answer_start = text.rfind("```json")
-        prompt = text[:answer_start]
-        answers = extract_answer(text[answer_start:])
-        context = prompt[prompt.find("Context: ") + 9 : prompt.find("Question: ") - 1]
-        logger.debug("Context: %s", context)
-        question = prompt[prompt.find("Question: ") + 10 : prompt.find("[/INST] ")]
-        question = question[: question.find("[/INST]")]
-        logger.debug("Question: %s", question)
-        logger.debug("Correct answers: %s", answers)
-        model_answer, full_response = get_answer(prompt, pipeline)
-        logger.debug("Model answer: %s", model_answer)
-        exact_match = model_answer is not None and model_answer in answers
+# print('#####################################')
+# print(inputs['input_ids'][0])
+# print('#####################################')
 
-        writer.writerow(
-            [
-                context,
-                question,
-                json.dumps(answers),
-                model_answer,
-                full_response,
-                exact_match,
-            ]
-        )
-        file.flush()
+select_mode = ["inhibition_no"]
+task = "squad_v2"
+
+visualize_file = "/home/kangchen/inhibited_lora/visualization/" + task + "/" + script_args.model_name + "/"
+
+for plot_mode in range(len(select_mode)):
+    with torch.no_grad():
+        outputs = model(**inputs, output_attentions=True)
+
+    # print("#############################################")
+    # print(outputs)
+    # print("#############################################")
+
+    attention_scores_draw = outputs['attentions']  # Retrieve attention from model outputs
+
+    layers_num = len(attention_scores_draw)
+
+    attention_scores_plot = torch.zeros(inputs['input_ids'].size()[1], inputs['input_ids'].size()[1], layers_num)
+
+    for plot_layer in range(len(attention_scores_draw)):
+        attention_heads = torch.squeeze(attention_scores_draw[plot_layer])
+        ## Plot Attention Scores
+        attention_scores_plot[:, :, plot_layer] = torch.squeeze(torch.mean(attention_heads, 0))
+
+    ##  *************************************************************
+    # print('#####################################')
+    attention_scores_plot = torch.squeeze(attention_scores_plot).detach().numpy()
+    attention_scores_size = attention_scores_plot.shape
+    # print(attention_scores_size)
+
+    for plot_layer in range(layers_num):
+        ## Plot Attention Scores
+        # for plot_head in range(heads_num):
+
+        plot_head = "average"
+        file_name = "layer_" + str(plot_layer) + "_head_" + str(plot_head)
+        path = os.path.join(visualize_file, select_mode[plot_mode])
+
+        isExist = os.path.exists(path)
+        if not isExist:
+            # Create a new directory because it does not exist
+            os.makedirs(path)
+            print("The new directory is created!")
+
+        attention_heads = torch.squeeze(attention_scores_draw[plot_layer])
+        attention_heads_size = attention_heads.size()
+
+        text_plot = []
+        for i_token in range(len(inputs['input_ids'][0])):
+            text_plot.append(tokenizer.decode(inputs['input_ids'][0][i_token]))
+
+        plot_0 = plt
+        fig = plot_0.figure()
+        imgplot = plot_0.imshow(attention_scores_plot[:, :, plot_layer], cmap='BuGn')  # , vmin=-1.0, vmax=5.0
+        plot_0.xticks(np.arange(0, len(text_plot)), text_plot, rotation='vertical')
+        plot_0.yticks(np.arange(0, len(text_plot)), text_plot, rotation='horizontal')
+        plot_0.colorbar(orientation='vertical')
+        plot_0.show()
+        save_file = path + '/' + file_name + '.png'
+        # print(save_file)
+        plot_0.savefig(save_file)
+        plot_0.close()
+        # print('#####################################')
+
+    generate_ids = model.generate(inputs.input_ids, max_length=512)
+    output_text = tokenizer.batch_decode(generate_ids, skip_special_tokens=True, clean_up_tokenization_spaces=False)[0]
+
+    # answer_start_index = outputs.start_logits.argmax()
+    # answer_end_index = outputs.end_logits.argmax()
+    # predict_answer_tokens = inputs.input_ids[0, answer_start_index: answer_end_index + 1]
+    # output_text = tokenizer.decode(predict_answer_tokens)
+    print(output_text)
+
 

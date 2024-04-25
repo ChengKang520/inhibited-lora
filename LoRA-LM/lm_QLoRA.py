@@ -1,24 +1,4 @@
-# ---
-# jupyter:
-#   jupytext:
-#     text_representation:
-#       extension: .py
-#       format_name: percent
-#       format_version: '1.3'
-#       jupytext_version: 1.14.7
-#   kernelspec:
-#     display_name: Python 3 (ipykernel)
-#     language: python
-#     name: python3
-# ---
 
-# %% [markdown]
-# # Train QLoRA with PEFT
-
-# %% [markdown]
-# ## Imports
-
-# %%
 # Basic Imports
 import time
 import pathlib
@@ -49,10 +29,6 @@ from tqdm.auto import tqdm
 import lora_utils
 from glue_squad_utils import *
 from typing import Optional
-
-
-# %% [markdown]
-# ## Settings
 
 
 @dataclass

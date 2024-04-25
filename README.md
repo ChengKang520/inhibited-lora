@@ -5,8 +5,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Python 3.10](https://img.shields.io/badge/python-3.10-green.svg)
 [![Code License](https://img.shields.io/badge/Code%20License-Apache_2.0-green.svg)](LICENSE)
-[![arXiv](https://img.shields.io/badge/arXiv-2208.01618-b31b1b.svg)](https://arxiv.org/abs/2402.10107)
+[![arXiv](https://img.shields.io/badge/arXiv-2208.01618-b31b1b.svg)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4551993)
 
+
+This repository contains the code necessary to reproduce Shunting Inhibition on LoRA, the shunting inhibition mechanism that controls passed information from previous layers introduced in the [paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4551993):
 
 
 ## What is Shunting Inhibition? 
@@ -85,9 +87,8 @@ $ pip install -e peft-0.10.0/
 
 ## Finetune on GLUE Benchmarks
 
-Reference finetune method provide by [tloen/alpaca-lora](https://github.com/tloen/alpaca-lora) 
 
-1. Run on 1 GPU with Colab: 
+### 1. Run on 1 or 2 GPUs: 
 
   - `RoBERTa-large`
     ```bash
@@ -142,37 +143,30 @@ Reference finetune method provide by [tloen/alpaca-lora](https://github.com/tloe
     --merge_and_push \
     --save_steps 1000 \
     --learning_rate=2e-7 \
-    --output_dir Output_PEFT/Llama-2-7b-chat-hf
+    --output_dir Output_PEFT/Meta-Llama-3-8B
     ```
 
+### 2. Visualization of Average Attention Heatmap
+
+  - `RoBERTa-large`
+    ```bash
+    cd visualization/
+    python visualize_lm.py
+    ```
+  
+  - `Llama2-7B`
+    ```bash
+    cd visualization/
+    python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/Llama-2-7b-chat-hf/final_checkpoints/
+    ```
+
+## Acknowledgements
+
+Cheng Kang, Jindrich Prokop and Daniel Novak are supported by the Czech Technical University in Prague (grant number: SGS22/165/OHK3/3T/13), the Research Centre for Informatics (grant number: CZ.02.1.01/0.0/0.0/$ $160\_19/0000765), and the Brain Dynamics(grant number: CZ.02.01.01/00/22\_008/0004643). We thank Yong Hu, Huiyu Zhou and Daniel Novak for proofreading the paper and providing insightful comments. We also thank the anonymous reviewers for valuable discussions.
 
 
-### Finetune on Domain Tasks
-
-I've collected different domain tasks in my repository: [instruction-finetune-datasets](https://github.com/ChengKang520/psychotherapy-assistant_instruction)
-
-Welcome cooperations! Please contact me at: `kangkangsome@gmail.com`. I'd like to try tasks from different domains such as investment, fraud, e-commerce, law, healthcare, ...
-
-
-## Model Serving
-To serve your own model service through API & simple website UI!
-
-1. Model API
-
-```bash
-cd serve/
-python api.py
-```
-
-2. demo UI
-
-```bash
-cd serve/
-python ui.py
-```
-
-
-
+## Citing this work
+If our work helped you, please cite the reference:
 ```
 @article{kang4551993ina,
   title={InA: Inhibition Adaption on Pre-Trained Language Models},

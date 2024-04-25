@@ -52,5 +52,6 @@ python llm_QLoRA.py \
 --output_dir Output_PEFT/Llama-2-7b-chat-hf
 
 
-python test_llama_squad.py --adapter_name=results/final_checkpoints
+cd /home/kangchen/inhibited_lora/visualization/
+python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/Llama-2-7b-chat-hf/final_checkpoints/
 
