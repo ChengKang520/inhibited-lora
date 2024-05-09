@@ -148,13 +148,13 @@ $ pip install -e peft-0.10.0/
 
 ### 2. Visualization of Average Attention Heatmap 
 
-  Check out how shunting inhibition can benefit the selection of attention scores from the [README.md](results/README.md) 
+  Check out how shunting inhibition can benefit the selection of attention scores from the [README.md](visualization/README.md) 
 
 
   - `RoBERTa-large`
     ```bash
     cd visualization/
-    python visualize_lm.py
+    python visualize_lm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/FacebookAI/roberta-large/ --task="squad_v2"
     ```
 
   - `Llama2-7B`
