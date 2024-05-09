@@ -150,17 +150,31 @@ $ pip install -e peft-0.10.0/
 
   Check out how shunting inhibition can benefit the selection of attention scores from the [README.md](visualization/README.md) 
 
+  - `BERT-large`
+    ```bash
+    cd visualization/
+    python visualize_lm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/google-bert/bert-large-uncased/ \
+    --model_name google-bert/bert-large-uncased \
+    --task="squad_v2" \
+    --lora_inhibition 0.1
+    ```
 
   - `RoBERTa-large`
     ```bash
     cd visualization/
-    python visualize_lm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/FacebookAI/roberta-large/ --task="squad_v2"
+    python visualize_lm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/FacebookAI/roberta-large/ \
+    --model_name FacebookAI/roberta-large \
+    --task="squad_v2" \
+    --lora_inhibition 0.1
     ```
 
   - `Llama2-7B`
     ```bash
     cd visualization/
-    python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/Llama-2-7b-chat-hf/final_checkpoints/
+    python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/Llama-2-7b-chat-hf/ \
+    --model_name meta-llama/Llama-2-7b-chat-hf \
+    --task="squad_v2" \
+    --lora_inhibition 0.9
     ```
 
 ## Acknowledgements
