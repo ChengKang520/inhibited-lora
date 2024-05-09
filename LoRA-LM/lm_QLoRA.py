@@ -600,13 +600,13 @@ for task in ['squad_v2']:  # train_task_list_loop:
                     res_dict[k_add].append(score_value)
 
     df_res = pd.DataFrame(res_dict)
-    df_res.to_csv(output_path / f"results_{task}.csv")
+    df_res.to_csv(output_path / f"results_{task}_inh{script_args.lora_inhibition}.csv")
 
     # save model
-    model.save_pretrained((output_path / f"model_{task}.pth"))
+    model.save_pretrained((output_path / f"model_{task}_inh{script_args.lora_inhibition}"))
 
     # save loss list
-    with open((output_path / f"model-{task}-loss_list.pkl"), 'wb') as handle:
+    with open((output_path / f"model-{task}-inh{script_args.lora_inhibition}-loss_list.pkl"), 'wb') as handle:
         pickle.dump(loss_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     print("\nBest Results:")

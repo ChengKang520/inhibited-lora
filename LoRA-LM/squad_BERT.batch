@@ -1,0 +1,108 @@
+#!/bin/sh
+#SBATCH --partition=amdgpu
+#SBATCH --time=24:00:00
+#SBATCH --gres=gpu:1
+#SBATCH --ntasks-per-node=1 # tasks per node
+#SBATCH --mem-per-gpu=80000
+#SBATCH --job-name=BERT_squad
+#SBATCH --err=BERT_InA_squad.err
+#SBATCH --out=BERT_InA_squad.out
+#SBATCH --mail-user=kangchen@fel.cvut.cz    # where send info about job
+#SBATCH --mail-type=ALL              # what to sen  d, valid type values are NONE, BEGIN, END, FAIL, REQUEUE, ALL
+
+/bin/hostnamesbatch
+srun -l /bin/hostname
+srun -l /bin/pwd
+
+
+ml Python/3.10.4-GCCcore-11.3.0
+source /home/kangchen/Chatbot/Psych_BioGPT/EnvLlama/bin/activate
+cd /home/kangchen/inhibited_lora/LoRA-LM/
+
+
+#####################################################################
+#####################################################################
+python lm_QLoRA.py \
+--model_name google-bert/bert-large-uncased \
+--dataset_name data/squad_v2/ \
+--lora_r 8 \
+--lora_alpha 16 \
+--lora_inhibition 0.0 \
+--lora_dropout 0.1 \
+--num_warmup_epochs 1 \
+--num_train_epochs 10 \
+--batch_size 16 \
+--output_dir Output_PEFT
+
+cd /home/kangchen/inhibited_lora/visualization/
+python visualize_lm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/google-bert/bert-large-uncased/ \
+--model_name google-bert/bert-large-uncased \
+--task="squad_v2" \
+--lora_inhibition 0.0
+
+
+#####################################################################
+#####################################################################
+python lm_QLoRA.py \
+--model_name google-bert/bert-large-uncased \
+--dataset_name data/squad_v2/ \
+--lora_r 8 \
+--lora_alpha 16 \
+--lora_inhibition 0.1 \
+--lora_dropout 0.1 \
+--num_warmup_epochs 1 \
+--num_train_epochs 10 \
+--batch_size 16 \
+--output_dir Output_PEFT
+
+cd /home/kangchen/inhibited_lora/visualization/
+python visualize_lm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/google-bert/bert-large-uncased/ \
+--model_name google-bert/bert-large-uncased \
+--task="squad_v2" \
+--lora_inhibition 0.1
+
+
+#####################################################################
+#####################################################################
+python lm_QLoRA.py \
+--model_name google-bert/bert-large-uncased \
+--dataset_name data/squad_v2/ \
+--lora_r 8 \
+--lora_alpha 16 \
+--lora_inhibition 0.3 \
+--lora_dropout 0.1 \
+--num_warmup_epochs 1 \
+--num_train_epochs 10 \
+--batch_size 16 \
+--output_dir Output_PEFT
+
+cd /home/kangchen/inhibited_lora/visualization/
+python visualize_lm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/google-bert/bert-large-uncased/ \
+--model_name google-bert/bert-large-uncased \
+--task="squad_v2" \
+--lora_inhibition 0.3
+
+
+#####################################################################
+#####################################################################
+python lm_QLoRA.py \
+--model_name google-bert/bert-large-uncased \
+--dataset_name data/squad_v2/ \
+--lora_r 8 \
+--lora_alpha 16 \
+--lora_inhibition 0.9 \
+--lora_dropout 0.1 \
+--num_warmup_epochs 1 \
+--num_train_epochs 10 \
+--batch_size 16 \
+--output_dir Output_PEFT
+
+cd /home/kangchen/inhibited_lora/visualization/
+python visualize_lm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/google-bert/bert-large-uncased/ \
+--model_name google-bert/bert-large-uncased \
+--task="squad_v2" \
+--lora_inhibition 0.9
+
+
+
+

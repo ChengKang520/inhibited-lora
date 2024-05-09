@@ -284,20 +284,20 @@ trainer = SFTTrainer(
 trainer.train(resume_from_checkpoint=script_args.resume_from_checkpoint)
 
 if script_args.merge_and_push:
-    output_dir = os.path.join(script_args.output_dir, "final_checkpoints")
+    output_dir = os.path.join(script_args.output_dir, "final_checkpoints" + "inh" + str(script_args.lora_inhibition))
     trainer.model.save_pretrained(output_dir)
 
-    # Free memory for merging weights
-    del model
-    torch.cuda.empty_cache()
-
-    from peft import AutoPeftModelForCausalLM
-
-    model = AutoPeftModelForCausalLM.from_pretrained(
-        output_dir, device_map="auto", torch_dtype=torch.bfloat16
-    )
-    model = model.merge_and_unload()
-
-    output_merged_dir = os.path.join(script_args.output_dir, "final_merged_checkpoint")
-    model.save_pretrained(output_merged_dir, safe_serialization=True)
+    # # Free memory for merging weights
+    # del model
+    # torch.cuda.empty_cache()
+    #
+    # from peft import AutoPeftModelForCausalLM
+    #
+    # model = AutoPeftModelForCausalLM.from_pretrained(
+    #     output_dir, device_map="auto", torch_dtype=torch.bfloat16
+    # )
+    # model = model.merge_and_unload()
+    #
+    # output_merged_dir = os.path.join(script_args.output_dir, "final_merged_checkpoint_" + "inh" + str(script_args.lora_inhibition))
+    # model.save_pretrained(output_merged_dir, safe_serialization=True)
 

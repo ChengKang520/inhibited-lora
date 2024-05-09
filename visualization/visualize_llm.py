@@ -14,6 +14,7 @@ import numpy as np
 import json5
 from threading import Thread
 from typing import Iterator, Optional
+import pathlib
 
 from peft import PeftModel
 import torch
@@ -34,6 +35,7 @@ print(f"device: {device}")
 
 @dataclass
 class ScriptArguments:
+    lora_inhibition: Optional[float] = field(default=0.3)
     model_name: Optional[str] = field(default="meta-llama/Llama-2-7b-chat-hf")
     tokenizer_name: Optional[str] = field(
         default=None,
@@ -72,7 +74,7 @@ def get_model_and_tokenizer(
     )
 
     if adapter_name is not None:
-        model = PeftModel.from_pretrained(model, adapter_name, device_map="auto")
+        model = PeftModel.from_pretrained(model, adapter_name + "final_checkpoints_" + "inh" + str(script_args.lora_inhibition), device_map="auto")
 
     tokenizer = AutoTokenizer.from_pretrained(
         tokenizer_name if tokenizer_name else model_name
@@ -97,7 +99,7 @@ def get_model_and_tokenizer(
 parser = HfArgumentParser(ScriptArguments)
 script_args = parser.parse_args_into_dataclasses()[0]
 
-logging.basicConfig(level=logging.DEBUG if script_args.debug else logging.INFO)
+# logging.basicConfig(level=logging.DEBUG if script_args.debug else logging.INFO)
 
 model, tokenizer = get_model_and_tokenizer(
     model_name=script_args.model_name,
@@ -115,7 +117,7 @@ pipeline = transformers.pipeline(
 input_text = "I put my red bag in the black bag ."
 output_text = "What is the colour of my bag ?"
 query = f"""
-        Use the following context to answer the question. Think step by step and explain your reasoning.
+        Based on the following context to answer the question.
         Context:
         \"\"\"
         {input_text}
@@ -137,77 +139,79 @@ inputs = tokenizer(query, return_tensors="pt").to(device)
 # print(inputs['input_ids'][0])
 # print('#####################################')
 
-select_mode = ["inhibition_no"]
+
 task = script_args.task  #  "squad_v2"
+io_path = pathlib.Path(script_args.adapter_name)
+select_mode = "Inhibition_" + str(script_args.lora_inhibition)
 
-visualize_file = "/home/kangchen/inhibited_lora/visualization/" + task + "/" + script_args.model_name + "/"
+visualize_file = str(io_path) + "/" + task + "/"
 
-for plot_mode in range(len(select_mode)):
-    with torch.no_grad():
-        outputs = model(**inputs, output_attentions=True)
 
-    # print("#############################################")
-    # print(outputs)
-    # print("#############################################")
+with torch.no_grad():
+    outputs = model(**inputs, output_attentions=True)
 
-    attention_scores_draw = outputs['attentions']  # Retrieve attention from model outputs
+# print("#############################################")
+# print(outputs)
+# print("#############################################")
 
-    layers_num = len(attention_scores_draw)
+attention_scores_draw = outputs['attentions']  # Retrieve attention from model outputs
 
-    attention_scores_plot = torch.zeros(inputs['input_ids'].size()[1], inputs['input_ids'].size()[1], layers_num)
+layers_num = len(attention_scores_draw)
 
-    for plot_layer in range(len(attention_scores_draw)):
-        attention_heads = torch.squeeze(attention_scores_draw[plot_layer])
-        ## Plot Attention Scores
-        attention_scores_plot[:, :, plot_layer] = torch.squeeze(torch.mean(attention_heads, 0))
+attention_scores_plot = torch.zeros(inputs['input_ids'].size()[1], inputs['input_ids'].size()[1], layers_num)
 
-    ##  *************************************************************
+for plot_layer in range(len(attention_scores_draw)):
+    attention_heads = torch.squeeze(attention_scores_draw[plot_layer])
+    ## Plot Attention Scores
+    attention_scores_plot[:, :, plot_layer] = torch.squeeze(torch.mean(attention_heads, 0))
+
+##  *************************************************************
+# print('#####################################')
+attention_scores_plot = torch.squeeze(attention_scores_plot).detach().numpy()
+attention_scores_size = attention_scores_plot.shape
+# print(attention_scores_size)
+
+for plot_layer in range(layers_num):
+    ## Plot Attention Scores
+    # for plot_head in range(heads_num):
+
+    plot_head = "average"
+    file_name = "layer_" + str(plot_layer) + "_head_" + str(plot_head)
+    path = os.path.join(visualize_file, select_mode)
+
+    isExist = os.path.exists(path)
+    if not isExist:
+        # Create a new directory because it does not exist
+        os.makedirs(path)
+        print("The new directory is created!")
+
+    attention_heads = torch.squeeze(attention_scores_draw[plot_layer])
+    attention_heads_size = attention_heads.size()
+
+    text_plot = []
+    for i_token in range(len(inputs['input_ids'][0])):
+        text_plot.append(tokenizer.decode(inputs['input_ids'][0][i_token]))
+
+    plot_0 = plt
+    fig = plot_0.figure()
+    imgplot = plot_0.imshow(attention_scores_plot[:, :, plot_layer], cmap='BuGn')  # , vmin=-1.0, vmax=5.0
+    plot_0.xticks(np.arange(0, len(text_plot)), text_plot, rotation='vertical')
+    plot_0.yticks(np.arange(0, len(text_plot)), text_plot, rotation='horizontal')
+    plot_0.colorbar(orientation='vertical')
+    plot_0.show()
+    save_file = path + '/' + file_name + '.png'
+    # print(save_file)
+    plot_0.savefig(save_file)
+    plot_0.close()
     # print('#####################################')
-    attention_scores_plot = torch.squeeze(attention_scores_plot).detach().numpy()
-    attention_scores_size = attention_scores_plot.shape
-    # print(attention_scores_size)
 
-    for plot_layer in range(layers_num):
-        ## Plot Attention Scores
-        # for plot_head in range(heads_num):
+generate_ids = model.generate(inputs.input_ids, max_length=512)
+output_text = tokenizer.batch_decode(generate_ids, skip_special_tokens=True, clean_up_tokenization_spaces=False)[0]
 
-        plot_head = "average"
-        file_name = "layer_" + str(plot_layer) + "_head_" + str(plot_head)
-        path = os.path.join(visualize_file, select_mode[plot_mode])
-
-        isExist = os.path.exists(path)
-        if not isExist:
-            # Create a new directory because it does not exist
-            os.makedirs(path)
-            print("The new directory is created!")
-
-        attention_heads = torch.squeeze(attention_scores_draw[plot_layer])
-        attention_heads_size = attention_heads.size()
-
-        text_plot = []
-        for i_token in range(len(inputs['input_ids'][0])):
-            text_plot.append(tokenizer.decode(inputs['input_ids'][0][i_token]))
-
-        plot_0 = plt
-        fig = plot_0.figure()
-        imgplot = plot_0.imshow(attention_scores_plot[:, :, plot_layer], cmap='BuGn')  # , vmin=-1.0, vmax=5.0
-        plot_0.xticks(np.arange(0, len(text_plot)), text_plot, rotation='vertical')
-        plot_0.yticks(np.arange(0, len(text_plot)), text_plot, rotation='horizontal')
-        plot_0.colorbar(orientation='vertical')
-        plot_0.show()
-        save_file = path + '/' + file_name + '.png'
-        # print(save_file)
-        plot_0.savefig(save_file)
-        plot_0.close()
-        # print('#####################################')
-
-    generate_ids = model.generate(inputs.input_ids, max_length=512)
-    output_text = tokenizer.batch_decode(generate_ids, skip_special_tokens=True, clean_up_tokenization_spaces=False)[0]
-
-    # answer_start_index = outputs.start_logits.argmax()
-    # answer_end_index = outputs.end_logits.argmax()
-    # predict_answer_tokens = inputs.input_ids[0, answer_start_index: answer_end_index + 1]
-    # output_text = tokenizer.decode(predict_answer_tokens)
-    print(output_text)
+# answer_start_index = outputs.start_logits.argmax()
+# answer_end_index = outputs.end_logits.argmax()
+# predict_answer_tokens = inputs.input_ids[0, answer_start_index: answer_end_index + 1]
+# output_text = tokenizer.decode(predict_answer_tokens)
+print(output_text)
 
 

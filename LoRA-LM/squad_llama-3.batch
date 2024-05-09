@@ -4,9 +4,9 @@
 #SBATCH --gres=gpu:2
 #SBATCH --ntasks-per-node=1 # tasks per node
 #SBATCH --mem-per-gpu=120000
-#SBATCH --job-name=Llama2_squad
-#SBATCH --err=Llama2_InA_squad.err
-#SBATCH --out=Llama2_InA_squad.out
+#SBATCH --job-name=Llama3_squad
+#SBATCH --err=Llama3_InA_squad.err
+#SBATCH --out=Llama3_InA_squad.out
 #SBATCH --mail-user=kangchen@fel.cvut.cz    # where send info about job
 #SBATCH --mail-type=ALL              # what to sen  d, valid type values are NONE, BEGIN, END, FAIL, REQUEUE, ALL
 
@@ -22,7 +22,7 @@ cd /home/kangchen/inhibited_lora/LoRA-LM/
 #####################################################################
 #####################################################################
 python llm_QLoRA.py \
---model_name meta-llama/Llama-2-7b-chat-hf \
+--model_name meta-llama/Meta-Llama-3-8B \
 --dataset_name data/squad_v2/ \
 --lora_alpha 16 \
 --lora_inhibition 0.0 \
@@ -35,11 +35,11 @@ python llm_QLoRA.py \
 --merge_and_push \
 --save_steps 5000 \
 --learning_rate=2e-7 \
---output_dir Output_PEFT/Llama-2-7b-chat-hf
+--output_dir Output_PEFT/Meta-Llama-3-8B
 
 cd /home/kangchen/inhibited_lora/visualization/
-python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/Llama-2-7b-chat-hf/ \
---model_name meta-llama/Llama-2-7b-chat-hf \
+python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/Meta-Llama-3-8B/ \
+--model_name meta-llama/Meta-Llama-3-8B \
 --task="squad_v2" \
 --lora_inhibition 0.0
 
@@ -48,7 +48,7 @@ python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Out
 #####################################################################
 #####################################################################
 python llm_QLoRA.py \
---model_name meta-llama/Llama-2-7b-chat-hf \
+--model_name meta-llama/Meta-Llama-3-8B \
 --dataset_name data/squad_v2/ \
 --lora_alpha 16 \
 --lora_inhibition 0.1 \
@@ -61,11 +61,11 @@ python llm_QLoRA.py \
 --merge_and_push \
 --save_steps 5000 \
 --learning_rate=2e-7 \
---output_dir Output_PEFT/Llama-2-7b-chat-hf
+--output_dir Output_PEFT/Meta-Llama-3-8B
 
 cd /home/kangchen/inhibited_lora/visualization/
-python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/Llama-2-7b-chat-hf/ \
---model_name meta-llama/Llama-2-7b-chat-hf \
+python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/Meta-Llama-3-8B/ \
+--model_name meta-llama/Meta-Llama-3-8B \
 --task="squad_v2" \
 --lora_inhibition 0.1
 
@@ -74,7 +74,7 @@ python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Out
 #####################################################################
 #####################################################################
 python llm_QLoRA.py \
---model_name meta-llama/Llama-2-7b-chat-hf \
+--model_name meta-llama/Meta-Llama-3-8B \
 --dataset_name data/squad_v2/ \
 --lora_alpha 16 \
 --lora_inhibition 0.3 \
@@ -87,11 +87,11 @@ python llm_QLoRA.py \
 --merge_and_push \
 --save_steps 5000 \
 --learning_rate=2e-7 \
---output_dir Output_PEFT/Llama-2-7b-chat-hf
+--output_dir Output_PEFT/Meta-Llama-3-8B
 
 cd /home/kangchen/inhibited_lora/visualization/
-python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/Llama-2-7b-chat-hf/ \
---model_name meta-llama/Llama-2-7b-chat-hf \
+python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/Meta-Llama-3-8B/ \
+--model_name meta-llama/Meta-Llama-3-8B \
 --task="squad_v2" \
 --lora_inhibition 0.3
 
@@ -100,7 +100,7 @@ python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Out
 #####################################################################
 #####################################################################
 python llm_QLoRA.py \
---model_name meta-llama/Llama-2-7b-chat-hf \
+--model_name meta-llama/Meta-Llama-3-8B \
 --dataset_name data/squad_v2/ \
 --lora_alpha 16 \
 --lora_inhibition 0.9 \
@@ -113,10 +113,10 @@ python llm_QLoRA.py \
 --merge_and_push \
 --save_steps 5000 \
 --learning_rate=2e-7 \
---output_dir Output_PEFT/Llama-2-7b-chat-hf
+--output_dir Output_PEFT/Meta-Llama-3-8B
 
 cd /home/kangchen/inhibited_lora/visualization/
-python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/Llama-2-7b-chat-hf/ \
---model_name meta-llama/Llama-2-7b-chat-hf \
+python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/Meta-Llama-3-8B/ \
+--model_name meta-llama/Meta-Llama-3-8B \
 --task="squad_v2" \
 --lora_inhibition 0.9
