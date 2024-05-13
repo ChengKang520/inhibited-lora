@@ -17,11 +17,11 @@ srun -l /bin/pwd
 
 ml Python/3.10.4-GCCcore-11.3.0
 source /home/kangchen/Chatbot/Psych_BioGPT/EnvLlama/bin/activate
+
+
+#####################################################################
+#####################################################################
 cd /home/kangchen/inhibited_lora/LoRA-LM/
-
-
-#####################################################################
-#####################################################################
 python lm_QLoRA.py \
 --model_name google-bert/bert-large-uncased \
 --dataset_name data/squad_v2/ \
@@ -43,6 +43,7 @@ python visualize_lm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Outp
 
 #####################################################################
 #####################################################################
+cd /home/kangchen/inhibited_lora/LoRA-LM/
 python lm_QLoRA.py \
 --model_name google-bert/bert-large-uncased \
 --dataset_name data/squad_v2/ \
@@ -64,6 +65,7 @@ python visualize_lm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Outp
 
 #####################################################################
 #####################################################################
+cd /home/kangchen/inhibited_lora/LoRA-LM/
 python lm_QLoRA.py \
 --model_name google-bert/bert-large-uncased \
 --dataset_name data/squad_v2/ \
@@ -85,6 +87,7 @@ python visualize_lm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Outp
 
 #####################################################################
 #####################################################################
+cd /home/kangchen/inhibited_lora/LoRA-LM/
 python lm_QLoRA.py \
 --model_name google-bert/bert-large-uncased \
 --dataset_name data/squad_v2/ \

@@ -16,11 +16,11 @@ srun -l /bin/pwd
 
 ml Python/3.10.4-GCCcore-11.3.0
 source /home/kangchen/Chatbot/Psych_BioGPT/EnvLlama/bin/activate
+
+
+#####################################################################
+#####################################################################
 cd /home/kangchen/inhibited_lora/LoRA-LM/
-
-
-#####################################################################
-#####################################################################
 python llm_QLoRA.py \
 --model_name meta-llama/Llama-2-7b-chat-hf \
 --dataset_name data/squad_v2/ \
@@ -47,6 +47,7 @@ python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Out
 
 #####################################################################
 #####################################################################
+cd /home/kangchen/inhibited_lora/LoRA-LM/
 python llm_QLoRA.py \
 --model_name meta-llama/Llama-2-7b-chat-hf \
 --dataset_name data/squad_v2/ \
@@ -73,6 +74,7 @@ python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Out
 
 #####################################################################
 #####################################################################
+cd /home/kangchen/inhibited_lora/LoRA-LM/
 python llm_QLoRA.py \
 --model_name meta-llama/Llama-2-7b-chat-hf \
 --dataset_name data/squad_v2/ \
@@ -99,6 +101,7 @@ python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Out
 
 #####################################################################
 #####################################################################
+cd /home/kangchen/inhibited_lora/LoRA-LM/
 python llm_QLoRA.py \
 --model_name meta-llama/Llama-2-7b-chat-hf \
 --dataset_name data/squad_v2/ \

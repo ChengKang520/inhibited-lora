@@ -284,7 +284,7 @@ trainer = SFTTrainer(
 trainer.train(resume_from_checkpoint=script_args.resume_from_checkpoint)
 
 if script_args.merge_and_push:
-    output_dir = os.path.join(script_args.output_dir, "final_checkpoints" + "inh" + str(script_args.lora_inhibition))
+    output_dir = os.path.join(script_args.output_dir, "final_checkpoints_" + "inh" + str(script_args.lora_inhibition))
     trainer.model.save_pretrained(output_dir)
 
     # # Free memory for merging weights
