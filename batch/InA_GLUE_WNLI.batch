@@ -1,0 +1,79 @@
+#!/bin/sh
+#SBATCH --partition=gpulong
+#SBATCH --time=72:00:00
+#SBATCH --gres=gpu:1
+#SBATCH --ntasks-per-node=1 # tasks per node
+#SBATCH --mem-per-gpu=80000
+#SBATCH --job-name=wnli_InA_GLUE
+#SBATCH --err=InA_GLUE_WNLI.err
+#SBATCH --out=InA_GLUE_WNLI.out
+#SBATCH --mail-user=kangchen@fel.cvut.cz    # where send info about job
+#SBATCH --mail-type=ALL              # what to send, valid type values are NONE, BEGIN, END, FAIL, REQUEUE, ALL
+
+/bin/hostname
+srun -l /bin/hostname
+srun -l /bin/pwd
+
+ml Python/3.10.8-GCCcore-12.2.0
+cd /home/kangchen/inhibited_lora/
+source InaEnv/bin/activate
+
+python transformers-4.53.0/examples/pytorch/text-classification/run_glue.py \
+--model_name_or_path bert-large-cased \
+--task_name wnli \
+--do_train \
+--do_eval \
+--num_train_epochs 10 \
+--overwrite_output_dir \
+--output_dir output_final/BERT_large/WNLI/InA00/ \
+--lora_r 4 \
+--lora_alpha 16 \
+--lora_inhibition 0.0 \
+--lora_dropout 0.1 \
+--task_type "CAUSAL_LM" \
+--peft_type "LORA"
+
+python transformers-4.53.0/examples/pytorch/text-classification/run_glue.py \
+--model_name_or_path bert-large-cased \
+--task_name wnli \
+--do_train \
+--do_eval \
+--num_train_epochs 10 \
+--overwrite_output_dir \
+--output_dir output_final/BERT_large/WNLI/InA10/ \
+--lora_r 4 \
+--lora_alpha 16 \
+--lora_inhibition 0.1 \
+--lora_dropout 0.1 \
+--task_type "CAUSAL_LM" \
+--peft_type "LORA"
+
+python transformers-4.53.0/examples/pytorch/text-classification/run_glue.py \
+--model_name_or_path bert-large-cased \
+--task_name wnli \
+--do_train \
+--do_eval \
+--num_train_epochs 10 \
+--overwrite_output_dir \
+--output_dir output_final/BERT_large/WNLI/InA30/ \
+--lora_r 4 \
+--lora_alpha 16 \
+--lora_inhibition 0.3 \
+--lora_dropout 0.1 \
+--task_type "CAUSAL_LM" \
+--peft_type "LORA"
+
+python transformers-4.53.0/examples/pytorch/text-classification/run_glue.py \
+--model_name_or_path bert-large-cased \
+--task_name wnli \
+--do_train \
+--do_eval \
+--num_train_epochs 10 \
+--overwrite_output_dir \
+--output_dir output_final/BERT_large/WNLI/InA90/ \
+--lora_r 4 \
+--lora_alpha 16 \
+--lora_inhibition 0.9 \
+--lora_dropout 0.1 \
+--task_type "CAUSAL_LM" \
+--peft_type "LORA"

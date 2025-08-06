@@ -200,10 +200,14 @@ if is_bnb_available():
 
                 # print("******************  BNB  ******************")
                 lora_A_temp = lora_A(dropout(sub_batch))
-                out_, inds_ = torch.max(lora_A_temp, dim=2)
+                # out_, inds_ = torch.max(lora_A_temp, dim=2)
+                out_, inds_ = torch.max(lora_A_temp)
                 out_ = out_.unsqueeze(2)
-                lora_ina_temp = torch.nn.functional.leaky_relu(lora_A_temp - out_ * lora_inhibition)
-                output = lora_B(lora_ina_temp) * scaling
+                if lora_inhibition > 0.0:
+                    lora_ina_temp = torch.nn.functional.leaky_relu(lora_A_temp - out_ * lora_inhibition)
+                    output = lora_B(lora_ina_temp) * scaling
+                else:
+                    output = lora_B(lora_A_temp) * scaling
 
                 if requires_conversion:
                     output = output.to(expected_dtype)
@@ -244,10 +248,15 @@ if is_bnb_available():
                     if not self.use_dora[active_adapter]:
                         # print("******************  BNB  ******************")
                         lora_A_temp = lora_A(dropout(x))
-                        out_, inds_ = torch.max(lora_A_temp, dim=2)
+                        # out_, inds_ = torch.max(lora_A_temp, dim=2)
+                        out_, inds_ = torch.max(lora_A_temp)
                         out_ = out_.unsqueeze(2)
-                        lora_ina_temp = torch.nn.functional.leaky_relu(lora_A_temp - out_ * lora_inhibition)
-                        output = lora_B(lora_ina_temp) * scaling
+                        if lora_inhibition > 0.0:
+                            lora_ina_temp = torch.nn.functional.leaky_relu(lora_A_temp - out_ * lora_inhibition)
+                            output = lora_B(lora_ina_temp) * scaling
+                        else:
+                            output = lora_B(lora_A_temp) * scaling
+
                     else:
                         output = self._apply_dora(x, lora_A, lora_B, scaling, active_adapter)
                     if requires_conversion:
@@ -451,10 +460,14 @@ if is_bnb_4bit_available():
                 sub_batch = x[sub_batch_indices_list[i]]
                 # print("******************  BNB  ******************")
                 lora_A_temp = lora_A(dropout(sub_batch))
-                out_, inds_ = torch.max(lora_A_temp, dim=2)
+                # out_, inds_ = torch.max(lora_A_temp, dim=2)
+                out_, inds_ = torch.max(lora_A_temp)
                 out_ = out_.unsqueeze(2)
-                lora_ina_temp = torch.nn.functional.leaky_relu(lora_A_temp - out_ * lora_inhibition)
-                output = lora_B(lora_ina_temp) * scaling
+                if lora_inhibition > 0.0:
+                    lora_ina_temp = torch.nn.functional.leaky_relu(lora_A_temp - out_ * lora_inhibition)
+                    output = lora_B(lora_ina_temp) * scaling
+                else:
+                    output = lora_B(lora_A_temp) * scaling
 
                 if requires_conversion:
                     output = output.to(expected_dtype)
@@ -500,10 +513,14 @@ if is_bnb_4bit_available():
                     if not self.use_dora[active_adapter]:
                         # print("******************  BNB  ******************")
                         lora_A_temp = lora_A(dropout(x))
-                        out_, inds_ = torch.max(lora_A_temp, dim=2)
+                        # out_, inds_ = torch.max(lora_A_temp, dim=2)
+                        out_, inds_ = torch.max(lora_A_temp)
                         out_ = out_.unsqueeze(2)
-                        lora_ina_temp = torch.nn.functional.leaky_relu(lora_A_temp - out_ * lora_inhibition)
-                        output = lora_B(lora_ina_temp) * scaling
+                        if lora_inhibition > 0.0:
+                            lora_ina_temp = torch.nn.functional.leaky_relu(lora_A_temp - out_ * lora_inhibition)
+                            output = lora_B(lora_ina_temp) * scaling
+                        else:
+                            output = lora_B(lora_A_temp) * scaling
                     else:
                         output = self._apply_dora(x, lora_A, lora_B, scaling, active_adapter)
                     if requires_conversion:

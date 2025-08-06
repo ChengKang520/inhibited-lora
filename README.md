@@ -5,12 +5,15 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Python 3.10](https://img.shields.io/badge/python-3.10-green.svg)
 [![Code License](https://img.shields.io/badge/Code%20License-Apache_2.0-green.svg)](LICENSE)
-[![arXiv](https://img.shields.io/badge/arXiv-2208.01618-b31b1b.svg)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4551993)
 
 
-This repository contains the code necessary to reproduce Shunting Inhibition on LoRA, the shunting inhibition mechanism that controls passed information from previous layers introduced in the [paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4551993):
+This repository contains the code necessary to reproduce Shunting Inhibition on LoRA, the shunting inhibition mechanism that controls passed information from previous layers introduced in the [paper](https://doi.org/10.1016/j.neunet.2024.106410):
 
-
+## Updates
+- (Aug/04/2025) Refresh the comparison results.
+- (Aug/02/2025) Upload codes and the developing environment.
+- (May/13/2024) Upload Adapter weights.
+- (Apr/07/2024) Initial release.
 ## What is Shunting Inhibition? 
 
 Bellow image illustrates how shunting inhibition works, with its on (the red box) and off (the green box) states. When the gate of shunting inhibition is off, the signal transmission occurs across the joint, which can be influenced by shunting synapses. These shunting synapses play a crucial role in regulating neuronal function, and their activation can affect signal reception and transmission.
@@ -27,7 +30,7 @@ Bellow is a practical example of InA when using it in the 𝐵𝐸𝑅𝑇-large
 
 <div align="center">
   <figure>
-    <img src="assets/lora-problem.jpg" width="100%"/>
+    <img s[InA_GLUE.batch](..%2F..%2F..%2FDesktop%2FInA_GLUE.batch)rc="assets/lora-problem.jpg" width="100%"/>
   </figure>
 </div>
 
@@ -55,7 +58,7 @@ Although LoRA and InA has the same answer, but from the average attention heatma
 
 ## How does Shunting Inhibition effect LoRA?
 
-InA also inserts trainable inhibition matrices into transformer layers to approximate the weight updates. By using a low-rank decomposition $W_0 + \Delta = W_0 + W_{down}$, where $W_{down} \in {R^{d\times{r}}}$, $W_{up} \in {R^{r\times{k}}}$, $Th \in {R^{M\times{1}}}$, InA updates the $Query$ and $Key$ projection matrices ($W_{q},W_{k}$) in the multi-head attention sub-layer. For the specific input $H$, InA modifies the projection output $H_{o}$ as:
+InA also inserts trainable inhibition matrices into transformer layers to approximate the weight updates. By using a low-rank decomposition $W_0 + \Delta = W_0 + W_{down}W_{up}$, where $W_{down} \in {R^{d\times{r}}}$, $W_{up} \in {R^{r\times{k}}}$, $Th \in {R^{M\times{1}}}$, InA updates the $Query$ and $Key$ projection matrices ($W_{q},W_{k}$) in the multi-head attention sub-layer. For the specific input $H$, InA modifies the projection output $H_{o}$ as:
 
 $$H_{o} \leftarrow H_{o}+s \cdot f(HW_{down}-Th)W_{up},$$
 
@@ -80,13 +83,55 @@ This repository is a tutorial for finetuning LMs and LLMs with InA on GLUE, SquA
 1. Install requirements
 
 ```bash
-$ pip install -r requirements.txt
+$ python -m venv InaEnv
+$ source InaEnv/bin/activate
 $ pip install -e peft-0.10.0/
+$ pip install -e transformers-4.53.0/
 ```
 
 
 ## Finetune on GLUE Benchmarks
 
+  - `RoBERTa-large`
+    ```bash
+    python transformers-4.53.0/examples/pytorch/text-classification/run_glue.py \
+    --model_name_or_path FacebookAI/roberta-large \
+    --task_name cola \
+    --do_train \
+    --do_eval \
+    --num_train_epochs 10 \
+    --overwrite_output_dir \
+    --output_dir output_final/DeBERTa_30/CoLA/ \
+    --lora_r 8 \
+    --lora_alpha 16 \
+    --lora_inhibition 0.3 \
+    --lora_dropout 0.1 \
+    --task_type "CAUSAL_LM" \
+    --peft_type "LORA"
+    ```
+  
+  - `Llama2-7B` needs 2 GPUs
+    ```bash
+    python transformers/examples/pytorch/text-classification/run_glue.py \
+    --model_name_or_path meta-llama/Llama-2-7b-chat-hf \
+    --task_name cola \
+    --do_train \
+    --do_eval \
+    --num_train_epochs 10 \
+    --overwrite_output_dir \
+    --output_dir output_final/DeBERTa_30/CoLA/ \
+    --lora_r 8 \
+    --lora_alpha 16 \
+    --lora_inhibition 0.3 \
+    --lora_dropout 0.1 \
+    --batch_size 16 \
+    --bf16 \
+    --max_seq_length 4096 \
+    --per_device_train_batch_size 2 \
+    --gradient_accumulation_steps 2
+    ```
+
+## Finetune on SQuAD-V2 Benchmarks
 
 ### 1. Run on 1 or 2 GPUs: 
 
@@ -181,14 +226,20 @@ $ pip install -e peft-0.10.0/
 
 Cheng Kang, Jindrich Prokop and Daniel Novak are supported by the Czech Technical University in Prague (grant number: SGS22/165/OHK3/3T/13), the Research Centre for Informatics (grant number: CZ.02.1.01/0.0/0.0/160\_19/0000765), and the Brain Dynamics(grant number: CZ.02.01.01/00/22\_008/0004643). We thank Yong Hu, Huiyu Zhou and Daniel Novak for proofreading the paper and providing insightful comments. We also thank the anonymous reviewers for valuable discussions.
 
+## Contributing
+We welcome contributions in any form! Assistance with documentation is always welcome. To contribute, feel free to open an issue or please fork the project make your changes and submit a pull request. We will do our best to work through any issues and requests.
 
 ## Citing this work
 If our work helped you, please cite the reference:
 ```
-@article{kang4551993ina,
-  title={InA: Inhibition Adaption on Pre-Trained Language Models},
-  author={Kang, Cheng and Prokop, Jindich and Tong, Lei and Zhou, Huiyu and Hu, Yong and Novak, Daniel},
-  journal={Available at SSRN 4551993}
+@article{kang2024ina,
+  title={InA: Inhibition Adaption on pre-trained language models},
+  author={Kang, Cheng and Prokop, Jindrich and Tong, Lei and Zhou, Huiyu and Hu, Yong and Novak, Daniel},
+  journal={Neural Networks},
+  volume={178},
+  pages={106410},
+  year={2024},
+  publisher={Elsevier}
 }
 ```
 

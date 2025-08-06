@@ -1,0 +1,108 @@
+#!/bin/sh
+#SBATCH --partition=gpulong
+#SBATCH --time=72:00:00
+#SBATCH --gres=gpu:1
+#SBATCH --ntasks-per-node=1 # tasks per node
+#SBATCH --mem-per-gpu=80000
+#SBATCH --job-name=InA_GLUE
+#SBATCH --err=InA_GLUE.err
+#SBATCH --out=InA_GLUE.out
+#SBATCH --mail-user=kangchen@fel.cvut.cz    # where send info about job
+#SBATCH --mail-type=ALL              # what to send, valid type values are NONE, BEGIN, END, FAIL, REQUEUE, ALL
+
+/bin/hostname
+srun -l /bin/hostname
+srun -l /bin/pwd
+
+ml Python/3.10.8-GCCcore-12.2.0
+cd /home/kangchen/inhibited_lora/
+source InaEnv/bin/activate
+
+#pip freeze > requirements.txt
+
+data_name=("cola" "mnli" "mrpc" "qnli" "qqp" "rte" "sst2" "wnli")
+
+lora_r=4 # 4 or 8
+lora_alpha=16
+lora_dropout=0.1
+
+lora_inhibition=0.0
+for i in {0..7}
+do
+  echo ${data_name[$i]}
+  python transformers-4.53.0/examples/pytorch/text-classification/run_glue.py \
+  --model_name_or_path bert-large-cased \
+  --task_name rte \
+  --do_train \
+  --do_eval \
+  --num_train_epochs 10 \
+  --overwrite_output_dir \
+  --output_dir output_final/BERT_large/${data_name}/${lora_inhibition}/ \
+  --lora_r ${lora_r} \
+  --lora_alpha ${lora_alpha} \
+  --lora_inhibition ${lora_inhibition} \
+  --lora_dropout ${lora_dropout} \
+  --task_type "SEQ_CLS" \
+  --peft_type "LORA"
+done
+
+
+lora_inhibition=0.1
+for i in {0..7}
+do
+  echo ${data_name[$i]}
+  python transformers-4.53.0/examples/pytorch/text-classification/run_glue.py \
+  --model_name_or_path bert-large-cased \
+  --task_name rte \
+  --do_train \
+  --do_eval \
+  --num_train_epochs 10 \
+  --overwrite_output_dir \
+  --output_dir output_final/BERT_large/${data_name}/${lora_inhibition}/ \
+  --lora_r ${lora_r} \
+  --lora_alpha ${lora_alpha} \
+  --lora_inhibition ${lora_inhibition} \
+  --lora_dropout ${lora_dropout} \
+  --task_type "SEQ_CLS" \
+  --peft_type "LORA"
+done
+
+lora_inhibition=0.3
+for i in {0..7}
+do
+  echo ${data_name[$i]}
+  python transformers-4.53.0/examples/pytorch/text-classification/run_glue.py \
+  --model_name_or_path bert-large-cased \
+  --task_name rte \
+  --do_train \
+  --do_eval \
+  --num_train_epochs 10 \
+  --overwrite_output_dir \
+  --output_dir output_final/BERT_large/${data_name}/${lora_inhibition}/ \
+  --lora_r ${lora_r} \
+  --lora_alpha ${lora_alpha} \
+  --lora_inhibition ${lora_inhibition} \
+  --lora_dropout ${lora_dropout} \
+  --task_type "SEQ_CLS" \
+  --peft_type "LORA"
+done
+
+lora_inhibition=0.9
+for i in {0..7}
+do
+  echo ${data_name[$i]}
+  python transformers-4.53.0/examples/pytorch/text-classification/run_glue.py \
+  --model_name_or_path bert-large-cased \
+  --task_name rte \
+  --do_train \
+  --do_eval \
+  --num_train_epochs 10 \
+  --overwrite_output_dir \
+  --output_dir output_final/BERT_large/${data_name}/${lora_inhibition}/ \
+  --lora_r ${lora_r} \
+  --lora_alpha ${lora_alpha} \
+  --lora_inhibition ${lora_inhibition} \
+  --lora_dropout ${lora_dropout} \
+  --task_type "SEQ_CLS" \
+  --peft_type "LORA"
+done
