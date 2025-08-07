@@ -1,0 +1,1979 @@
+n29
+0: n29
+0: /home/kangchen/inhibited_lora/batch
+08/06/2025 09:12:29 - WARNING - __main__ - Process rank: 0, device: cuda:0, n_gpu: 1, distributed training: False, 16-bits training: False
+08/06/2025 09:12:29 - INFO - __main__ - Training/evaluation parameters TrainingArguments(
+_n_gpu=1,
+accelerator_config={'split_batches': False, 'dispatch_batches': None, 'even_batches': True, 'use_seedable_sampler': True, 'non_blocking': False, 'gradient_accumulation_kwargs': None, 'use_configured_state': False},
+adafactor=False,
+adam_beta1=0.9,
+adam_beta2=0.999,
+adam_epsilon=1e-08,
+auto_find_batch_size=False,
+average_tokens_across_devices=False,
+batch_eval_metrics=False,
+bf16=False,
+bf16_full_eval=False,
+data_seed=None,
+dataloader_drop_last=False,
+dataloader_num_workers=0,
+dataloader_persistent_workers=False,
+dataloader_pin_memory=True,
+dataloader_prefetch_factor=None,
+ddp_backend=None,
+ddp_broadcast_buffers=None,
+ddp_bucket_cap_mb=None,
+ddp_find_unused_parameters=None,
+ddp_timeout=1800,
+debug=[],
+deepspeed=None,
+disable_tqdm=False,
+do_eval=True,
+do_predict=False,
+do_train=True,
+eval_accumulation_steps=None,
+eval_delay=0,
+eval_do_concat_batches=True,
+eval_on_start=False,
+eval_steps=None,
+eval_strategy=no,
+eval_use_gather_object=False,
+fp16=False,
+fp16_backend=auto,
+fp16_full_eval=False,
+fp16_opt_level=O1,
+fsdp=[],
+fsdp_config={'min_num_params': 0, 'xla': False, 'xla_fsdp_v2': False, 'xla_fsdp_grad_ckpt': False},
+fsdp_min_num_params=0,
+fsdp_transformer_layer_cls_to_wrap=None,
+full_determinism=False,
+gradient_accumulation_steps=1,
+gradient_checkpointing=False,
+gradient_checkpointing_kwargs=None,
+greater_is_better=None,
+group_by_length=False,
+half_precision_backend=auto,
+hub_always_push=False,
+hub_model_id=None,
+hub_private_repo=None,
+hub_revision=None,
+hub_strategy=every_save,
+hub_token=<HUB_TOKEN>,
+ignore_data_skip=False,
+include_for_metrics=[],
+include_inputs_for_metrics=False,
+include_num_input_tokens_seen=False,
+include_tokens_per_second=False,
+jit_mode_eval=False,
+label_names=None,
+label_smoothing_factor=0.0,
+learning_rate=5e-05,
+length_column_name=length,
+liger_kernel_config=None,
+load_best_model_at_end=False,
+local_rank=0,
+log_level=passive,
+log_level_replica=warning,
+log_on_each_node=True,
+logging_dir=output_final/BERT_large/STSB/InA00/runs/Aug06_09-12-29_n29,
+logging_first_step=False,
+logging_nan_inf_filter=True,
+logging_steps=500,
+logging_strategy=steps,
+lr_scheduler_kwargs={},
+lr_scheduler_type=linear,
+max_grad_norm=1.0,
+max_steps=-1,
+metric_for_best_model=None,
+mp_parameters=,
+neftune_noise_alpha=None,
+no_cuda=False,
+num_train_epochs=10.0,
+optim=adamw_torch,
+optim_args=None,
+optim_target_modules=None,
+output_dir=output_final/BERT_large/STSB/InA00/,
+overwrite_output_dir=True,
+past_index=-1,
+per_device_eval_batch_size=8,
+per_device_train_batch_size=8,
+prediction_loss_only=False,
+push_to_hub=False,
+push_to_hub_model_id=None,
+push_to_hub_organization=None,
+push_to_hub_token=<PUSH_TO_HUB_TOKEN>,
+ray_scope=last,
+remove_unused_columns=True,
+report_to=[],
+restore_callback_states_from_checkpoint=False,
+resume_from_checkpoint=None,
+run_name=output_final/BERT_large/STSB/InA00/,
+save_on_each_node=False,
+save_only_model=False,
+save_safetensors=True,
+save_steps=500,
+save_strategy=steps,
+save_total_limit=None,
+seed=42,
+skip_memory_metrics=True,
+tf32=None,
+torch_compile=False,
+torch_compile_backend=None,
+torch_compile_mode=None,
+torch_empty_cache_steps=None,
+torchdynamo=None,
+tpu_metrics_debug=False,
+tpu_num_cores=None,
+use_cpu=False,
+use_ipex=False,
+use_legacy_prediction_loop=False,
+use_liger_kernel=False,
+use_mps_device=False,
+warmup_ratio=0.0,
+warmup_steps=0,
+weight_decay=0.0,
+)
+08/06/2025 09:12:31 - INFO - datasets.builder - Generating dataset glue (/home/kangchen/.cache/huggingface/datasets/nyu-mll___glue/stsb/0.0.0/bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c)
+08/06/2025 09:12:31 - INFO - datasets.builder - Downloading and preparing dataset glue/stsb to /home/kangchen/.cache/huggingface/datasets/nyu-mll___glue/stsb/0.0.0/bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c...
+08/06/2025 09:12:32 - INFO - datasets.download.download_manager - Downloading took 0.0 min
+08/06/2025 09:12:32 - INFO - datasets.download.download_manager - Checksum Computation took 0.0 min
+08/06/2025 09:12:32 - INFO - datasets.builder - Generating train split
+08/06/2025 09:12:32 - INFO - datasets.builder - Generating validation split
+08/06/2025 09:12:32 - INFO - datasets.builder - Generating test split
+08/06/2025 09:12:32 - INFO - datasets.utils.info_utils - All the splits matched successfully.
+08/06/2025 09:12:32 - INFO - datasets.builder - Dataset glue downloaded and prepared to /home/kangchen/.cache/huggingface/datasets/nyu-mll___glue/stsb/0.0.0/bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c. Subsequent calls will reuse this data.
+The task type of PEFT is not proper!
+LoraConfig(peft_type=<PeftType.LORA: 'LORA'>, auto_mapping=None, base_model_name_or_path='bert-large-cased', revision=None, task_type=<TaskType.SEQ_CLS: 'SEQ_CLS'>, inference_mode=False, r=8, target_modules={'value', 'key', 'query'}, lora_inhibition=0.0, lora_alpha=16, lora_dropout=0.1, fan_in_fan_out=False, bias='none', use_rslora=False, modules_to_save=None, init_lora_weights=True, layers_to_transform=None, layers_pattern=None, rank_pattern={}, alpha_pattern={}, megatron_config=None, megatron_core='megatron.core', loftq_config={}, use_dora=False, layer_replication=None)
+###############
+PeftModelForSequenceClassification(
+  (base_model): LoraModel(
+    (model): BertForSequenceClassification(
+      (bert): BertModel(
+        (embeddings): BertEmbeddings(
+          (word_embeddings): Embedding(28996, 1024, padding_idx=0)
+          (position_embeddings): Embedding(512, 1024)
+          (token_type_embeddings): Embedding(2, 1024)
+          (LayerNorm): LayerNorm((1024,), eps=1e-12, elementwise_affine=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+        )
+        (encoder): BertEncoder(
+          (layer): ModuleList(
+            (0-23): 24 x BertLayer(
+              (attention): BertAttention(
+                (self): BertSdpaSelfAttention(
+                  (query): lora.Linear(
+                    (base_layer): Linear(in_features=1024, out_features=1024, bias=True)
+                    (lora_dropout): ModuleDict(
+                      (default): Dropout(p=0.1, inplace=False)
+                    )
+                    (lora_A): ModuleDict(
+                      (default): Linear(in_features=1024, out_features=8, bias=False)
+                    )
+                    (lora_B): ModuleDict(
+                      (default): Linear(in_features=8, out_features=1024, bias=False)
+                    )
+                    (lora_embedding_A): ParameterDict()
+                    (lora_embedding_B): ParameterDict()
+                  )
+                  (key): lora.Linear(
+                    (base_layer): Linear(in_features=1024, out_features=1024, bias=True)
+                    (lora_dropout): ModuleDict(
+                      (default): Dropout(p=0.1, inplace=False)
+                    )
+                    (lora_A): ModuleDict(
+                      (default): Linear(in_features=1024, out_features=8, bias=False)
+                    )
+                    (lora_B): ModuleDict(
+                      (default): Linear(in_features=8, out_features=1024, bias=False)
+                    )
+                    (lora_embedding_A): ParameterDict()
+                    (lora_embedding_B): ParameterDict()
+                  )
+                  (value): lora.Linear(
+                    (base_layer): Linear(in_features=1024, out_features=1024, bias=True)
+                    (lora_dropout): ModuleDict(
+                      (default): Dropout(p=0.1, inplace=False)
+                    )
+                    (lora_A): ModuleDict(
+                      (default): Linear(in_features=1024, out_features=8, bias=False)
+                    )
+                    (lora_B): ModuleDict(
+                      (default): Linear(in_features=8, out_features=1024, bias=False)
+                    )
+                    (lora_embedding_A): ParameterDict()
+                    (lora_embedding_B): ParameterDict()
+                  )
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=1024, out_features=1024, bias=True)
+                  (LayerNorm): LayerNorm((1024,), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=1024, out_features=4096, bias=True)
+                (intermediate_act_fn): GELUActivation()
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=4096, out_features=1024, bias=True)
+                (LayerNorm): LayerNorm((1024,), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1, inplace=False)
+              )
+            )
+          )
+        )
+        (pooler): BertPooler(
+          (dense): Linear(in_features=1024, out_features=1024, bias=True)
+          (activation): Tanh()
+        )
+      )
+      (dropout): Dropout(p=0.1, inplace=False)
+      (classifier): ModulesToSaveWrapper(
+        (original_module): Linear(in_features=1024, out_features=1, bias=True)
+        (modules_to_save): ModuleDict(
+          (default): Linear(in_features=1024, out_features=1, bias=True)
+        )
+      )
+    )
+  )
+)
+08/06/2025 09:12:33 - INFO - datasets.arrow_dataset - Caching processed dataset at /home/kangchen/.cache/huggingface/datasets/nyu-mll___glue/stsb/0.0.0/bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c/cache-99885f786d7a4ec5.arrow
+08/06/2025 09:12:34 - INFO - datasets.arrow_dataset - Caching processed dataset at /home/kangchen/.cache/huggingface/datasets/nyu-mll___glue/stsb/0.0.0/bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c/cache-1faade1633db0188.arrow
+08/06/2025 09:12:34 - INFO - datasets.arrow_dataset - Caching processed dataset at /home/kangchen/.cache/huggingface/datasets/nyu-mll___glue/stsb/0.0.0/bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c/cache-fa74d4b54e9a4c86.arrow
+08/06/2025 09:12:35 - INFO - __main__ - Class distribution in train set:
+08/06/2025 09:12:35 - INFO - __main__ -   Label 5.0: 266 (4.63%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.799999952316284: 267 (4.64%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.5999999046325684: 157 (2.73%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.25: 41 (0.71%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.5: 23 (0.40%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.600000023841858: 137 (2.38%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.200000047683716: 172 (2.99%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.199999809265137: 204 (3.55%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.599999904632568: 163 (2.84%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.867000102996826: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.666999816894531: 3 (0.05%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.6670000553131104: 4 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.75: 70 (1.22%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.200000047683716: 252 (4.38%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.799999952316284: 176 (3.06%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.0: 315 (5.48%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.800000190734863: 135 (2.35%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.0: 354 (6.16%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.908999919891357: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.4000000953674316: 152 (2.64%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.4000000953674316: 261 (4.54%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.75: 37 (0.64%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.5999999046325684: 230 (4.00%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.75: 24 (0.42%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.0: 212 (3.69%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.375: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.400000095367432: 163 (2.84%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.75: 24 (0.42%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.555999994277954: 2 (0.03%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.937999963760376: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.5: 57 (0.99%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.399999976158142: 159 (2.77%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.8329999446868896: 2 (0.03%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.6000000238418579: 111 (1.93%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.9170000553131104: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.0: 194 (3.37%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.800000011920929: 137 (2.38%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.6430000066757202: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.25: 22 (0.38%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.85699987411499: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.5329999923706055: 2 (0.03%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.14300000667572021: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.5: 37 (0.64%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.0: 367 (6.38%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.4000000059604645: 133 (2.31%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.6669999957084656: 3 (0.05%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.132999897003174: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.2000000476837158: 139 (2.42%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.765000104904175: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.940999984741211: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.25: 18 (0.31%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.25: 67 (1.17%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.75: 17 (0.30%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.5: 25 (0.43%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.20000000298023224: 64 (1.11%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.1110000610351562: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.2860000133514404: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.7999999523162842: 147 (2.56%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.8500000238418579: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.9230000972747803: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.25: 14 (0.24%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.8330000042915344: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.3330000042915344: 4 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.3329999446868896: 21 (0.37%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.333000183105469: 6 (0.10%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.6670000553131104: 7 (0.12%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.4169999957084656: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.818000078201294: 2 (0.03%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.5329999923706055: 2 (0.03%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.6430000066757202: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.5829999446868896: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.777999997138977: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.6670000553131104: 7 (0.12%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.3329999446868896: 5 (0.09%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.7000000476837158: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.5: 26 (0.45%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.7269999980926514: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.3329999446868896: 6 (0.10%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.06700000166893005: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.875: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.615000009536743: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.875: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.091000080108643: 2 (0.03%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.7690000534057617: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.5829999446868896: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.928999900817871: 2 (0.03%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.23100000619888306: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.11800000071525574: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.099999904632568: 2 (0.03%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.3299999237060547: 3 (0.05%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.17000000178813934: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.6700000762939453: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.8299999237060547: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.0999999046325684: 2 (0.03%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.1111111640930176: 2 (0.03%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.100000023841858: 2 (0.03%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.777777671813965: 2 (0.03%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.5714287757873535: 3 (0.05%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.4666666984558105: 3 (0.05%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.8999999761581421: 2 (0.03%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.5333333015441895: 3 (0.05%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.8459999561309814: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.875: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.8459999561309814: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.6470000743865967: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.066999912261963: 2 (0.03%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.7779998779296875: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.363999843597412: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.7860000133514404: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.922999858856201: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.571000099182129: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.1670000553131104: 2 (0.03%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.9440000057220459: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.055999994277954: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.817999839782715: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.2309999465942383: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.7270002365112305: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.7330000400543213: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.9089999198913574: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.437999963760376: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.176000118255615: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.625: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.4549999237060547: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.056000232696533: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.6429998874664307: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.691999912261963: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.8570001125335693: 2 (0.03%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.2730000019073486: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.5880000591278076: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.444000005722046: 2 (0.03%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.8889999985694885: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.2730000019073486: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.700000047683716: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.9089999198913574: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.933000087738037: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.7690000534057617: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.625: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.308000087738037: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.3333332538604736: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.329999923706055: 1 (0.02%)
+08/06/2025 09:12:35 - INFO - __main__ - Class distribution in validation set:
+08/06/2025 09:12:35 - INFO - __main__ -   Label 5.0: 56 (3.73%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.75: 5 (0.33%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.4000000953674316: 37 (2.47%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.75: 14 (0.93%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.615000009536743: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.3329999446868896: 2 (0.13%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.75: 15 (1.00%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.200000047683716: 63 (4.20%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.5829999446868896: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.908999919891357: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.800000011920929: 47 (3.13%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.0: 56 (3.73%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.6359999775886536: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.0: 86 (5.73%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.7139999866485596: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.1670000553131104: 2 (0.13%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.0: 45 (3.00%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.9170000553131104: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.25: 6 (0.40%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.6000000238418579: 49 (3.27%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.5999999046325684: 61 (4.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.599999904632568: 29 (1.93%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.800000190734863: 26 (1.73%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.799999952316284: 60 (4.00%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.199999809265137: 36 (2.40%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.399999976158142: 45 (3.00%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.5999999046325684: 45 (3.00%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.799999952316284: 43 (2.87%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.600000023841858: 52 (3.47%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.25: 4 (0.27%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.0: 139 (9.27%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.5: 9 (0.60%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.5: 6 (0.40%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.2000000476837158: 35 (2.33%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.5: 16 (1.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.812000036239624: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.4000000059604645: 54 (3.60%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.1540000438690186: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.4000000953674316: 46 (3.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.25: 5 (0.33%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.3329999446868896: 3 (0.20%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.20000000298023224: 37 (2.47%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.0: 49 (3.27%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.0910000801086426: 2 (0.13%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.7999999523162842: 53 (3.53%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.5: 7 (0.47%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.08299999684095383: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.8239998817443848: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.375: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.25: 3 (0.20%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.85699987411499: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.2999999523162842: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.400000095367432: 32 (2.13%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.25: 21 (1.40%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.777999997138977: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.8330000042915344: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.333000183105469: 3 (0.20%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.214000225067139: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.200000047683716: 48 (3.20%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.5329999923706055: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.75: 2 (0.13%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.10000000149011612: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.0999999046325684: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.691999912261963: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.428999900817871: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.5: 2 (0.13%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 0.6700000166893005: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.6699999570846558: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.3329999446868896: 5 (0.33%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.75: 8 (0.53%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.7139999866485596: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.691999912261963: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 1.6670000553131104: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.666999816894531: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.4170000553131104: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 4.111000061035156: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 3.6670000553131104: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ -   Label 2.3333332538604736: 1 (0.07%)
+08/06/2025 09:12:35 - INFO - __main__ - Class distribution in test set:
+08/06/2025 09:12:35 - INFO - __main__ -   Label -1.0: 1379 (100.00%)
+08/06/2025 09:12:35 - INFO - __main__ - Sample 5238 of the training set: {'sentence1': 'Didier Reynders on Syria', 'sentence2': "Obama's day: Prime time on Syria", 'label': 1.600000023841858, 'idx': 5238, 'input_ids': [101, 2966, 2852, 12952, 24373, 1113, 7303, 102, 7661, 112, 188, 1285, 131, 3460, 1159, 1113, 7303, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'token_type_ids': [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}.
+08/06/2025 09:12:35 - INFO - __main__ - Sample 912 of the training set: {'sentence1': 'A man is cleaning the windows.', 'sentence2': 'A man is driving a car.', 'label': 0.4000000059604645, 'idx': 912, 'input_ids': [101, 138, 1299, 1110, 9374, 1103, 3751, 119, 102, 138, 1299, 1110, 3759, 170, 1610, 119, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'token_type_ids': [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}.
+08/06/2025 09:12:35 - INFO - __main__ - Sample 204 of the training set: {'sentence1': 'A woman holds a kangaroo.', 'sentence2': 'A woman is picking up a kangaroo.', 'label': 3.25, 'idx': 204, 'input_ids': [101, 138, 1590, 3486, 170, 24181, 12253, 24886, 119, 102, 138, 1590, 1110, 8184, 1146, 170, 24181, 12253, 24886, 119, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'token_type_ids': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}.
+08/06/2025 09:12:35 - WARNING - accelerate.utils.other - Detected kernel version 4.18.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+{'loss': 1.618, 'grad_norm': 9.356708526611328, 'learning_rate': 4.6529902642559114e-05, 'epoch': 0.7}
+{'loss': 0.6648, 'grad_norm': 12.090792655944824, 'learning_rate': 4.30528511821975e-05, 'epoch': 1.39}
+{'loss': 0.5842, 'grad_norm': 21.371076583862305, 'learning_rate': 3.9575799721835886e-05, 'epoch': 2.09}
+{'loss': 0.5457, 'grad_norm': 14.522320747375488, 'learning_rate': 3.609874826147427e-05, 'epoch': 2.78}
+{'loss': 0.5066, 'grad_norm': 26.787490844726562, 'learning_rate': 3.262169680111266e-05, 'epoch': 3.48}
+{'loss': 0.4842, 'grad_norm': 31.991220474243164, 'learning_rate': 2.9144645340751043e-05, 'epoch': 4.17}
+{'loss': 0.4589, 'grad_norm': 16.460142135620117, 'learning_rate': 2.566759388038943e-05, 'epoch': 4.87}
+{'loss': 0.4408, 'grad_norm': 6.333826065063477, 'learning_rate': 2.2190542420027818e-05, 'epoch': 5.56}
+{'loss': 0.44, 'grad_norm': 5.7017292976379395, 'learning_rate': 1.8713490959666204e-05, 'epoch': 6.26}
+{'loss': 0.4217, 'grad_norm': 13.465705871582031, 'learning_rate': 1.5236439499304591e-05, 'epoch': 6.95}
+{'loss': 0.4031, 'grad_norm': 5.616859436035156, 'learning_rate': 1.1759388038942977e-05, 'epoch': 7.65}
+{'loss': 0.3972, 'grad_norm': 14.20556926727295, 'learning_rate': 8.282336578581364e-06, 'epoch': 8.34}
+{'loss': 0.3966, 'grad_norm': 6.966939449310303, 'learning_rate': 4.80528511821975e-06, 'epoch': 9.04}
+{'loss': 0.3795, 'grad_norm': 8.291028022766113, 'learning_rate': 1.3282336578581366e-06, 'epoch': 9.74}
+{'train_runtime': 1123.8232, 'train_samples_per_second': 51.156, 'train_steps_per_second': 6.398, 'train_loss': 0.5487026708016641, 'epoch': 10.0}
+***** train metrics *****
+  epoch                    =       10.0
+  total_flos               = 12522812GF
+  train_loss               =     0.5487
+  train_runtime            = 0:18:43.82
+  train_samples            =       5749
+  train_samples_per_second =     51.156
+  train_steps_per_second   =      6.398
+08/06/2025 09:31:24 - INFO - __main__ - *** Evaluate ***
+***** eval metrics *****
+  epoch                   =       10.0
+  eval_combined_score     =     0.8999
+  eval_loss               =     0.4483
+  eval_pearson            =      0.901
+  eval_runtime            = 0:00:13.18
+  eval_samples            =       1500
+  eval_samples_per_second =    113.742
+  eval_spearmanr          =     0.8989
+  eval_steps_per_second   =     14.256
+08/06/2025 09:31:48 - WARNING - __main__ - Process rank: 0, device: cuda:0, n_gpu: 1, distributed training: False, 16-bits training: False
+08/06/2025 09:31:48 - INFO - __main__ - Training/evaluation parameters TrainingArguments(
+_n_gpu=1,
+accelerator_config={'split_batches': False, 'dispatch_batches': None, 'even_batches': True, 'use_seedable_sampler': True, 'non_blocking': False, 'gradient_accumulation_kwargs': None, 'use_configured_state': False},
+adafactor=False,
+adam_beta1=0.9,
+adam_beta2=0.999,
+adam_epsilon=1e-08,
+auto_find_batch_size=False,
+average_tokens_across_devices=False,
+batch_eval_metrics=False,
+bf16=False,
+bf16_full_eval=False,
+data_seed=None,
+dataloader_drop_last=False,
+dataloader_num_workers=0,
+dataloader_persistent_workers=False,
+dataloader_pin_memory=True,
+dataloader_prefetch_factor=None,
+ddp_backend=None,
+ddp_broadcast_buffers=None,
+ddp_bucket_cap_mb=None,
+ddp_find_unused_parameters=None,
+ddp_timeout=1800,
+debug=[],
+deepspeed=None,
+disable_tqdm=False,
+do_eval=True,
+do_predict=False,
+do_train=True,
+eval_accumulation_steps=None,
+eval_delay=0,
+eval_do_concat_batches=True,
+eval_on_start=False,
+eval_steps=None,
+eval_strategy=no,
+eval_use_gather_object=False,
+fp16=False,
+fp16_backend=auto,
+fp16_full_eval=False,
+fp16_opt_level=O1,
+fsdp=[],
+fsdp_config={'min_num_params': 0, 'xla': False, 'xla_fsdp_v2': False, 'xla_fsdp_grad_ckpt': False},
+fsdp_min_num_params=0,
+fsdp_transformer_layer_cls_to_wrap=None,
+full_determinism=False,
+gradient_accumulation_steps=1,
+gradient_checkpointing=False,
+gradient_checkpointing_kwargs=None,
+greater_is_better=None,
+group_by_length=False,
+half_precision_backend=auto,
+hub_always_push=False,
+hub_model_id=None,
+hub_private_repo=None,
+hub_revision=None,
+hub_strategy=every_save,
+hub_token=<HUB_TOKEN>,
+ignore_data_skip=False,
+include_for_metrics=[],
+include_inputs_for_metrics=False,
+include_num_input_tokens_seen=False,
+include_tokens_per_second=False,
+jit_mode_eval=False,
+label_names=None,
+label_smoothing_factor=0.0,
+learning_rate=5e-05,
+length_column_name=length,
+liger_kernel_config=None,
+load_best_model_at_end=False,
+local_rank=0,
+log_level=passive,
+log_level_replica=warning,
+log_on_each_node=True,
+logging_dir=output_final/BERT_large/STSB/InA10/runs/Aug06_09-31-47_n29,
+logging_first_step=False,
+logging_nan_inf_filter=True,
+logging_steps=500,
+logging_strategy=steps,
+lr_scheduler_kwargs={},
+lr_scheduler_type=linear,
+max_grad_norm=1.0,
+max_steps=-1,
+metric_for_best_model=None,
+mp_parameters=,
+neftune_noise_alpha=None,
+no_cuda=False,
+num_train_epochs=10.0,
+optim=adamw_torch,
+optim_args=None,
+optim_target_modules=None,
+output_dir=output_final/BERT_large/STSB/InA10/,
+overwrite_output_dir=True,
+past_index=-1,
+per_device_eval_batch_size=8,
+per_device_train_batch_size=8,
+prediction_loss_only=False,
+push_to_hub=False,
+push_to_hub_model_id=None,
+push_to_hub_organization=None,
+push_to_hub_token=<PUSH_TO_HUB_TOKEN>,
+ray_scope=last,
+remove_unused_columns=True,
+report_to=[],
+restore_callback_states_from_checkpoint=False,
+resume_from_checkpoint=None,
+run_name=output_final/BERT_large/STSB/InA10/,
+save_on_each_node=False,
+save_only_model=False,
+save_safetensors=True,
+save_steps=500,
+save_strategy=steps,
+save_total_limit=None,
+seed=42,
+skip_memory_metrics=True,
+tf32=None,
+torch_compile=False,
+torch_compile_backend=None,
+torch_compile_mode=None,
+torch_empty_cache_steps=None,
+torchdynamo=None,
+tpu_metrics_debug=False,
+tpu_num_cores=None,
+use_cpu=False,
+use_ipex=False,
+use_legacy_prediction_loop=False,
+use_liger_kernel=False,
+use_mps_device=False,
+warmup_ratio=0.0,
+warmup_steps=0,
+weight_decay=0.0,
+)
+08/06/2025 09:31:50 - INFO - datasets.builder - Found cached dataset glue (/home/kangchen/.cache/huggingface/datasets/nyu-mll___glue/stsb/0.0.0/bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c)
+The task type of PEFT is not proper!
+LoraConfig(peft_type=<PeftType.LORA: 'LORA'>, auto_mapping=None, base_model_name_or_path='bert-large-cased', revision=None, task_type=<TaskType.SEQ_CLS: 'SEQ_CLS'>, inference_mode=False, r=8, target_modules={'key', 'query', 'value'}, lora_inhibition=0.1, lora_alpha=16, lora_dropout=0.1, fan_in_fan_out=False, bias='none', use_rslora=False, modules_to_save=None, init_lora_weights=True, layers_to_transform=None, layers_pattern=None, rank_pattern={}, alpha_pattern={}, megatron_config=None, megatron_core='megatron.core', loftq_config={}, use_dora=False, layer_replication=None)
+###############
+PeftModelForSequenceClassification(
+  (base_model): LoraModel(
+    (model): BertForSequenceClassification(
+      (bert): BertModel(
+        (embeddings): BertEmbeddings(
+          (word_embeddings): Embedding(28996, 1024, padding_idx=0)
+          (position_embeddings): Embedding(512, 1024)
+          (token_type_embeddings): Embedding(2, 1024)
+          (LayerNorm): LayerNorm((1024,), eps=1e-12, elementwise_affine=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+        )
+        (encoder): BertEncoder(
+          (layer): ModuleList(
+            (0-23): 24 x BertLayer(
+              (attention): BertAttention(
+                (self): BertSdpaSelfAttention(
+                  (query): lora.Linear(
+                    (base_layer): Linear(in_features=1024, out_features=1024, bias=True)
+                    (lora_dropout): ModuleDict(
+                      (default): Dropout(p=0.1, inplace=False)
+                    )
+                    (lora_A): ModuleDict(
+                      (default): Linear(in_features=1024, out_features=8, bias=False)
+                    )
+                    (lora_B): ModuleDict(
+                      (default): Linear(in_features=8, out_features=1024, bias=False)
+                    )
+                    (lora_embedding_A): ParameterDict()
+                    (lora_embedding_B): ParameterDict()
+                  )
+                  (key): lora.Linear(
+                    (base_layer): Linear(in_features=1024, out_features=1024, bias=True)
+                    (lora_dropout): ModuleDict(
+                      (default): Dropout(p=0.1, inplace=False)
+                    )
+                    (lora_A): ModuleDict(
+                      (default): Linear(in_features=1024, out_features=8, bias=False)
+                    )
+                    (lora_B): ModuleDict(
+                      (default): Linear(in_features=8, out_features=1024, bias=False)
+                    )
+                    (lora_embedding_A): ParameterDict()
+                    (lora_embedding_B): ParameterDict()
+                  )
+                  (value): lora.Linear(
+                    (base_layer): Linear(in_features=1024, out_features=1024, bias=True)
+                    (lora_dropout): ModuleDict(
+                      (default): Dropout(p=0.1, inplace=False)
+                    )
+                    (lora_A): ModuleDict(
+                      (default): Linear(in_features=1024, out_features=8, bias=False)
+                    )
+                    (lora_B): ModuleDict(
+                      (default): Linear(in_features=8, out_features=1024, bias=False)
+                    )
+                    (lora_embedding_A): ParameterDict()
+                    (lora_embedding_B): ParameterDict()
+                  )
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=1024, out_features=1024, bias=True)
+                  (LayerNorm): LayerNorm((1024,), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=1024, out_features=4096, bias=True)
+                (intermediate_act_fn): GELUActivation()
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=4096, out_features=1024, bias=True)
+                (LayerNorm): LayerNorm((1024,), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1, inplace=False)
+              )
+            )
+          )
+        )
+        (pooler): BertPooler(
+          (dense): Linear(in_features=1024, out_features=1024, bias=True)
+          (activation): Tanh()
+        )
+      )
+      (dropout): Dropout(p=0.1, inplace=False)
+      (classifier): ModulesToSaveWrapper(
+        (original_module): Linear(in_features=1024, out_features=1, bias=True)
+        (modules_to_save): ModuleDict(
+          (default): Linear(in_features=1024, out_features=1, bias=True)
+        )
+      )
+    )
+  )
+)
+08/06/2025 09:31:51 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/kangchen/.cache/huggingface/datasets/nyu-mll___glue/stsb/0.0.0/bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c/cache-99885f786d7a4ec5_*_of_00001.arrow
+08/06/2025 09:31:51 - INFO - datasets.arrow_dataset - Caching processed dataset at /home/kangchen/.cache/huggingface/datasets/nyu-mll___glue/stsb/0.0.0/bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c/cache-ebf238d8c95ad867.arrow
+08/06/2025 09:31:51 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/kangchen/.cache/huggingface/datasets/nyu-mll___glue/stsb/0.0.0/bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c/cache-fa74d4b54e9a4c86_*_of_00001.arrow
+08/06/2025 09:31:51 - INFO - __main__ - Class distribution in train set:
+08/06/2025 09:31:51 - INFO - __main__ -   Label 5.0: 266 (4.63%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.799999952316284: 267 (4.64%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.5999999046325684: 157 (2.73%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.25: 41 (0.71%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.5: 23 (0.40%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.600000023841858: 137 (2.38%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.200000047683716: 172 (2.99%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.199999809265137: 204 (3.55%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.599999904632568: 163 (2.84%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.867000102996826: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.666999816894531: 3 (0.05%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.6670000553131104: 4 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.75: 70 (1.22%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.200000047683716: 252 (4.38%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.799999952316284: 176 (3.06%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.0: 315 (5.48%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.800000190734863: 135 (2.35%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.0: 354 (6.16%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.908999919891357: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.4000000953674316: 152 (2.64%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.4000000953674316: 261 (4.54%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.75: 37 (0.64%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.5999999046325684: 230 (4.00%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.75: 24 (0.42%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.0: 212 (3.69%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.375: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.400000095367432: 163 (2.84%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.75: 24 (0.42%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.555999994277954: 2 (0.03%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.937999963760376: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.5: 57 (0.99%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.399999976158142: 159 (2.77%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.8329999446868896: 2 (0.03%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.6000000238418579: 111 (1.93%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.9170000553131104: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.0: 194 (3.37%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.800000011920929: 137 (2.38%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.6430000066757202: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.25: 22 (0.38%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.85699987411499: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.5329999923706055: 2 (0.03%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.14300000667572021: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.5: 37 (0.64%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.0: 367 (6.38%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.4000000059604645: 133 (2.31%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.6669999957084656: 3 (0.05%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.132999897003174: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.2000000476837158: 139 (2.42%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.765000104904175: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.940999984741211: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.25: 18 (0.31%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.25: 67 (1.17%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.75: 17 (0.30%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.5: 25 (0.43%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.20000000298023224: 64 (1.11%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.1110000610351562: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.2860000133514404: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.7999999523162842: 147 (2.56%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.8500000238418579: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.9230000972747803: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.25: 14 (0.24%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.8330000042915344: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.3330000042915344: 4 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.3329999446868896: 21 (0.37%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.333000183105469: 6 (0.10%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.6670000553131104: 7 (0.12%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.4169999957084656: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.818000078201294: 2 (0.03%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.5329999923706055: 2 (0.03%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.6430000066757202: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.5829999446868896: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.777999997138977: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.6670000553131104: 7 (0.12%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.3329999446868896: 5 (0.09%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.7000000476837158: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.5: 26 (0.45%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.7269999980926514: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.3329999446868896: 6 (0.10%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.06700000166893005: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.875: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.615000009536743: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.875: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.091000080108643: 2 (0.03%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.7690000534057617: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.5829999446868896: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.928999900817871: 2 (0.03%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.23100000619888306: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.11800000071525574: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.099999904632568: 2 (0.03%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.3299999237060547: 3 (0.05%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.17000000178813934: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.6700000762939453: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.8299999237060547: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.0999999046325684: 2 (0.03%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.1111111640930176: 2 (0.03%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.100000023841858: 2 (0.03%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.777777671813965: 2 (0.03%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.5714287757873535: 3 (0.05%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.4666666984558105: 3 (0.05%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.8999999761581421: 2 (0.03%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.5333333015441895: 3 (0.05%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.8459999561309814: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.875: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.8459999561309814: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.6470000743865967: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.066999912261963: 2 (0.03%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.7779998779296875: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.363999843597412: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.7860000133514404: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.922999858856201: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.571000099182129: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.1670000553131104: 2 (0.03%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.9440000057220459: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.055999994277954: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.817999839782715: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.2309999465942383: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.7270002365112305: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.7330000400543213: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.9089999198913574: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.437999963760376: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.176000118255615: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.625: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.4549999237060547: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.056000232696533: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.6429998874664307: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.691999912261963: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.8570001125335693: 2 (0.03%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.2730000019073486: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.5880000591278076: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.444000005722046: 2 (0.03%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.8889999985694885: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.2730000019073486: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.700000047683716: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.9089999198913574: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.933000087738037: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.7690000534057617: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.625: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.308000087738037: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.3333332538604736: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.329999923706055: 1 (0.02%)
+08/06/2025 09:31:51 - INFO - __main__ - Class distribution in validation set:
+08/06/2025 09:31:51 - INFO - __main__ -   Label 5.0: 56 (3.73%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.75: 5 (0.33%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.4000000953674316: 37 (2.47%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.75: 14 (0.93%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.615000009536743: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.3329999446868896: 2 (0.13%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.75: 15 (1.00%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.200000047683716: 63 (4.20%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.5829999446868896: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.908999919891357: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.800000011920929: 47 (3.13%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.0: 56 (3.73%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.6359999775886536: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.0: 86 (5.73%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.7139999866485596: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.1670000553131104: 2 (0.13%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.0: 45 (3.00%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.9170000553131104: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.25: 6 (0.40%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.6000000238418579: 49 (3.27%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.5999999046325684: 61 (4.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.599999904632568: 29 (1.93%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.800000190734863: 26 (1.73%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.799999952316284: 60 (4.00%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.199999809265137: 36 (2.40%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.399999976158142: 45 (3.00%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.5999999046325684: 45 (3.00%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.799999952316284: 43 (2.87%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.600000023841858: 52 (3.47%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.25: 4 (0.27%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.0: 139 (9.27%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.5: 9 (0.60%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.5: 6 (0.40%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.2000000476837158: 35 (2.33%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.5: 16 (1.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.812000036239624: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.4000000059604645: 54 (3.60%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.1540000438690186: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.4000000953674316: 46 (3.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.25: 5 (0.33%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.3329999446868896: 3 (0.20%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.20000000298023224: 37 (2.47%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.0: 49 (3.27%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.0910000801086426: 2 (0.13%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.7999999523162842: 53 (3.53%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.5: 7 (0.47%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.08299999684095383: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.8239998817443848: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.375: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.25: 3 (0.20%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.85699987411499: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.2999999523162842: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.400000095367432: 32 (2.13%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.25: 21 (1.40%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.777999997138977: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.8330000042915344: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.333000183105469: 3 (0.20%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.214000225067139: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.200000047683716: 48 (3.20%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.5329999923706055: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.75: 2 (0.13%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.10000000149011612: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.0999999046325684: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.691999912261963: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.428999900817871: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.5: 2 (0.13%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 0.6700000166893005: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.6699999570846558: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.3329999446868896: 5 (0.33%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.75: 8 (0.53%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.7139999866485596: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.691999912261963: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 1.6670000553131104: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.666999816894531: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.4170000553131104: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 4.111000061035156: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 3.6670000553131104: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ -   Label 2.3333332538604736: 1 (0.07%)
+08/06/2025 09:31:51 - INFO - __main__ - Class distribution in test set:
+08/06/2025 09:31:51 - INFO - __main__ -   Label -1.0: 1379 (100.00%)
+08/06/2025 09:31:51 - INFO - __main__ - Sample 5238 of the training set: {'sentence1': 'Didier Reynders on Syria', 'sentence2': "Obama's day: Prime time on Syria", 'label': 1.600000023841858, 'idx': 5238, 'input_ids': [101, 2966, 2852, 12952, 24373, 1113, 7303, 102, 7661, 112, 188, 1285, 131, 3460, 1159, 1113, 7303, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'token_type_ids': [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}.
+08/06/2025 09:31:51 - INFO - __main__ - Sample 912 of the training set: {'sentence1': 'A man is cleaning the windows.', 'sentence2': 'A man is driving a car.', 'label': 0.4000000059604645, 'idx': 912, 'input_ids': [101, 138, 1299, 1110, 9374, 1103, 3751, 119, 102, 138, 1299, 1110, 3759, 170, 1610, 119, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'token_type_ids': [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}.
+08/06/2025 09:31:51 - INFO - __main__ - Sample 204 of the training set: {'sentence1': 'A woman holds a kangaroo.', 'sentence2': 'A woman is picking up a kangaroo.', 'label': 3.25, 'idx': 204, 'input_ids': [101, 138, 1590, 3486, 170, 24181, 12253, 24886, 119, 102, 138, 1590, 1110, 8184, 1146, 170, 24181, 12253, 24886, 119, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'token_type_ids': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}.
+08/06/2025 09:31:52 - WARNING - accelerate.utils.other - Detected kernel version 4.18.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+{'loss': 1.6694, 'grad_norm': 11.652825355529785, 'learning_rate': 4.6529902642559114e-05, 'epoch': 0.7}
+{'loss': 0.7134, 'grad_norm': 17.623790740966797, 'learning_rate': 4.30528511821975e-05, 'epoch': 1.39}
+{'loss': 0.6071, 'grad_norm': 14.027359962463379, 'learning_rate': 3.9575799721835886e-05, 'epoch': 2.09}
+{'loss': 0.5553, 'grad_norm': 16.02896499633789, 'learning_rate': 3.609874826147427e-05, 'epoch': 2.78}
+{'loss': 0.5298, 'grad_norm': 16.601518630981445, 'learning_rate': 3.262169680111266e-05, 'epoch': 3.48}
+{'loss': 0.4976, 'grad_norm': 33.77688980102539, 'learning_rate': 2.9144645340751043e-05, 'epoch': 4.17}
+{'loss': 0.4861, 'grad_norm': 20.01676368713379, 'learning_rate': 2.566759388038943e-05, 'epoch': 4.87}
+{'loss': 0.4592, 'grad_norm': 3.600015163421631, 'learning_rate': 2.2190542420027818e-05, 'epoch': 5.56}
+{'loss': 0.4584, 'grad_norm': 17.360563278198242, 'learning_rate': 1.8713490959666204e-05, 'epoch': 6.26}
+{'loss': 0.4432, 'grad_norm': 17.100666046142578, 'learning_rate': 1.5236439499304591e-05, 'epoch': 6.95}
+{'loss': 0.4284, 'grad_norm': 5.529967784881592, 'learning_rate': 1.1759388038942977e-05, 'epoch': 7.65}
+{'loss': 0.4246, 'grad_norm': 8.984753608703613, 'learning_rate': 8.282336578581364e-06, 'epoch': 8.34}
+{'loss': 0.4095, 'grad_norm': 9.248042106628418, 'learning_rate': 4.80528511821975e-06, 'epoch': 9.04}
+{'loss': 0.4099, 'grad_norm': 19.191200256347656, 'learning_rate': 1.3282336578581366e-06, 'epoch': 9.74}
+{'train_runtime': 1125.0673, 'train_samples_per_second': 51.099, 'train_steps_per_second': 6.391, 'train_loss': 0.5739197583788791, 'epoch': 10.0}
+***** train metrics *****
+  epoch                    =       10.0
+  total_flos               = 12522812GF
+  train_loss               =     0.5739
+  train_runtime            = 0:18:45.06
+  train_samples            =       5749
+  train_samples_per_second =     51.099
+  train_steps_per_second   =      6.391
+08/06/2025 09:50:41 - INFO - __main__ - *** Evaluate ***
+***** eval metrics *****
+  epoch                   =       10.0
+  eval_combined_score     =     0.8984
+  eval_loss               =     0.4583
+  eval_pearson            =     0.8992
+  eval_runtime            = 0:00:12.96
+  eval_samples            =       1500
+  eval_samples_per_second =    115.663
+  eval_spearmanr          =     0.8976
+  eval_steps_per_second   =     14.496
+08/06/2025 09:51:02 - WARNING - __main__ - Process rank: 0, device: cuda:0, n_gpu: 1, distributed training: False, 16-bits training: False
+08/06/2025 09:51:02 - INFO - __main__ - Training/evaluation parameters TrainingArguments(
+_n_gpu=1,
+accelerator_config={'split_batches': False, 'dispatch_batches': None, 'even_batches': True, 'use_seedable_sampler': True, 'non_blocking': False, 'gradient_accumulation_kwargs': None, 'use_configured_state': False},
+adafactor=False,
+adam_beta1=0.9,
+adam_beta2=0.999,
+adam_epsilon=1e-08,
+auto_find_batch_size=False,
+average_tokens_across_devices=False,
+batch_eval_metrics=False,
+bf16=False,
+bf16_full_eval=False,
+data_seed=None,
+dataloader_drop_last=False,
+dataloader_num_workers=0,
+dataloader_persistent_workers=False,
+dataloader_pin_memory=True,
+dataloader_prefetch_factor=None,
+ddp_backend=None,
+ddp_broadcast_buffers=None,
+ddp_bucket_cap_mb=None,
+ddp_find_unused_parameters=None,
+ddp_timeout=1800,
+debug=[],
+deepspeed=None,
+disable_tqdm=False,
+do_eval=True,
+do_predict=False,
+do_train=True,
+eval_accumulation_steps=None,
+eval_delay=0,
+eval_do_concat_batches=True,
+eval_on_start=False,
+eval_steps=None,
+eval_strategy=no,
+eval_use_gather_object=False,
+fp16=False,
+fp16_backend=auto,
+fp16_full_eval=False,
+fp16_opt_level=O1,
+fsdp=[],
+fsdp_config={'min_num_params': 0, 'xla': False, 'xla_fsdp_v2': False, 'xla_fsdp_grad_ckpt': False},
+fsdp_min_num_params=0,
+fsdp_transformer_layer_cls_to_wrap=None,
+full_determinism=False,
+gradient_accumulation_steps=1,
+gradient_checkpointing=False,
+gradient_checkpointing_kwargs=None,
+greater_is_better=None,
+group_by_length=False,
+half_precision_backend=auto,
+hub_always_push=False,
+hub_model_id=None,
+hub_private_repo=None,
+hub_revision=None,
+hub_strategy=every_save,
+hub_token=<HUB_TOKEN>,
+ignore_data_skip=False,
+include_for_metrics=[],
+include_inputs_for_metrics=False,
+include_num_input_tokens_seen=False,
+include_tokens_per_second=False,
+jit_mode_eval=False,
+label_names=None,
+label_smoothing_factor=0.0,
+learning_rate=5e-05,
+length_column_name=length,
+liger_kernel_config=None,
+load_best_model_at_end=False,
+local_rank=0,
+log_level=passive,
+log_level_replica=warning,
+log_on_each_node=True,
+logging_dir=output_final/BERT_large/STSB/InA30/runs/Aug06_09-51-02_n29,
+logging_first_step=False,
+logging_nan_inf_filter=True,
+logging_steps=500,
+logging_strategy=steps,
+lr_scheduler_kwargs={},
+lr_scheduler_type=linear,
+max_grad_norm=1.0,
+max_steps=-1,
+metric_for_best_model=None,
+mp_parameters=,
+neftune_noise_alpha=None,
+no_cuda=False,
+num_train_epochs=10.0,
+optim=adamw_torch,
+optim_args=None,
+optim_target_modules=None,
+output_dir=output_final/BERT_large/STSB/InA30/,
+overwrite_output_dir=True,
+past_index=-1,
+per_device_eval_batch_size=8,
+per_device_train_batch_size=8,
+prediction_loss_only=False,
+push_to_hub=False,
+push_to_hub_model_id=None,
+push_to_hub_organization=None,
+push_to_hub_token=<PUSH_TO_HUB_TOKEN>,
+ray_scope=last,
+remove_unused_columns=True,
+report_to=[],
+restore_callback_states_from_checkpoint=False,
+resume_from_checkpoint=None,
+run_name=output_final/BERT_large/STSB/InA30/,
+save_on_each_node=False,
+save_only_model=False,
+save_safetensors=True,
+save_steps=500,
+save_strategy=steps,
+save_total_limit=None,
+seed=42,
+skip_memory_metrics=True,
+tf32=None,
+torch_compile=False,
+torch_compile_backend=None,
+torch_compile_mode=None,
+torch_empty_cache_steps=None,
+torchdynamo=None,
+tpu_metrics_debug=False,
+tpu_num_cores=None,
+use_cpu=False,
+use_ipex=False,
+use_legacy_prediction_loop=False,
+use_liger_kernel=False,
+use_mps_device=False,
+warmup_ratio=0.0,
+warmup_steps=0,
+weight_decay=0.0,
+)
+08/06/2025 09:51:04 - INFO - datasets.builder - Found cached dataset glue (/home/kangchen/.cache/huggingface/datasets/nyu-mll___glue/stsb/0.0.0/bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c)
+The task type of PEFT is not proper!
+LoraConfig(peft_type=<PeftType.LORA: 'LORA'>, auto_mapping=None, base_model_name_or_path='bert-large-cased', revision=None, task_type=<TaskType.SEQ_CLS: 'SEQ_CLS'>, inference_mode=False, r=8, target_modules={'key', 'value', 'query'}, lora_inhibition=0.3, lora_alpha=16, lora_dropout=0.1, fan_in_fan_out=False, bias='none', use_rslora=False, modules_to_save=None, init_lora_weights=True, layers_to_transform=None, layers_pattern=None, rank_pattern={}, alpha_pattern={}, megatron_config=None, megatron_core='megatron.core', loftq_config={}, use_dora=False, layer_replication=None)
+###############
+PeftModelForSequenceClassification(
+  (base_model): LoraModel(
+    (model): BertForSequenceClassification(
+      (bert): BertModel(
+        (embeddings): BertEmbeddings(
+          (word_embeddings): Embedding(28996, 1024, padding_idx=0)
+          (position_embeddings): Embedding(512, 1024)
+          (token_type_embeddings): Embedding(2, 1024)
+          (LayerNorm): LayerNorm((1024,), eps=1e-12, elementwise_affine=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+        )
+        (encoder): BertEncoder(
+          (layer): ModuleList(
+            (0-23): 24 x BertLayer(
+              (attention): BertAttention(
+                (self): BertSdpaSelfAttention(
+                  (query): lora.Linear(
+                    (base_layer): Linear(in_features=1024, out_features=1024, bias=True)
+                    (lora_dropout): ModuleDict(
+                      (default): Dropout(p=0.1, inplace=False)
+                    )
+                    (lora_A): ModuleDict(
+                      (default): Linear(in_features=1024, out_features=8, bias=False)
+                    )
+                    (lora_B): ModuleDict(
+                      (default): Linear(in_features=8, out_features=1024, bias=False)
+                    )
+                    (lora_embedding_A): ParameterDict()
+                    (lora_embedding_B): ParameterDict()
+                  )
+                  (key): lora.Linear(
+                    (base_layer): Linear(in_features=1024, out_features=1024, bias=True)
+                    (lora_dropout): ModuleDict(
+                      (default): Dropout(p=0.1, inplace=False)
+                    )
+                    (lora_A): ModuleDict(
+                      (default): Linear(in_features=1024, out_features=8, bias=False)
+                    )
+                    (lora_B): ModuleDict(
+                      (default): Linear(in_features=8, out_features=1024, bias=False)
+                    )
+                    (lora_embedding_A): ParameterDict()
+                    (lora_embedding_B): ParameterDict()
+                  )
+                  (value): lora.Linear(
+                    (base_layer): Linear(in_features=1024, out_features=1024, bias=True)
+                    (lora_dropout): ModuleDict(
+                      (default): Dropout(p=0.1, inplace=False)
+                    )
+                    (lora_A): ModuleDict(
+                      (default): Linear(in_features=1024, out_features=8, bias=False)
+                    )
+                    (lora_B): ModuleDict(
+                      (default): Linear(in_features=8, out_features=1024, bias=False)
+                    )
+                    (lora_embedding_A): ParameterDict()
+                    (lora_embedding_B): ParameterDict()
+                  )
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=1024, out_features=1024, bias=True)
+                  (LayerNorm): LayerNorm((1024,), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=1024, out_features=4096, bias=True)
+                (intermediate_act_fn): GELUActivation()
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=4096, out_features=1024, bias=True)
+                (LayerNorm): LayerNorm((1024,), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1, inplace=False)
+              )
+            )
+          )
+        )
+        (pooler): BertPooler(
+          (dense): Linear(in_features=1024, out_features=1024, bias=True)
+          (activation): Tanh()
+        )
+      )
+      (dropout): Dropout(p=0.1, inplace=False)
+      (classifier): ModulesToSaveWrapper(
+        (original_module): Linear(in_features=1024, out_features=1, bias=True)
+        (modules_to_save): ModuleDict(
+          (default): Linear(in_features=1024, out_features=1, bias=True)
+        )
+      )
+    )
+  )
+)
+08/06/2025 09:51:05 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/kangchen/.cache/huggingface/datasets/nyu-mll___glue/stsb/0.0.0/bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c/cache-99885f786d7a4ec5_*_of_00001.arrow
+08/06/2025 09:51:05 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/kangchen/.cache/huggingface/datasets/nyu-mll___glue/stsb/0.0.0/bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c/cache-ebf238d8c95ad867_*_of_00001.arrow
+08/06/2025 09:51:05 - INFO - datasets.arrow_dataset - Caching processed dataset at /home/kangchen/.cache/huggingface/datasets/nyu-mll___glue/stsb/0.0.0/bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c/cache-d991f80b416dbd4a.arrow
+08/06/2025 09:51:05 - INFO - __main__ - Class distribution in train set:
+08/06/2025 09:51:05 - INFO - __main__ -   Label 5.0: 266 (4.63%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.799999952316284: 267 (4.64%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.5999999046325684: 157 (2.73%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.25: 41 (0.71%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.5: 23 (0.40%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.600000023841858: 137 (2.38%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.200000047683716: 172 (2.99%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.199999809265137: 204 (3.55%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.599999904632568: 163 (2.84%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.867000102996826: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.666999816894531: 3 (0.05%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.6670000553131104: 4 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.75: 70 (1.22%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.200000047683716: 252 (4.38%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.799999952316284: 176 (3.06%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.0: 315 (5.48%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.800000190734863: 135 (2.35%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.0: 354 (6.16%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.908999919891357: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.4000000953674316: 152 (2.64%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.4000000953674316: 261 (4.54%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.75: 37 (0.64%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.5999999046325684: 230 (4.00%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.75: 24 (0.42%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.0: 212 (3.69%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.375: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.400000095367432: 163 (2.84%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.75: 24 (0.42%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.555999994277954: 2 (0.03%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.937999963760376: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.5: 57 (0.99%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.399999976158142: 159 (2.77%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.8329999446868896: 2 (0.03%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.6000000238418579: 111 (1.93%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.9170000553131104: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.0: 194 (3.37%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.800000011920929: 137 (2.38%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.6430000066757202: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.25: 22 (0.38%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.85699987411499: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.5329999923706055: 2 (0.03%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.14300000667572021: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.5: 37 (0.64%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.0: 367 (6.38%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.4000000059604645: 133 (2.31%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.6669999957084656: 3 (0.05%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.132999897003174: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.2000000476837158: 139 (2.42%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.765000104904175: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.940999984741211: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.25: 18 (0.31%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.25: 67 (1.17%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.75: 17 (0.30%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.5: 25 (0.43%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.20000000298023224: 64 (1.11%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.1110000610351562: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.2860000133514404: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.7999999523162842: 147 (2.56%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.8500000238418579: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.9230000972747803: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.25: 14 (0.24%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.8330000042915344: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.3330000042915344: 4 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.3329999446868896: 21 (0.37%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.333000183105469: 6 (0.10%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.6670000553131104: 7 (0.12%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.4169999957084656: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.818000078201294: 2 (0.03%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.5329999923706055: 2 (0.03%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.6430000066757202: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.5829999446868896: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.777999997138977: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.6670000553131104: 7 (0.12%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.3329999446868896: 5 (0.09%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.7000000476837158: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.5: 26 (0.45%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.7269999980926514: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.3329999446868896: 6 (0.10%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.06700000166893005: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.875: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.615000009536743: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.875: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.091000080108643: 2 (0.03%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.7690000534057617: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.5829999446868896: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.928999900817871: 2 (0.03%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.23100000619888306: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.11800000071525574: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.099999904632568: 2 (0.03%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.3299999237060547: 3 (0.05%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.17000000178813934: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.6700000762939453: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.8299999237060547: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.0999999046325684: 2 (0.03%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.1111111640930176: 2 (0.03%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.100000023841858: 2 (0.03%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.777777671813965: 2 (0.03%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.5714287757873535: 3 (0.05%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.4666666984558105: 3 (0.05%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.8999999761581421: 2 (0.03%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.5333333015441895: 3 (0.05%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.8459999561309814: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.875: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.8459999561309814: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.6470000743865967: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.066999912261963: 2 (0.03%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.7779998779296875: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.363999843597412: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.7860000133514404: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.922999858856201: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.571000099182129: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.1670000553131104: 2 (0.03%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.9440000057220459: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.055999994277954: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.817999839782715: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.2309999465942383: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.7270002365112305: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.7330000400543213: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.9089999198913574: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.437999963760376: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.176000118255615: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.625: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.4549999237060547: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.056000232696533: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.6429998874664307: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.691999912261963: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.8570001125335693: 2 (0.03%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.2730000019073486: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.5880000591278076: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.444000005722046: 2 (0.03%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.8889999985694885: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.2730000019073486: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.700000047683716: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.9089999198913574: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.933000087738037: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.7690000534057617: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.625: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.308000087738037: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.3333332538604736: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.329999923706055: 1 (0.02%)
+08/06/2025 09:51:05 - INFO - __main__ - Class distribution in validation set:
+08/06/2025 09:51:05 - INFO - __main__ -   Label 5.0: 56 (3.73%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.75: 5 (0.33%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.4000000953674316: 37 (2.47%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.75: 14 (0.93%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.615000009536743: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.3329999446868896: 2 (0.13%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.75: 15 (1.00%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.200000047683716: 63 (4.20%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.5829999446868896: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.908999919891357: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.800000011920929: 47 (3.13%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.0: 56 (3.73%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.6359999775886536: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.0: 86 (5.73%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.7139999866485596: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.1670000553131104: 2 (0.13%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.0: 45 (3.00%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.9170000553131104: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.25: 6 (0.40%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.6000000238418579: 49 (3.27%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.5999999046325684: 61 (4.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.599999904632568: 29 (1.93%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.800000190734863: 26 (1.73%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.799999952316284: 60 (4.00%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.199999809265137: 36 (2.40%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.399999976158142: 45 (3.00%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.5999999046325684: 45 (3.00%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.799999952316284: 43 (2.87%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.600000023841858: 52 (3.47%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.25: 4 (0.27%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.0: 139 (9.27%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.5: 9 (0.60%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.5: 6 (0.40%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.2000000476837158: 35 (2.33%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.5: 16 (1.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.812000036239624: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.4000000059604645: 54 (3.60%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.1540000438690186: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.4000000953674316: 46 (3.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.25: 5 (0.33%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.3329999446868896: 3 (0.20%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.20000000298023224: 37 (2.47%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.0: 49 (3.27%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.0910000801086426: 2 (0.13%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.7999999523162842: 53 (3.53%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.5: 7 (0.47%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.08299999684095383: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.8239998817443848: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.375: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.25: 3 (0.20%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.85699987411499: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.2999999523162842: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.400000095367432: 32 (2.13%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.25: 21 (1.40%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.777999997138977: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.8330000042915344: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.333000183105469: 3 (0.20%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.214000225067139: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.200000047683716: 48 (3.20%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.5329999923706055: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.75: 2 (0.13%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.10000000149011612: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.0999999046325684: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.691999912261963: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.428999900817871: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.5: 2 (0.13%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 0.6700000166893005: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.6699999570846558: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.3329999446868896: 5 (0.33%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.75: 8 (0.53%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.7139999866485596: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.691999912261963: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 1.6670000553131104: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.666999816894531: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.4170000553131104: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 4.111000061035156: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 3.6670000553131104: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ -   Label 2.3333332538604736: 1 (0.07%)
+08/06/2025 09:51:05 - INFO - __main__ - Class distribution in test set:
+08/06/2025 09:51:05 - INFO - __main__ -   Label -1.0: 1379 (100.00%)
+08/06/2025 09:51:05 - INFO - __main__ - Sample 5238 of the training set: {'sentence1': 'Didier Reynders on Syria', 'sentence2': "Obama's day: Prime time on Syria", 'label': 1.600000023841858, 'idx': 5238, 'input_ids': [101, 2966, 2852, 12952, 24373, 1113, 7303, 102, 7661, 112, 188, 1285, 131, 3460, 1159, 1113, 7303, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'token_type_ids': [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}.
+08/06/2025 09:51:05 - INFO - __main__ - Sample 912 of the training set: {'sentence1': 'A man is cleaning the windows.', 'sentence2': 'A man is driving a car.', 'label': 0.4000000059604645, 'idx': 912, 'input_ids': [101, 138, 1299, 1110, 9374, 1103, 3751, 119, 102, 138, 1299, 1110, 3759, 170, 1610, 119, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'token_type_ids': [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}.
+08/06/2025 09:51:05 - INFO - __main__ - Sample 204 of the training set: {'sentence1': 'A woman holds a kangaroo.', 'sentence2': 'A woman is picking up a kangaroo.', 'label': 3.25, 'idx': 204, 'input_ids': [101, 138, 1590, 3486, 170, 24181, 12253, 24886, 119, 102, 138, 1590, 1110, 8184, 1146, 170, 24181, 12253, 24886, 119, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'token_type_ids': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}.
+08/06/2025 09:51:06 - WARNING - accelerate.utils.other - Detected kernel version 4.18.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+{'loss': 1.7888, 'grad_norm': 8.203636169433594, 'learning_rate': 4.6529902642559114e-05, 'epoch': 0.7}
+{'loss': 0.7789, 'grad_norm': 14.524676322937012, 'learning_rate': 4.30528511821975e-05, 'epoch': 1.39}
+{'loss': 0.6437, 'grad_norm': 8.223140716552734, 'learning_rate': 3.9575799721835886e-05, 'epoch': 2.09}
+{'loss': 0.5894, 'grad_norm': 23.785490036010742, 'learning_rate': 3.609874826147427e-05, 'epoch': 2.78}
+{'loss': 0.5544, 'grad_norm': 20.833263397216797, 'learning_rate': 3.262169680111266e-05, 'epoch': 3.48}
+{'loss': 0.5254, 'grad_norm': 36.491493225097656, 'learning_rate': 2.9144645340751043e-05, 'epoch': 4.17}
+{'loss': 0.5094, 'grad_norm': 23.790987014770508, 'learning_rate': 2.566759388038943e-05, 'epoch': 4.87}
+{'loss': 0.4834, 'grad_norm': 4.319033145904541, 'learning_rate': 2.2190542420027818e-05, 'epoch': 5.56}
+{'loss': 0.4903, 'grad_norm': 22.406272888183594, 'learning_rate': 1.8713490959666204e-05, 'epoch': 6.26}
+{'loss': 0.4681, 'grad_norm': 15.513628005981445, 'learning_rate': 1.5236439499304591e-05, 'epoch': 6.95}
+{'loss': 0.4531, 'grad_norm': 5.118803024291992, 'learning_rate': 1.1759388038942977e-05, 'epoch': 7.65}
+{'loss': 0.4483, 'grad_norm': 10.355087280273438, 'learning_rate': 8.282336578581364e-06, 'epoch': 8.34}
+{'loss': 0.4309, 'grad_norm': 11.952207565307617, 'learning_rate': 4.80528511821975e-06, 'epoch': 9.04}
+{'loss': 0.437, 'grad_norm': 19.65316390991211, 'learning_rate': 1.3282336578581366e-06, 'epoch': 9.74}
+{'train_runtime': 1129.134, 'train_samples_per_second': 50.915, 'train_steps_per_second': 6.368, 'train_loss': 0.609924122222773, 'epoch': 10.0}
+***** train metrics *****
+  epoch                    =       10.0
+  total_flos               = 12522812GF
+  train_loss               =     0.6099
+  train_runtime            = 0:18:49.13
+  train_samples            =       5749
+  train_samples_per_second =     50.915
+  train_steps_per_second   =      6.368
+08/06/2025 10:09:56 - INFO - __main__ - *** Evaluate ***
+***** eval metrics *****
+  epoch                   =       10.0
+  eval_combined_score     =     0.8974
+  eval_loss               =     0.4664
+  eval_pearson            =     0.8982
+  eval_runtime            = 0:00:12.97
+  eval_samples            =       1500
+  eval_samples_per_second =    115.566
+  eval_spearmanr          =     0.8966
+  eval_steps_per_second   =     14.484
+08/06/2025 10:10:17 - WARNING - __main__ - Process rank: 0, device: cuda:0, n_gpu: 1, distributed training: False, 16-bits training: False
+08/06/2025 10:10:17 - INFO - __main__ - Training/evaluation parameters TrainingArguments(
+_n_gpu=1,
+accelerator_config={'split_batches': False, 'dispatch_batches': None, 'even_batches': True, 'use_seedable_sampler': True, 'non_blocking': False, 'gradient_accumulation_kwargs': None, 'use_configured_state': False},
+adafactor=False,
+adam_beta1=0.9,
+adam_beta2=0.999,
+adam_epsilon=1e-08,
+auto_find_batch_size=False,
+average_tokens_across_devices=False,
+batch_eval_metrics=False,
+bf16=False,
+bf16_full_eval=False,
+data_seed=None,
+dataloader_drop_last=False,
+dataloader_num_workers=0,
+dataloader_persistent_workers=False,
+dataloader_pin_memory=True,
+dataloader_prefetch_factor=None,
+ddp_backend=None,
+ddp_broadcast_buffers=None,
+ddp_bucket_cap_mb=None,
+ddp_find_unused_parameters=None,
+ddp_timeout=1800,
+debug=[],
+deepspeed=None,
+disable_tqdm=False,
+do_eval=True,
+do_predict=False,
+do_train=True,
+eval_accumulation_steps=None,
+eval_delay=0,
+eval_do_concat_batches=True,
+eval_on_start=False,
+eval_steps=None,
+eval_strategy=no,
+eval_use_gather_object=False,
+fp16=False,
+fp16_backend=auto,
+fp16_full_eval=False,
+fp16_opt_level=O1,
+fsdp=[],
+fsdp_config={'min_num_params': 0, 'xla': False, 'xla_fsdp_v2': False, 'xla_fsdp_grad_ckpt': False},
+fsdp_min_num_params=0,
+fsdp_transformer_layer_cls_to_wrap=None,
+full_determinism=False,
+gradient_accumulation_steps=1,
+gradient_checkpointing=False,
+gradient_checkpointing_kwargs=None,
+greater_is_better=None,
+group_by_length=False,
+half_precision_backend=auto,
+hub_always_push=False,
+hub_model_id=None,
+hub_private_repo=None,
+hub_revision=None,
+hub_strategy=every_save,
+hub_token=<HUB_TOKEN>,
+ignore_data_skip=False,
+include_for_metrics=[],
+include_inputs_for_metrics=False,
+include_num_input_tokens_seen=False,
+include_tokens_per_second=False,
+jit_mode_eval=False,
+label_names=None,
+label_smoothing_factor=0.0,
+learning_rate=5e-05,
+length_column_name=length,
+liger_kernel_config=None,
+load_best_model_at_end=False,
+local_rank=0,
+log_level=passive,
+log_level_replica=warning,
+log_on_each_node=True,
+logging_dir=output_final/BERT_large/STSB/InA90/runs/Aug06_10-10-17_n29,
+logging_first_step=False,
+logging_nan_inf_filter=True,
+logging_steps=500,
+logging_strategy=steps,
+lr_scheduler_kwargs={},
+lr_scheduler_type=linear,
+max_grad_norm=1.0,
+max_steps=-1,
+metric_for_best_model=None,
+mp_parameters=,
+neftune_noise_alpha=None,
+no_cuda=False,
+num_train_epochs=10.0,
+optim=adamw_torch,
+optim_args=None,
+optim_target_modules=None,
+output_dir=output_final/BERT_large/STSB/InA90/,
+overwrite_output_dir=True,
+past_index=-1,
+per_device_eval_batch_size=8,
+per_device_train_batch_size=8,
+prediction_loss_only=False,
+push_to_hub=False,
+push_to_hub_model_id=None,
+push_to_hub_organization=None,
+push_to_hub_token=<PUSH_TO_HUB_TOKEN>,
+ray_scope=last,
+remove_unused_columns=True,
+report_to=[],
+restore_callback_states_from_checkpoint=False,
+resume_from_checkpoint=None,
+run_name=output_final/BERT_large/STSB/InA90/,
+save_on_each_node=False,
+save_only_model=False,
+save_safetensors=True,
+save_steps=500,
+save_strategy=steps,
+save_total_limit=None,
+seed=42,
+skip_memory_metrics=True,
+tf32=None,
+torch_compile=False,
+torch_compile_backend=None,
+torch_compile_mode=None,
+torch_empty_cache_steps=None,
+torchdynamo=None,
+tpu_metrics_debug=False,
+tpu_num_cores=None,
+use_cpu=False,
+use_ipex=False,
+use_legacy_prediction_loop=False,
+use_liger_kernel=False,
+use_mps_device=False,
+warmup_ratio=0.0,
+warmup_steps=0,
+weight_decay=0.0,
+)
+08/06/2025 10:10:19 - INFO - datasets.builder - Found cached dataset glue (/home/kangchen/.cache/huggingface/datasets/nyu-mll___glue/stsb/0.0.0/bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c)
+The task type of PEFT is not proper!
+LoraConfig(peft_type=<PeftType.LORA: 'LORA'>, auto_mapping=None, base_model_name_or_path='bert-large-cased', revision=None, task_type=<TaskType.SEQ_CLS: 'SEQ_CLS'>, inference_mode=False, r=8, target_modules={'key', 'value', 'query'}, lora_inhibition=0.9, lora_alpha=16, lora_dropout=0.1, fan_in_fan_out=False, bias='none', use_rslora=False, modules_to_save=None, init_lora_weights=True, layers_to_transform=None, layers_pattern=None, rank_pattern={}, alpha_pattern={}, megatron_config=None, megatron_core='megatron.core', loftq_config={}, use_dora=False, layer_replication=None)
+###############
+PeftModelForSequenceClassification(
+  (base_model): LoraModel(
+    (model): BertForSequenceClassification(
+      (bert): BertModel(
+        (embeddings): BertEmbeddings(
+          (word_embeddings): Embedding(28996, 1024, padding_idx=0)
+          (position_embeddings): Embedding(512, 1024)
+          (token_type_embeddings): Embedding(2, 1024)
+          (LayerNorm): LayerNorm((1024,), eps=1e-12, elementwise_affine=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+        )
+        (encoder): BertEncoder(
+          (layer): ModuleList(
+            (0-23): 24 x BertLayer(
+              (attention): BertAttention(
+                (self): BertSdpaSelfAttention(
+                  (query): lora.Linear(
+                    (base_layer): Linear(in_features=1024, out_features=1024, bias=True)
+                    (lora_dropout): ModuleDict(
+                      (default): Dropout(p=0.1, inplace=False)
+                    )
+                    (lora_A): ModuleDict(
+                      (default): Linear(in_features=1024, out_features=8, bias=False)
+                    )
+                    (lora_B): ModuleDict(
+                      (default): Linear(in_features=8, out_features=1024, bias=False)
+                    )
+                    (lora_embedding_A): ParameterDict()
+                    (lora_embedding_B): ParameterDict()
+                  )
+                  (key): lora.Linear(
+                    (base_layer): Linear(in_features=1024, out_features=1024, bias=True)
+                    (lora_dropout): ModuleDict(
+                      (default): Dropout(p=0.1, inplace=False)
+                    )
+                    (lora_A): ModuleDict(
+                      (default): Linear(in_features=1024, out_features=8, bias=False)
+                    )
+                    (lora_B): ModuleDict(
+                      (default): Linear(in_features=8, out_features=1024, bias=False)
+                    )
+                    (lora_embedding_A): ParameterDict()
+                    (lora_embedding_B): ParameterDict()
+                  )
+                  (value): lora.Linear(
+                    (base_layer): Linear(in_features=1024, out_features=1024, bias=True)
+                    (lora_dropout): ModuleDict(
+                      (default): Dropout(p=0.1, inplace=False)
+                    )
+                    (lora_A): ModuleDict(
+                      (default): Linear(in_features=1024, out_features=8, bias=False)
+                    )
+                    (lora_B): ModuleDict(
+                      (default): Linear(in_features=8, out_features=1024, bias=False)
+                    )
+                    (lora_embedding_A): ParameterDict()
+                    (lora_embedding_B): ParameterDict()
+                  )
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=1024, out_features=1024, bias=True)
+                  (LayerNorm): LayerNorm((1024,), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=1024, out_features=4096, bias=True)
+                (intermediate_act_fn): GELUActivation()
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=4096, out_features=1024, bias=True)
+                (LayerNorm): LayerNorm((1024,), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1, inplace=False)
+              )
+            )
+          )
+        )
+        (pooler): BertPooler(
+          (dense): Linear(in_features=1024, out_features=1024, bias=True)
+          (activation): Tanh()
+        )
+      )
+      (dropout): Dropout(p=0.1, inplace=False)
+      (classifier): ModulesToSaveWrapper(
+        (original_module): Linear(in_features=1024, out_features=1, bias=True)
+        (modules_to_save): ModuleDict(
+          (default): Linear(in_features=1024, out_features=1, bias=True)
+        )
+      )
+    )
+  )
+)
+08/06/2025 10:10:21 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/kangchen/.cache/huggingface/datasets/nyu-mll___glue/stsb/0.0.0/bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c/cache-99885f786d7a4ec5_*_of_00001.arrow
+08/06/2025 10:10:21 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/kangchen/.cache/huggingface/datasets/nyu-mll___glue/stsb/0.0.0/bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c/cache-ebf238d8c95ad867_*_of_00001.arrow
+08/06/2025 10:10:21 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/kangchen/.cache/huggingface/datasets/nyu-mll___glue/stsb/0.0.0/bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c/cache-d991f80b416dbd4a_*_of_00001.arrow
+08/06/2025 10:10:21 - INFO - __main__ - Class distribution in train set:
+08/06/2025 10:10:21 - INFO - __main__ -   Label 5.0: 266 (4.63%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.799999952316284: 267 (4.64%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.5999999046325684: 157 (2.73%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.25: 41 (0.71%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.5: 23 (0.40%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.600000023841858: 137 (2.38%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.200000047683716: 172 (2.99%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.199999809265137: 204 (3.55%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.599999904632568: 163 (2.84%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.867000102996826: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.666999816894531: 3 (0.05%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.6670000553131104: 4 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.75: 70 (1.22%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.200000047683716: 252 (4.38%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.799999952316284: 176 (3.06%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.0: 315 (5.48%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.800000190734863: 135 (2.35%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.0: 354 (6.16%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.908999919891357: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.4000000953674316: 152 (2.64%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.4000000953674316: 261 (4.54%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.75: 37 (0.64%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.5999999046325684: 230 (4.00%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.75: 24 (0.42%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.0: 212 (3.69%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.375: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.400000095367432: 163 (2.84%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.75: 24 (0.42%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.555999994277954: 2 (0.03%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.937999963760376: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.5: 57 (0.99%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.399999976158142: 159 (2.77%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.8329999446868896: 2 (0.03%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.6000000238418579: 111 (1.93%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.9170000553131104: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.0: 194 (3.37%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.800000011920929: 137 (2.38%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.6430000066757202: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.25: 22 (0.38%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.85699987411499: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.5329999923706055: 2 (0.03%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.14300000667572021: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.5: 37 (0.64%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.0: 367 (6.38%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.4000000059604645: 133 (2.31%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.6669999957084656: 3 (0.05%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.132999897003174: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.2000000476837158: 139 (2.42%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.765000104904175: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.940999984741211: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.25: 18 (0.31%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.25: 67 (1.17%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.75: 17 (0.30%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.5: 25 (0.43%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.20000000298023224: 64 (1.11%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.1110000610351562: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.2860000133514404: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.7999999523162842: 147 (2.56%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.8500000238418579: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.9230000972747803: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.25: 14 (0.24%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.8330000042915344: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.3330000042915344: 4 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.3329999446868896: 21 (0.37%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.333000183105469: 6 (0.10%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.6670000553131104: 7 (0.12%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.4169999957084656: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.818000078201294: 2 (0.03%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.5329999923706055: 2 (0.03%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.6430000066757202: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.5829999446868896: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.777999997138977: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.6670000553131104: 7 (0.12%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.3329999446868896: 5 (0.09%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.7000000476837158: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.5: 26 (0.45%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.7269999980926514: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.3329999446868896: 6 (0.10%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.06700000166893005: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.875: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.615000009536743: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.875: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.091000080108643: 2 (0.03%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.7690000534057617: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.5829999446868896: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.928999900817871: 2 (0.03%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.23100000619888306: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.11800000071525574: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.099999904632568: 2 (0.03%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.3299999237060547: 3 (0.05%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.17000000178813934: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.6700000762939453: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.8299999237060547: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.0999999046325684: 2 (0.03%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.1111111640930176: 2 (0.03%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.100000023841858: 2 (0.03%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.777777671813965: 2 (0.03%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.5714287757873535: 3 (0.05%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.4666666984558105: 3 (0.05%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.8999999761581421: 2 (0.03%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.5333333015441895: 3 (0.05%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.8459999561309814: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.875: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.8459999561309814: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.6470000743865967: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.066999912261963: 2 (0.03%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.7779998779296875: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.363999843597412: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.7860000133514404: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.922999858856201: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.571000099182129: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.1670000553131104: 2 (0.03%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.9440000057220459: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.055999994277954: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.817999839782715: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.2309999465942383: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.7270002365112305: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.7330000400543213: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.9089999198913574: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.437999963760376: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.176000118255615: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.625: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.4549999237060547: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.056000232696533: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.6429998874664307: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.691999912261963: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.8570001125335693: 2 (0.03%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.2730000019073486: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.5880000591278076: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.444000005722046: 2 (0.03%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.8889999985694885: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.2730000019073486: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.700000047683716: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.9089999198913574: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.933000087738037: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.7690000534057617: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.625: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.308000087738037: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.3333332538604736: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.329999923706055: 1 (0.02%)
+08/06/2025 10:10:21 - INFO - __main__ - Class distribution in validation set:
+08/06/2025 10:10:21 - INFO - __main__ -   Label 5.0: 56 (3.73%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.75: 5 (0.33%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.4000000953674316: 37 (2.47%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.75: 14 (0.93%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.615000009536743: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.3329999446868896: 2 (0.13%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.75: 15 (1.00%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.200000047683716: 63 (4.20%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.5829999446868896: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.908999919891357: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.800000011920929: 47 (3.13%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.0: 56 (3.73%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.6359999775886536: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.0: 86 (5.73%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.7139999866485596: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.1670000553131104: 2 (0.13%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.0: 45 (3.00%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.9170000553131104: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.25: 6 (0.40%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.6000000238418579: 49 (3.27%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.5999999046325684: 61 (4.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.599999904632568: 29 (1.93%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.800000190734863: 26 (1.73%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.799999952316284: 60 (4.00%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.199999809265137: 36 (2.40%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.399999976158142: 45 (3.00%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.5999999046325684: 45 (3.00%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.799999952316284: 43 (2.87%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.600000023841858: 52 (3.47%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.25: 4 (0.27%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.0: 139 (9.27%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.5: 9 (0.60%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.5: 6 (0.40%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.2000000476837158: 35 (2.33%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.5: 16 (1.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.812000036239624: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.4000000059604645: 54 (3.60%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.1540000438690186: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.4000000953674316: 46 (3.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.25: 5 (0.33%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.3329999446868896: 3 (0.20%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.20000000298023224: 37 (2.47%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.0: 49 (3.27%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.0910000801086426: 2 (0.13%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.7999999523162842: 53 (3.53%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.5: 7 (0.47%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.08299999684095383: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.8239998817443848: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.375: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.25: 3 (0.20%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.85699987411499: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.2999999523162842: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.400000095367432: 32 (2.13%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.25: 21 (1.40%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.777999997138977: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.8330000042915344: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.333000183105469: 3 (0.20%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.214000225067139: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.200000047683716: 48 (3.20%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.5329999923706055: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.75: 2 (0.13%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.10000000149011612: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.0999999046325684: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.691999912261963: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.428999900817871: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.5: 2 (0.13%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 0.6700000166893005: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.6699999570846558: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.3329999446868896: 5 (0.33%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.75: 8 (0.53%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.7139999866485596: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.691999912261963: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 1.6670000553131104: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.666999816894531: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.4170000553131104: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 4.111000061035156: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 3.6670000553131104: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ -   Label 2.3333332538604736: 1 (0.07%)
+08/06/2025 10:10:21 - INFO - __main__ - Class distribution in test set:
+08/06/2025 10:10:21 - INFO - __main__ -   Label -1.0: 1379 (100.00%)
+08/06/2025 10:10:21 - INFO - __main__ - Sample 5238 of the training set: {'sentence1': 'Didier Reynders on Syria', 'sentence2': "Obama's day: Prime time on Syria", 'label': 1.600000023841858, 'idx': 5238, 'input_ids': [101, 2966, 2852, 12952, 24373, 1113, 7303, 102, 7661, 112, 188, 1285, 131, 3460, 1159, 1113, 7303, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'token_type_ids': [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}.
+08/06/2025 10:10:21 - INFO - __main__ - Sample 912 of the training set: {'sentence1': 'A man is cleaning the windows.', 'sentence2': 'A man is driving a car.', 'label': 0.4000000059604645, 'idx': 912, 'input_ids': [101, 138, 1299, 1110, 9374, 1103, 3751, 119, 102, 138, 1299, 1110, 3759, 170, 1610, 119, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'token_type_ids': [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}.
+08/06/2025 10:10:21 - INFO - __main__ - Sample 204 of the training set: {'sentence1': 'A woman holds a kangaroo.', 'sentence2': 'A woman is picking up a kangaroo.', 'label': 3.25, 'idx': 204, 'input_ids': [101, 138, 1590, 3486, 170, 24181, 12253, 24886, 119, 102, 138, 1590, 1110, 8184, 1146, 170, 24181, 12253, 24886, 119, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'token_type_ids': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}.
+08/06/2025 10:10:21 - WARNING - accelerate.utils.other - Detected kernel version 4.18.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+{'loss': 2.1643, 'grad_norm': 32.120052337646484, 'learning_rate': 4.6529902642559114e-05, 'epoch': 0.7}
+{'loss': 1.1895, 'grad_norm': 10.5289888381958, 'learning_rate': 4.30528511821975e-05, 'epoch': 1.39}
+{'loss': 1.0153, 'grad_norm': 12.967744827270508, 'learning_rate': 3.9575799721835886e-05, 'epoch': 2.09}
+{'loss': 0.935, 'grad_norm': 21.777849197387695, 'learning_rate': 3.609874826147427e-05, 'epoch': 2.78}
+{'loss': 0.8826, 'grad_norm': 22.49425506591797, 'learning_rate': 3.262169680111266e-05, 'epoch': 3.48}
+{'loss': 0.8397, 'grad_norm': 52.33049392700195, 'learning_rate': 2.9144645340751043e-05, 'epoch': 4.17}
+{'loss': 0.7912, 'grad_norm': 30.486825942993164, 'learning_rate': 2.566759388038943e-05, 'epoch': 4.87}
+{'loss': 0.7551, 'grad_norm': 7.632774829864502, 'learning_rate': 2.2190542420027818e-05, 'epoch': 5.56}
+{'loss': 0.7735, 'grad_norm': 31.253931045532227, 'learning_rate': 1.8713490959666204e-05, 'epoch': 6.26}
+{'loss': 0.7421, 'grad_norm': 10.154119491577148, 'learning_rate': 1.5236439499304591e-05, 'epoch': 6.95}
+{'loss': 0.7304, 'grad_norm': 5.936668395996094, 'learning_rate': 1.1759388038942977e-05, 'epoch': 7.65}
+{'loss': 0.725, 'grad_norm': 18.73381996154785, 'learning_rate': 8.282336578581364e-06, 'epoch': 8.34}
+{'loss': 0.7031, 'grad_norm': 12.78923511505127, 'learning_rate': 4.80528511821975e-06, 'epoch': 9.04}
+{'loss': 0.6982, 'grad_norm': 33.30898666381836, 'learning_rate': 1.3282336578581366e-06, 'epoch': 9.74}
+{'train_runtime': 1125.0696, 'train_samples_per_second': 51.099, 'train_steps_per_second': 6.391, 'train_loss': 0.919491776637474, 'epoch': 10.0}
+***** train metrics *****
+  epoch                    =       10.0
+  total_flos               = 12522812GF
+  train_loss               =     0.9195
+  train_runtime            = 0:18:45.06
+  train_samples            =       5749
+  train_samples_per_second =     51.099
+  train_steps_per_second   =      6.391
+08/06/2025 10:29:08 - INFO - __main__ - *** Evaluate ***
+***** eval metrics *****
+  epoch                   =       10.0
+  eval_combined_score     =     0.8559
+  eval_loss               =     0.6775
+  eval_pearson            =     0.8548
+  eval_runtime            = 0:00:12.97
+  eval_samples            =       1500
+  eval_samples_per_second =    115.635
+  eval_spearmanr          =     0.8569
+  eval_steps_per_second   =     14.493

@@ -10,7 +10,7 @@
 This repository contains the code necessary to reproduce Shunting Inhibition on LoRA, the shunting inhibition mechanism that controls passed information from previous layers introduced in the [paper](https://doi.org/10.1016/j.neunet.2024.106410):
 
 ## Updates
-- (Aug/04/2025) Refresh the comparison results.
+- (Aug/08/2025) Refresh the comparison results.
 - (Aug/02/2025) Upload codes and the developing environment.
 - (May/13/2024) Upload Adapter weights.
 - (Apr/07/2024) Initial release.
@@ -56,6 +56,8 @@ Although LoRA and InA has the same answer, but from the average attention heatma
 
 
 
+
+
 ## How does Shunting Inhibition effect LoRA?
 
 InA also inserts trainable inhibition matrices into transformer layers to approximate the weight updates. By using a low-rank decomposition $W_0 + \Delta = W_0 + W_{down}W_{up}$, where $W_{down} \in {R^{d\times{r}}}$, $W_{up} \in {R^{r\times{k}}}$, $Th \in {R^{M\times{1}}}$, InA updates the $Query$ and $Key$ projection matrices ($W_{q},W_{k}$) in the multi-head attention sub-layer. For the specific input $H$, InA modifies the projection output $H_{o}$ as:
@@ -92,44 +94,66 @@ $ pip install -e transformers-4.53.0/
 
 ## Finetune on GLUE Benchmarks
 
-  - `RoBERTa-large`
+In the paper [LORA: LOW-RANK ADAPTATION OF LARGE LANGUAGE MODELS](https://arxiv.org/abs/2106.09685), We can find that when the low rank $r$ is 4 or 8, the text classification task can get a better performance. Thus, we also set $r$ to 4 and 8 in our experiments. 
+
+  - `BERT-large` needs 1 GPU. The finetuned weights are available at [GoogleDrive](). 
     ```bash
     python transformers-4.53.0/examples/pytorch/text-classification/run_glue.py \
-    --model_name_or_path FacebookAI/roberta-large \
+    --model_name_or_path bert-large-cased \
     --task_name cola \
     --do_train \
     --do_eval \
     --num_train_epochs 10 \
     --overwrite_output_dir \
-    --output_dir output_final/DeBERTa_30/CoLA/ \
-    --lora_r 8 \
+    --output_dir output_final/BERT_large/CoLA/InA00/ \
+    --lora_r 4 \
     --lora_alpha 16 \
-    --lora_inhibition 0.3 \
+    --lora_inhibition 0.0 \
     --lora_dropout 0.1 \
-    --task_type "CAUSAL_LM" \
+    --task_type "SEQ_CLS" \
     --peft_type "LORA"
     ```
   
-  - `Llama2-7B` needs 2 GPUs
+  - `Llama2-7B` needs 1 or 2 GPUs
     ```bash
-    python transformers/examples/pytorch/text-classification/run_glue.py \
+    python transformers-4.53.0/examples/pytorch/text-classification/run_glue.py \
     --model_name_or_path meta-llama/Llama-2-7b-chat-hf \
     --task_name cola \
     --do_train \
     --do_eval \
     --num_train_epochs 10 \
     --overwrite_output_dir \
-    --output_dir output_final/DeBERTa_30/CoLA/ \
-    --lora_r 8 \
+    --output_dir output_final/Llama2/CoLA/ \
+    --lora_r 4 \
     --lora_alpha 16 \
-    --lora_inhibition 0.3 \
+    --lora_inhibition 0.0 \
     --lora_dropout 0.1 \
+    --task_type "SEQ_CLS" \
+    --peft_type "LORA" \
     --batch_size 16 \
     --bf16 \
     --max_seq_length 4096 \
     --per_device_train_batch_size 2 \
     --gradient_accumulation_steps 2
     ```
+
+
+### Experiments of GLUE
+Our fine-tuning experiments are carried on half a DGX-2 node with 1x40 A100 GPU card, the results may vary due to different GPU models, drivers, CUDA SDK versions, using FP16 or FP32, and random seeds. 
+We report our numbers based on multple runs with different random seeds here. Here are the results from the Large model:
+
+|Task	 | Command	                            	| Running Time(1x40G A100 GPUs) |
+|--------|-------------------------------------|-------------------------------|
+|MNLI large| 	`sbatch batch/InA_GLUE_MNLI.batch` | 	 	21h x 4                    |
+|QQP large| 	`sbatch batch/InA_GLUE_QQP.batch`  | 		19h x 4                     |
+|QNLI large| 	`sbatch batch/InA_GLUE_QNLI.batch` | 		2h x 4                      |
+|MRPC large| 	`sbatch batch/InA_GLUE_MRPC.batch` | 		0.5h x 4                    |
+|RTE large| 	`sbatch batch/InA_GLUE_RTE.batch`  | 		0.1h x 4                    |
+|SST-2 large| 	`sbatch batch/InA_GLUE_SST2.batch` | 		1h x 4                      |
+|STS-b large| 	`sbatch batch/InA_GLUE_STSB.batch` | 		0.5h x 4                    |
+|CoLA large| 	`sbatch batch/InA_GLUE_CoLA.batch` | 		0.5h x 4                    |
+
+
 
 ## Finetune on SQuAD-V2 Benchmarks
 
@@ -148,7 +172,7 @@ $ pip install -e transformers-4.53.0/
     --num_warmup_epochs 1 \
     --num_train_epochs 10 \
     --batch_size 16 \
-    --output_dir Output_PEFT
+    --output_dir Output_PEFT/roberta
     ```
   
   - `Llama2-7B` needs 2 GPUs
