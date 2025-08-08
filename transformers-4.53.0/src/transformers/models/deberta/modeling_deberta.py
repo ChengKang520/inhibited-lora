@@ -1056,6 +1056,47 @@ class DebertaForSequenceClassification(DebertaPreTrainedModel):
             loss=loss, logits=logits, hidden_states=outputs.hidden_states, attentions=outputs.attentions
         )
 
+    def prepare_inputs_for_generation(
+        input_ids=None,
+        attention_mask=None,
+        past_key_values=None,
+        **kwargs
+    ):
+        """
+        A dummy function simulating the preparation of inputs for generation.
+
+        Args:
+            input_ids (torch.Tensor, optional): Dummy input token IDs.
+            attention_mask (torch.Tensor, optional): Dummy attention mask.
+            past_key_values (tuple, optional): Dummy past key values for
+                                               incremental decoding.
+            **kwargs: Catch-all for other potential arguments.
+
+        Returns:
+            dict: A dictionary containing the prepared inputs.
+        """
+        prepared_inputs = {}
+
+        if input_ids is not None:
+            prepared_inputs["input_ids"] = input_ids
+        else:
+            # Provide a default dummy input_ids if not provided
+            prepared_inputs["input_ids"] = torch.tensor([[1, 2, 3]])
+
+        if attention_mask is not None:
+            prepared_inputs["attention_mask"] = attention_mask
+        else:
+            # Provide a default dummy attention_mask
+            prepared_inputs["attention_mask"] = torch.tensor([[1, 1, 1]])
+
+        if past_key_values is not None:
+            prepared_inputs["past_key_values"] = past_key_values
+
+        # Add any other kwargs directly to the prepared inputs
+        for key, value in kwargs.items():
+            prepared_inputs[key] = value
+
+        return prepared_inputs
 
 @auto_docstring
 class DebertaForTokenClassification(DebertaPreTrainedModel):
