@@ -40,7 +40,7 @@ nvidia-nvtx-cu12==12.6.77
 packaging==25.0
 pandas==2.3.1
 # Editable install with no version control (peft==0.10.0)
--e /home/kangchen/inhibited_lora/peft-0.10.0
+# -e /home/kangchen/inhibited_lora/peft-0.10.0
 propcache==0.3.2
 protobuf==6.31.1
 psutil==7.0.0
@@ -61,7 +61,7 @@ tokenizers==0.21.4
 torch==2.7.1
 tqdm==4.67.1
 # Editable install with no version control (transformers==4.53.0)
--e /home/kangchen/inhibited_lora/transformers-4.53.0
+# -e /home/kangchen/inhibited_lora/transformers-4.53.0
 triton==3.3.1
 typing_extensions==4.14.1
 tzdata==2025.2
