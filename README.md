@@ -96,7 +96,7 @@ $ pip install -e transformers-4.53.0/
 
 In the paper [LORA: LOW-RANK ADAPTATION OF LARGE LANGUAGE MODELS](https://arxiv.org/abs/2106.09685), We can find that when the low rank $r$ is 4 or 8, the text classification task can get a better performance. Thus, we also set $r$ to 4 and 8 in our experiments. 
 
-  - `BERT-large` needs 1 GPU. The finetuned weights are available at [GoogleDrive](). 
+  - `BERT-large` needs 1 GPU. The finetuned weights are available at [weights](./output_final/BERT_large/). 
     ```bash
     python transformers-4.53.0/examples/pytorch/text-classification/run_glue.py \
     --model_name_or_path bert-large-cased \
