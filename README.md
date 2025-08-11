@@ -10,6 +10,7 @@
 This repository contains the code necessary to reproduce Shunting Inhibition on LoRA, the shunting inhibition mechanism that controls passed information from previous layers introduced in the [paper](https://doi.org/10.1016/j.neunet.2024.106410):
 
 ## Updates
+- (Aug/11/2025) the shunting inhibition and disinhibition experiments on LoRA.
 - (Aug/08/2025) Refresh the comparison results.
 - (Aug/02/2025) Upload codes and the developing environment.
 - (May/13/2024) Upload Adapter weights.
