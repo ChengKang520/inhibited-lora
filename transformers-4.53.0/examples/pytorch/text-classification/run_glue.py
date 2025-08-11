@@ -505,7 +505,7 @@ def main():
         lora_dropout=peft_args.lora_dropout,
         # bias=peft_args.bias,
         # target_modules=peft_args.target_modules,
-        target_modules=["query", "key", "value"]
+        target_modules=["query", "key"]
         # modules_to_save=model_args.modules_to_save,
     )
     model = get_peft_model(model_lm, peft_config)
@@ -659,6 +659,16 @@ def main():
         data_collator = None
 
     # Initialize our Trainer
+    #
+
+    training_args.metric_for_best_model="eval_loss"  # Specify the metric to monitor, such as "eval_loss", "eval_accuracy", "eval_f1"
+    training_args.greater_is_better=False
+    training_args.evaluation_strategy = "epoch"
+    training_args.save_strategy = "epoch"
+    training_args.load_best_model_at_end = True
+    training_args.save_total_limit = 1
+    training_args.do_eval = True
+
     trainer = Trainer(
         model=model,
         args=training_args,

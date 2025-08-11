@@ -14,15 +14,16 @@
 srun -l /bin/hostname
 srun -l /bin/pwd
 
+#srun -p gpufast --gres=gpu:1 --mem-per-gpu=40000 --pty bash -i
+
 ml Python/3.10.8-GCCcore-12.2.0
 cd /home/kangchen/inhibited_lora/
 source InaEnv/bin/activate
 
-#lora_r=4  # 4 or 8
+#lora_r=2  # 2 or 4
 #lora_alpha=16
 #lora_dropout=0.1
-##target_modules=('query' 'value' 'key')
-#lora_inhibition=0.3
+#lora_inhibition=0.9
 #python transformers-4.53.0/examples/pytorch/text-classification/run_glue.py \
 #--model_name_or_path bert-large-cased \
 #--task_name rte \
@@ -30,7 +31,7 @@ source InaEnv/bin/activate
 #--do_eval \
 #--num_train_epochs 10 \
 #--overwrite_output_dir \
-#--output_dir output_final/BERT_large/RTE/InA00/ \
+#--output_dir output_final/BERT_large/RTE/InA90/ \
 #--lora_r ${lora_r} \
 #--lora_alpha ${lora_alpha} \
 #--lora_inhibition ${lora_inhibition} \
@@ -46,7 +47,7 @@ python transformers-4.53.0/examples/pytorch/text-classification/run_glue.py \
 --num_train_epochs 10 \
 --overwrite_output_dir \
 --output_dir output_final/BERT_large/RTE/InA00/ \
---lora_r 4 \
+--lora_r 2 \
 --lora_alpha 16 \
 --lora_inhibition 0.0 \
 --lora_dropout 0.1 \
@@ -61,7 +62,7 @@ python transformers-4.53.0/examples/pytorch/text-classification/run_glue.py \
 --num_train_epochs 10 \
 --overwrite_output_dir \
 --output_dir output_final/BERT_large/RTE/InA10/ \
---lora_r 4 \
+--lora_r 2 \
 --lora_alpha 16 \
 --lora_inhibition 0.1 \
 --lora_dropout 0.1 \
@@ -76,7 +77,7 @@ python transformers-4.53.0/examples/pytorch/text-classification/run_glue.py \
 --num_train_epochs 10 \
 --overwrite_output_dir \
 --output_dir output_final/BERT_large/RTE/InA30/ \
---lora_r 4 \
+--lora_r 2 \
 --lora_alpha 16 \
 --lora_inhibition 0.3 \
 --lora_dropout 0.1 \
@@ -91,7 +92,7 @@ python transformers-4.53.0/examples/pytorch/text-classification/run_glue.py \
 --num_train_epochs 10 \
 --overwrite_output_dir \
 --output_dir output_final/BERT_large/RTE/InA90/ \
---lora_r 4 \
+--lora_r 2 \
 --lora_alpha 16 \
 --lora_inhibition 0.9 \
 --lora_dropout 0.1 \

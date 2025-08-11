@@ -321,10 +321,11 @@ class LoraLayer(BaseTunerLayer):
             sub_batch = x[sub_batch_indices_list[i]].to(lora_A.weight.dtype)
             lora_A_temp = lora_A(dropout(sub_batch))
             out_, inds_ = torch.max(lora_A_temp, dim=2)
-            # out_, inds_ = torch.max(lora_A_temp)
             out_ = out_.unsqueeze(2)
+            # out_ = torch.max(lora_A_temp)
+
             if lora_inhibition > 0.0:
-                lora_ina_temp = torch.nn.functional.leaky_relu(lora_A_temp - out_ * lora_inhibition)
+                lora_ina_temp = torch.nn.functional.leaky_relu(lora_A_temp + out_ * lora_inhibition, negative_slope=0.1)
                 lora_output = lora_B(lora_ina_temp) * scaling
                 # print("################################################################")
                 # print("The inhibition level is :" + str(lora_inhibition) + ".")
@@ -526,10 +527,11 @@ class Linear(nn.Module, LoraLayer):
                 if not self.use_dora[active_adapter]:
                     lora_A_temp = lora_A(dropout(x))
                     out_, inds_ = torch.max(lora_A_temp, dim=2)
-                    # out_, inds_ = torch.max(lora_A_temp)
                     out_ = out_.unsqueeze(2)
+                    # out_ = torch.max(lora_A_temp)
+
                     if lora_inhibition > 0.0:
-                        lora_ina_temp = torch.nn.functional.leaky_relu(lora_A_temp - out_ * lora_inhibition)
+                        lora_ina_temp = torch.nn.functional.leaky_relu(lora_A_temp + out_ * lora_inhibition, negative_slope=0.1)
                         result = result + lora_B(lora_ina_temp) * scaling
                         # print("################################################################")
                         # print("The inhibition level is :" + str(lora_inhibition) + ".")
@@ -730,10 +732,11 @@ class Embedding(nn.Module, LoraLayer):
             sub_batch = x[sub_batch_indices_list[i]]
             after_A = self._embed(sub_batch, embedding_A)
             out_, inds_ = torch.max(after_A, dim=2)
-            # out_, inds_ = torch.max(after_A)
             out_ = out_.unsqueeze(2)
+            # out_ = torch.max(after_A)
+
             if lora_inhibition > 0.0:
-                after_A = torch.nn.functional.leaky_relu(after_A - out_ * lora_inhibition)
+                after_A = torch.nn.functional.leaky_relu(after_A + out_ * lora_inhibition, negative_slope=0.1)
                 # print("################################################################")
                 # print("The inhibition level is :" + str(lora_inhibition) + ".")
             # else:
@@ -781,10 +784,11 @@ class Embedding(nn.Module, LoraLayer):
 
                 after_A = self._embed(x, embedding_A)
                 out_, inds_ = torch.max(after_A, dim=2)
-                # out_, inds_ = torch.max(after_A)
                 out_ = out_.unsqueeze(2)
+                # out_ = torch.max(after_A)
+
                 if lora_inhibition > 0.0:
-                    after_A = torch.nn.functional.leaky_relu(after_A - out_ * lora_inhibition)
+                    after_A = torch.nn.functional.leaky_relu(after_A + out_ * lora_inhibition, negative_slope=0.1)
                     # print("################################################################")
                     # print("The inhibition level is :" + str(lora_inhibition) + ".")
                 # else:
@@ -1074,10 +1078,11 @@ class Conv2d(nn.Module, LoraLayer):
                     # print("******************  not BNB  ******************")
                     lora_A_temp = lora_A(dropout(x))
                     out_, inds_ = torch.max(lora_A_temp, dim=2)
-                    # out_, inds_ = torch.max(lora_A_temp)
                     out_ = out_.unsqueeze(2)
+                    # out_ = torch.max(lora_A_temp)
+
                     if lora_inhibition > 0.0:
-                        lora_ina_temp = torch.nn.functional.leaky_relu(lora_A_temp - out_ * lora_inhibition)
+                        lora_ina_temp = torch.nn.functional.leaky_relu(lora_A_temp + out_ * lora_inhibition, negative_slope=0.1)
                         # print("################################################################")
                         # print("The inhibition level is :" + str(lora_inhibition) + ".")
                         result = result + lora_B(lora_ina_temp) * scaling
