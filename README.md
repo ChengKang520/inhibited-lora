@@ -76,7 +76,7 @@ $$I_{q}=f(HW_{q-down}+Th_{q})W_{q-up},$$
 
 where $I_{k} \in {R^{M\times{d}}}$ and $I_{q} \in {R^{M\times{d}}}$, respectively, is the $Inhibition$ matrix in $Key$ side and $Query$ side; $f$ is the activation function; $Th_{k} \in {R^{M\times{1}}}$ is the product of $\max(HW_{k-down}) \times Inh_{p}$ in terms of the column-wise maximization and $Th_{q} \in {R^{M\times{1}}}$ is the product of $\max(HW_{q-down}) \times Inh_{p}$ in terms of the column-wise maximization. 
 
-**Important** When the $Th$ is negative, we are using the Shunting Inhibition. Otherwise, when the $Th$ is positive, the Shunting Activation is using.
+</font> <font face="Arial Black" size="3"> Notice: </font><a name="Languages"></a> When the $Th$ is negative, we are using the Shunting Inhibition. Otherwise, when the $Th$ is positive, the Shunting Activation is using on LoRA.
 
 ## Reproduction
 
