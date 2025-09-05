@@ -10,7 +10,7 @@
 This repository contains the code necessary to reproduce Shunting Inhibition on LoRA, the shunting inhibition mechanism that controls passed information from previous layers introduced in the [paper](https://doi.org/10.1016/j.neunet.2024.106410):
 
 ## Updates
-- (Aug/11/2025) the shunting inhibition and disinhibition experiments on LoRA.
+- (Aug/11/2025) the experiments of shunting inhibition and shunting activation on LoRA.
 - (Aug/08/2025) Refresh the comparison results.
 - (Aug/02/2025) Upload codes and the developing environment.
 - (May/13/2024) Upload Adapter weights.
@@ -76,6 +76,7 @@ $$I_{q}=f(HW_{q-down}+Th_{q})W_{q-up},$$
 
 where $I_{k} \in {R^{M\times{d}}}$ and $I_{q} \in {R^{M\times{d}}}$, respectively, is the $Inhibition$ matrix in $Key$ side and $Query$ side; $f$ is the activation function; $Th_{k} \in {R^{M\times{1}}}$ is the product of $\max(HW_{k-down}) \times Inh_{p}$ in terms of the column-wise maximization and $Th_{q} \in {R^{M\times{1}}}$ is the product of $\max(HW_{q-down}) \times Inh_{p}$ in terms of the column-wise maximization. 
 
+**Important** When the $Th$ is negative, we are using the Shunting Inhibition. Otherwise, when the $Th$ is positive, the Shunting Activation is using.
 
 ## Reproduction
 
@@ -168,7 +169,7 @@ We report our numbers based on multple runs with different random seeds here. He
     --dataset_name data/squad_v2/ \
     --lora_r 8 \
     --lora_alpha 16 \
-    --lora_inhibition 0.3 \
+    --lora_inhibition -0.3 \
     --lora_dropout 0.1 \
     --num_warmup_epochs 1 \
     --num_train_epochs 10 \
@@ -183,7 +184,7 @@ We report our numbers based on multple runs with different random seeds here. He
     --model_name meta-llama/Llama-2-7b-chat-hf \
     --dataset_name data/squad_v2/ \
     --lora_alpha 16 \
-    --lora_inhibition 0.3 \
+    --lora_inhibition -0.3 \
     --lora_dropout 0.1 \
     --bf16 \
     --max_seq_length 4096 \
@@ -203,7 +204,7 @@ We report our numbers based on multple runs with different random seeds here. He
     --model_name meta-llama/Meta-Llama-3-8B \
     --dataset_name data/squad_v2/ \
     --lora_alpha 16 \
-    --lora_inhibition 0.3 \
+    --lora_inhibition -0.3 \
     --lora_dropout 0.1 \
     --bf16 \
     --max_seq_length 4096 \
@@ -226,7 +227,7 @@ We report our numbers based on multple runs with different random seeds here. He
     python visualize_lm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/google-bert/bert-large-uncased/ \
     --model_name google-bert/bert-large-uncased \
     --task="squad_v2" \
-    --lora_inhibition 0.1
+    --lora_inhibition -0.1
     ```
 
   - `RoBERTa-large`
@@ -235,7 +236,7 @@ We report our numbers based on multple runs with different random seeds here. He
     python visualize_lm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/FacebookAI/roberta-large/ \
     --model_name FacebookAI/roberta-large \
     --task="squad_v2" \
-    --lora_inhibition 0.1
+    --lora_inhibition -0.1
     ```
 
   - `Llama2-7B`
@@ -244,7 +245,7 @@ We report our numbers based on multple runs with different random seeds here. He
     python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/Llama-2-7b-chat-hf/ \
     --model_name meta-llama/Llama-2-7b-chat-hf \
     --task="squad_v2" \
-    --lora_inhibition 0.9
+    --lora_inhibition -0.9
     ```
 
 ## Acknowledgements
