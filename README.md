@@ -17,7 +17,7 @@ This repository contains the code necessary to reproduce Shunting Inhibition on 
 - (Apr/07/2024) Initial release.
 ## What is Shunting Inhibition? 
 
-Bellow image illustrates how shunting inhibition works, with its on (the red box) and off (the green box) states. When the gate of shunting inhibition is off, the signal transmission occurs across the joint, which can be influenced by shunting synapses. These shunting synapses play a crucial role in regulating neuronal function, and their activation can affect signal reception and transmission.
+Bellow image illustrates how shunting inhibition and activation works, with its inhibition (the red box) and activation (the blue box) states. When the gate of shunting inhibition and activation is open, the signal transmission occurs across the joint, which can be influenced by shunting synapses. These shunting synapses play a crucial role in regulating neuronal function, and their activation can affect signal reception and transmission.
 
 <div align="center">
   <figure>
