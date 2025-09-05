@@ -10,7 +10,7 @@
 This repository contains the code necessary to reproduce Shunting Inhibition on LoRA, the shunting inhibition mechanism that controls passed information from previous layers introduced in the [paper](https://doi.org/10.1016/j.neunet.2024.106410):
 
 ## Updates
-- (Aug/11/2025) the experiments of shunting inhibition and shunting activation on LoRA.
+- (Aug/11/2025) the experiments of shunting inhibition and shunting activation on LoRA. **Please Notice:**  When the $Th$ is negative, we are using the Shunting Inhibition. Otherwise, when the $Th$ is positive, the Shunting Activation is using on LoRA.
 - (Aug/08/2025) Refresh the comparison results.
 - (Aug/02/2025) Upload codes and the developing environment.
 - (May/13/2024) Upload Adapter weights.
@@ -76,7 +76,6 @@ $$I_{q}=f(HW_{q-down}+Th_{q})W_{q-up},$$
 
 where $I_{k} \in {R^{M\times{d}}}$ and $I_{q} \in {R^{M\times{d}}}$, respectively, is the $Inhibition$ matrix in $Key$ side and $Query$ side; $f$ is the activation function; $Th_{k} \in {R^{M\times{1}}}$ is the product of $\max(HW_{k-down}) \times Inh_{p}$ in terms of the column-wise maximization and $Th_{q} \in {R^{M\times{1}}}$ is the product of $\max(HW_{q-down}) \times Inh_{p}$ in terms of the column-wise maximization. 
 
-</font> <font face="Arial Black" size="3"> Notice: </font><a name="Languages"></a> When the $Th$ is negative, we are using the Shunting Inhibition. Otherwise, when the $Th$ is positive, the Shunting Activation is using on LoRA.
 
 ## Reproduction
 
