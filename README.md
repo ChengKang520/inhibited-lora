@@ -21,7 +21,7 @@ Bellow image illustrates how shunting inhibition works, with its on (the red box
 
 <div align="center">
   <figure>
-    <img src="assets/shunting-inhibition.jpg" width="90%"/>
+    <img src="assets/shunting-inhibition-activation.jpg" width="90%"/>
   </figure>
 </div>
 
