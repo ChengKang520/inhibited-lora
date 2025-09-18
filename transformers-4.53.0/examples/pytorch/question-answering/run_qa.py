@@ -759,6 +759,14 @@ def main():
         return metric.compute(predictions=p.predictions, references=p.label_ids)
 
     # Initialize our Trainer
+
+    training_args.metric_for_best_model="eval_loss"  # Specify the metric to monitor, such as "eval_loss", "eval_accuracy", "eval_f1"
+    training_args.evaluation_strategy = "epoch"
+    training_args.save_strategy = "epoch"
+    training_args.load_best_model_at_end = True
+    training_args.save_total_limit = 1
+    training_args.do_eval = True
+
     trainer = QuestionAnsweringTrainer(
         model=model,
         args=training_args,
