@@ -509,9 +509,9 @@ def main():
         # modules_to_save=model_args.modules_to_save,
     )
     model = get_peft_model(model_lm, peft_config)
-    print(peft_config)
-    print("###############")
-    print(model)
+    # print(peft_config)
+    # print("###############")
+    # print(model)
 
     # Preprocessing the raw_datasets
     if data_args.task_name is not None:

@@ -141,7 +141,7 @@ In the paper [LORA: LOW-RANK ADAPTATION OF LARGE LANGUAGE MODELS](https://arxiv.
 
 ### Experiments of GLUE
 Our fine-tuning experiments are carried on half a DGX-2 node with 1x40 A100 GPU card, the results may vary due to different GPU models, drivers, CUDA SDK versions, using FP16 or FP32, and random seeds. 
-We report our numbers based on multple runs with different random seeds here. Here are the results from the Large model:
+We report our numbers based on multple runs with different random seeds here. Here are the results from the BERT-large model:
 
 |Task	 | Command	                            	| Running Time(1x40G A100 GPUs) |
 |--------|-------------------------------------|-------------------------------|
@@ -158,62 +158,109 @@ We report our numbers based on multple runs with different random seeds here. He
 
 ## Finetune on SQuAD-V2 Benchmarks
 
-### 1. Run on 1 or 2 GPUs: 
+Here are the tuning time when fine-tuning the BERT-large model:
+|Task	 | Command	                            	| Running Time(1x40G A100 GPUs) |
+|--------|-------------------------------------|-------------------------------|
+|SQuAD v1.1| 	`sbatch batch/InA_SQuADv1.batch` | 	 	19h x 4                    |
+|SQuAD v2.0| 	`sbatch batch/InA_SQuADv2.batch`  | 		28h x 4                     |
 
-  - `RoBERTa-large`
+### 1. Run on 1 or 2 GPUs: 
+  - `RoBERTa-large on SQuADv1.1`
     ```bash
-    cd LoRA-LM/
-    python lm_QLoRA.py \
+    ## SQuADv2.0
+    python transformers-4.53.0/examples/pytorch/question-answering/run_qa.py \
     --model_name FacebookAI/roberta-large \
-    --dataset_name data/squad_v2/ \
-    --lora_r 8 \
+    --dataset_name squad \
+    --lora_r 2 \
     --lora_alpha 16 \
-    --lora_inhibition -0.3 \
+    --lora_inhibition 0.9 \
     --lora_dropout 0.1 \
-    --num_warmup_epochs 1 \
+    --task_type "QUESTION_ANS" \
+    --peft_type "LORA" \
+    --do_train \
+    --do_eval \
+    --learning_rate 3e-5 \
     --num_train_epochs 10 \
-    --batch_size 16 \
-    --output_dir Output_PEFT/roberta
+    --max_seq_length 512 \
+    --doc_stride 128 \
+    --output_dir output_final/RoBERTa_large/SQuAD_v1/InA90/ \
+    --output_dir relative_squad \
+    --per_device_eval_batch_size=4 \
+    --per_device_train_batch_size=4
     ```
   
-  - `Llama2-7B` needs 2 GPUs
+
+  - `RoBERTa-large on SQuADv2.0`
     ```bash
-    cd LoRA-LM/
-    python llm_QLoRA.py \
+    ## SQuADv2.0
+    python transformers-4.53.0/examples/pytorch/question-answering/run_qa.py \
+    --model_name FacebookAI/roberta-large \
+    --dataset_name squad_v2 \
+    --lora_r 2 \
+    --lora_alpha 16 \
+    --lora_inhibition 0.9 \
+    --lora_dropout 0.1 \
+    --task_type "QUESTION_ANS" \
+    --peft_type "LORA" \
+    --do_train \
+    --do_eval \
+    --learning_rate 3e-5 \
+    --num_train_epochs 10 \
+    --max_seq_length 512 \
+    --doc_stride 128 \
+    --output_dir output_final/RoBERTa_large/SQuAD_v2/InA90/ \
+    --output_dir relative_squad \
+    --per_device_eval_batch_size=4 \
+    --per_device_train_batch_size=4
+    ```
+  
+  
+  - `Llama2-7B on SQuADv2.0` needs 2 GPUs
+    ```bash
+    ## SQuADv2.0
+    python transformers-4.53.0/examples/pytorch/question-answering/run_qa.py \
     --model_name meta-llama/Llama-2-7b-chat-hf \
-    --dataset_name data/squad_v2/ \
+    --dataset_name squad_v2 \
+    --lora_r 2 \
     --lora_alpha 16 \
-    --lora_inhibition -0.3 \
+    --lora_inhibition 0.9 \
     --lora_dropout 0.1 \
-    --bf16 \
-    --max_seq_length 4096 \
-    --per_device_train_batch_size 2 \
-    --gradient_accumulation_steps 2 \
-    --max_steps 10000 \
-    --merge_and_push \
-    --save_steps 1000 \
-    --learning_rate=2e-7 \
-    --output_dir Output_PEFT/Llama-2-7b-chat-hf
+    --task_type "QUESTION_ANS" \
+    --peft_type "LORA" \
+    --do_train \
+    --do_eval \
+    --learning_rate 3e-5 \
+    --num_train_epochs 10 \
+    --max_seq_length 512 \
+    --doc_stride 128 \
+    --output_dir output_final/Llama2_7B/SQuAD_v2/InA90/ \
+    --output_dir relative_squad \
+    --per_device_eval_batch_size=4 \
+    --per_device_train_batch_size=4
     ```
-  
-  - `Llama3-8B` needs 2 GPUs
+
+  - `Llama3-8B on SQuADv2.0` needs 2 GPUs
     ```bash
-    cd LoRA-LM/
-    python llm_QLoRA.py \
+    ## SQuADv2.0
+    python transformers-4.53.0/examples/pytorch/question-answering/run_qa.py \
     --model_name meta-llama/Meta-Llama-3-8B \
-    --dataset_name data/squad_v2/ \
+    --dataset_name squad_v2 \
+    --lora_r 2 \
     --lora_alpha 16 \
-    --lora_inhibition -0.3 \
+    --lora_inhibition 0.9 \
     --lora_dropout 0.1 \
-    --bf16 \
-    --max_seq_length 4096 \
-    --per_device_train_batch_size 2 \
-    --gradient_accumulation_steps 2 \
-    --max_steps 10000 \
-    --merge_and_push \
-    --save_steps 1000 \
-    --learning_rate=2e-7 \
-    --output_dir Output_PEFT/Meta-Llama-3-8B
+    --task_type "QUESTION_ANS" \
+    --peft_type "LORA" \
+    --do_train \
+    --do_eval \
+    --learning_rate 3e-5 \
+    --num_train_epochs 10 \
+    --max_seq_length 512 \
+    --doc_stride 128 \
+    --output_dir output_final/Llama3_8B/SQuAD_v2/InA90/ \
+    --output_dir relative_squad \
+    --per_device_eval_batch_size=4 \
+    --per_device_train_batch_size=4
     ```
 
 ### 2. Visualization of Average Attention Heatmap 
@@ -226,7 +273,7 @@ We report our numbers based on multple runs with different random seeds here. He
     python visualize_lm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/google-bert/bert-large-uncased/ \
     --model_name google-bert/bert-large-uncased \
     --task="squad_v2" \
-    --lora_inhibition -0.1
+    --lora_inhibition 0.9
     ```
 
   - `RoBERTa-large`
@@ -235,7 +282,7 @@ We report our numbers based on multple runs with different random seeds here. He
     python visualize_lm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/FacebookAI/roberta-large/ \
     --model_name FacebookAI/roberta-large \
     --task="squad_v2" \
-    --lora_inhibition -0.1
+    --lora_inhibition 0.9
     ```
 
   - `Llama2-7B`
@@ -244,7 +291,7 @@ We report our numbers based on multple runs with different random seeds here. He
     python visualize_llm.py --adapter_name=/home/kangchen/inhibited_lora/LoRA-LM/Output_PEFT/Llama-2-7b-chat-hf/ \
     --model_name meta-llama/Llama-2-7b-chat-hf \
     --task="squad_v2" \
-    --lora_inhibition -0.9
+    --lora_inhibition 0.9
     ```
 
 ## Acknowledgements

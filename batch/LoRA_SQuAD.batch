@@ -1,0 +1,84 @@
+#!/bin/sh
+#SBATCH --partition=gpulong
+#SBATCH --time=72:00:00
+#SBATCH --gres=gpu:1
+#SBATCH --ntasks-per-node=1 # tasks per node
+#SBATCH --mem-per-gpu=80000
+#SBATCH --job-name=SQuAD_LoRA
+#SBATCH --err=LoRA_SQuAD.err
+#SBATCH --out=LoRA_SQuAD.out
+#SBATCH --mail-user=kangchen@fel.cvut.cz    # where send info about job
+#SBATCH --mail-type=ALL              # what to send, valid type values are NONE, BEGIN, END, FAIL, REQUEUE, ALL
+
+/bin/hostname
+srun -l /bin/hostname
+srun -l /bin/pwd
+
+
+#srun -p gpufast --gres=gpu:1 --mem-per-gpu=40000 --pty bash -i
+
+ml Python/3.10.8-GCCcore-12.2.0
+cd /home/kangchen/inhibited_lora/
+source InaEnv/bin/activate
+
+python transformers-4.53.0/examples/pytorch/question-answering/run_qa.py \
+--model_name_or_path bert-large-cased \
+--dataset_name squad \
+--lora_r 2 \
+--lora_alpha 16 \
+--lora_inhibition 0.0 \
+--lora_dropout 0.1 \
+--task_type "QUESTION_ANS" \
+--peft_type "LORA" \
+--do_train \
+--do_eval \
+--learning_rate 3e-5 \
+--num_train_epochs 10 \
+--max_seq_length 512 \
+--doc_stride 128 \
+--output_dir output_final/BERT_large/SQuAD/InA00/ \
+--output_dir relative_squad \
+--per_device_eval_batch_size=4 \
+--per_device_train_batch_size=4
+
+
+python transformers-4.53.0/examples/pytorch/question-answering/run_qa.py \
+--model_name_or_path bert-large-cased \
+--dataset_name squad \
+--lora_r 4 \
+--lora_alpha 16 \
+--lora_inhibition 0.0 \
+--lora_dropout 0.1 \
+--task_type "QUESTION_ANS" \
+--peft_type "LORA" \
+--do_train \
+--do_eval \
+--learning_rate 3e-5 \
+--num_train_epochs 10 \
+--max_seq_length 512 \
+--doc_stride 128 \
+--output_dir output_final/BERT_large/SQuAD/InA00/ \
+--output_dir relative_squad \
+--per_device_eval_batch_size=4 \
+--per_device_train_batch_size=4
+
+
+python transformers-4.53.0/examples/pytorch/question-answering/run_qa.py \
+--model_name_or_path bert-large-cased \
+--dataset_name squad \
+--lora_r 8 \
+--lora_alpha 16 \
+--lora_inhibition 0.0 \
+--lora_dropout 0.1 \
+--task_type "QUESTION_ANS" \
+--peft_type "LORA" \
+--do_train \
+--do_eval \
+--learning_rate 3e-5 \
+--num_train_epochs 10 \
+--max_seq_length 512 \
+--doc_stride 128 \
+--output_dir output_final/BERT_large/SQuAD/InA00/ \
+--output_dir relative_squad \
+--per_device_eval_batch_size=4 \
+--per_device_train_batch_size=4

@@ -46,7 +46,7 @@ from transformers import (
 from transformers.trainer_utils import get_last_checkpoint
 from transformers.utils import check_min_version, send_example_telemetry
 from transformers.utils.versions import require_version
-
+from peft import get_peft_model, LoraConfig, TaskType
 
 # Will error if the minimal version of Transformers is not installed. Remove at your own risks.
 check_min_version("4.53.0")
@@ -73,7 +73,11 @@ class ModelArguments:
     )
     cache_dir: Optional[str] = field(
         default=None,
-        metadata={"help": "Path to directory to store the pretrained models downloaded from huggingface.co"},
+        metadata={"help": "Where do you want to store the pretrained models downloaded from huggingface.co"},
+    )
+    use_fast_tokenizer: bool = field(
+        default=True,
+        metadata={"help": "Whether to use one of the fast tokenizer (backed by the tokenizers library) or not."},
     )
     model_revision: str = field(
         default="main",
@@ -98,6 +102,81 @@ class ModelArguments:
             )
         },
     )
+    ignore_mismatched_sizes: bool = field(
+        default=False,
+        metadata={"help": "Will enable to load a pretrained model whose head dimensions are different."},
+    )
+
+
+@dataclass
+class PeftArguments:
+    """
+    Arguments pertaining to which model/config/tokenizer we are going to fine-tune from.
+    """
+    task_type: str = field(
+        metadata={"help": ""}
+    )
+    peft_type: str = field(
+        metadata={"help": ""}
+    ) #PEFT method type
+    # bias: Optional[str] = field(
+    #     default=None,
+    #     metadata={"help": ""},
+    # )
+    fan_in_fan_out: bool = field(
+        default=False,
+        metadata={"help": ""},
+    )
+    inference_mode: bool = field(
+        default=True,
+        metadata={"help": ""},
+    )
+    init_lora_weights: bool = field(
+        default=True,
+        metadata={"help": ""},
+    )
+    # target_modules: list = field(
+    #     default_factory=["query","key","value"],
+    #     metadata={"help": ""}
+    # )
+    layers_pattern: Optional[str] = field(
+        default=None, metadata={"help": ""}
+    )
+    layers_to_transform: Optional[str] = field(
+        default=None, metadata={"help": ""}
+    )
+    lora_alpha: Optional[int] = field(
+        default=None,
+        metadata={
+            "help": (
+            )
+        },
+    )
+    lora_dropout: Optional[float] = field(
+        default=None,
+        metadata={
+            "help": (
+            )
+        },
+    )
+    lora_inhibition: Optional[float] = field(
+        default=None,
+        metadata={
+            "help": (
+            )
+        },
+    )
+    modules_to_save: Optional[str] = field(
+        default=None, metadata={"help": ""}
+    )
+    lora_r: int = field(
+        default=16,
+        metadata={
+            "help": (
+            )
+        },
+    )
+
 
 
 @dataclass
@@ -229,13 +308,13 @@ def main():
     # or by passing the --help flag to this script.
     # We now keep distinct sets of args, for a cleaner separation of concerns.
 
-    parser = HfArgumentParser((ModelArguments, DataTrainingArguments, TrainingArguments))
+    parser = HfArgumentParser((ModelArguments, PeftArguments, DataTrainingArguments, TrainingArguments))
     if len(sys.argv) == 2 and sys.argv[1].endswith(".json"):
         # If we pass only one argument to the script and it's the path to a json file,
         # let's parse it to get our arguments.
-        model_args, data_args, training_args = parser.parse_json_file(json_file=os.path.abspath(sys.argv[1]))
+        model_args, peft_args, data_args, training_args = parser.parse_json_file(json_file=os.path.abspath(sys.argv[1]))
     else:
-        model_args, data_args, training_args = parser.parse_args_into_dataclasses()
+        model_args, peft_args, data_args, training_args = parser.parse_args_into_dataclasses()
 
     # Sending telemetry. Tracking the example usage helps us better allocate resources to maintain them. The
     # information sent is the one passed as arguments along with your Python/PyTorch versions.
@@ -344,7 +423,7 @@ def main():
         token=model_args.token,
         trust_remote_code=model_args.trust_remote_code,
     )
-    model = AutoModelForQuestionAnswering.from_pretrained(
+    model_lm = AutoModelForQuestionAnswering.from_pretrained(
         model_args.model_name_or_path,
         from_tf=bool(".ckpt" in model_args.model_name_or_path),
         config=config,
@@ -376,6 +455,53 @@ def main():
 
     # Padding side determines if we do (question|context) or (context|question).
     pad_on_right = tokenizer.padding_side == "right"
+
+    ## TODO
+    # print(model_lm)
+    # print("###############")
+    # SEQ_CLS: Text classification.
+    # SEQ_2_SEQ_LM: Sequence-to-sequence language modeling.
+    # CAUSAL_LM: Causal language modeling.
+    # TOKEN_CLS: Token classification.
+    # QUESTION_ANS: Question answering.
+    # FEATURE_EXTRACTION: Feature extraction. Provides the hidden states which can be used as embeddings or features for downstream tasks.
+
+    if peft_args.task_type == "SEQ_CLS":
+        print("The task type of PEFT is not proper!")
+        task_type = TaskType.SEQ_CLS
+    elif peft_args.task_type == "SEQ_2_SEQ_LM":
+        print("The task type of PEFT is not proper!")
+        task_type = TaskType.SEQ_2_SEQ_LM
+    elif peft_args.task_type == "CAUSAL_LM":
+        print("The task type of PEFT is not proper!")
+        task_type = TaskType.CAUSAL_LM
+    elif peft_args.task_type == "TOKEN_CLS":
+        print("The task type of PEFT is not proper!")
+        task_type = TaskType.TOKEN_CLS
+    elif peft_args.task_type == "QUESTION_ANS":
+        print("The task type of PEFT is not proper!")
+        task_type = TaskType.QUESTION_ANS
+    elif peft_args.task_type == "FEATURE_EXTRACTION":
+        print("The task type of PEFT is not proper!")
+        task_type = TaskType.FEATURE_EXTRACTION
+    else:
+        print("The task type of PEFT is wrong!")
+
+    peft_config = LoraConfig(
+        task_type=task_type,  # TaskType.CAUSAL_LM
+        r=peft_args.lora_r,
+        lora_alpha=peft_args.lora_alpha,
+        lora_inhibition=peft_args.lora_inhibition,
+        lora_dropout=peft_args.lora_dropout,
+        # bias=peft_args.bias,
+        # target_modules=peft_args.target_modules,
+        target_modules=["query", "key"]
+        # modules_to_save=model_args.modules_to_save,
+    )
+    model = get_peft_model(model_lm, peft_config)
+    # print(peft_config)
+    # print("###############")
+    # print(model)
 
     if data_args.max_seq_length > tokenizer.model_max_length:
         logger.warning(

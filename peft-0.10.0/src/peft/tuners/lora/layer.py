@@ -329,6 +329,10 @@ class LoraLayer(BaseTunerLayer):
                 lora_output = lora_B(lora_ina_temp) * scaling
                 # print("################################################################")
                 # print("The inhibition level is :" + str(lora_inhibition) + ".")
+                # print(x.shape)
+                # print(sub_batch.shape)
+                # print(lora_A_temp.shape)
+                # print(out_.shape)
             else:
                 lora_output = lora_B(lora_A(dropout(sub_batch))) * scaling
                 # print("################################################################")
@@ -535,6 +539,9 @@ class Linear(nn.Module, LoraLayer):
                         result = result + lora_B(lora_ina_temp) * scaling
                         # print("################################################################")
                         # print("The inhibition level is :" + str(lora_inhibition) + ".")
+                        # print(x.shape)
+                        # print(lora_A_temp.shape)
+                        # print(out_.shape)
                     else:
                         result = result + lora_B(lora_A(dropout(x))) * scaling
                         # print("################################################################")
@@ -739,6 +746,10 @@ class Embedding(nn.Module, LoraLayer):
                 after_A = torch.nn.functional.leaky_relu(after_A + out_ * lora_inhibition, negative_slope=0.1)
                 # print("################################################################")
                 # print("The inhibition level is :" + str(lora_inhibition) + ".")
+                # print(x.shape)
+                # print(sub_batch.shape)
+                # print(after_A.shape)
+                # print(out_.shape)
             # else:
             #     # print("################################################################")
             #     print("The inhibition of LoRA is Zero.")
@@ -791,6 +802,9 @@ class Embedding(nn.Module, LoraLayer):
                     after_A = torch.nn.functional.leaky_relu(after_A + out_ * lora_inhibition, negative_slope=0.1)
                     # print("################################################################")
                     # print("The inhibition level is :" + str(lora_inhibition) + ".")
+                    # print(x.shape)
+                    # print(after_A.shape)
+                    # print(out_.shape)
                 # else:
                 #     # print("################################################################")
                 #     print("The inhibition of LoRA is Zero.")
@@ -1085,10 +1099,13 @@ class Conv2d(nn.Module, LoraLayer):
                         lora_ina_temp = torch.nn.functional.leaky_relu(lora_A_temp + out_ * lora_inhibition, negative_slope=0.1)
                         # print("################################################################")
                         # print("The inhibition level is :" + str(lora_inhibition) + ".")
+                        # print(x.shape)
+                        # print(lora_A_temp.shape)
+                        # print(out_.shape)
                         result = result + lora_B(lora_ina_temp) * scaling
                     else:
                         # print("################################################################")
-                        # print("The inhibition of LoRA is Zero.")
+                        # print(lora_A_temp.shape)
                         result = result + lora_B(lora_ina_temp) * scaling
                     # result = result + lora_B(lora_A(dropout(x))) * scaling
                 else:
