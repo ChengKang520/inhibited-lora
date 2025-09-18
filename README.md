@@ -156,7 +156,7 @@ We report our numbers based on multple runs with different random seeds here. He
 
 
 
-## Finetune on SQuAD-V2 Benchmarks
+## Finetune on SQuAD-V1.1 and SQuAD-V2.0 Benchmarks
 
 Here are the tuning time when fine-tuning the BERT-large model:
 |Task	 | Command	                            	| Running Time(1x40G A100 GPUs) |
@@ -167,7 +167,7 @@ Here are the tuning time when fine-tuning the BERT-large model:
 ### 1. Run on 1 or 2 GPUs: 
   - `RoBERTa-large on SQuADv1.1`
     ```bash
-    ## SQuADv2.0
+    ## SQuADv1.1
     python transformers-4.53.0/examples/pytorch/question-answering/run_qa.py \
     --model_name FacebookAI/roberta-large \
     --dataset_name squad \
