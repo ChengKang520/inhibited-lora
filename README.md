@@ -7,7 +7,7 @@
 [![Code License](https://img.shields.io/badge/Code%20License-Apache_2.0-green.svg)](LICENSE)
 
 
-This repository contains the code necessary to reproduce Shunting Inhibition and Activation on LoRA, the shunting inhibition and activation mechanism that controls passed information from previous layers introduced in the [paper](https://doi.org/10.1016/j.neunet.2024.106410) and one coming paper.
+This repository contains the code necessary to reproduce Shunting Inhibition and Activation on LoRA, the shunting inhibition and activation mechanism that controls the activated information passing from the previous layer to the current layer introduced in the [paper](https://doi.org/10.1016/j.neunet.2024.106410) and one coming paper.
 
 ## Updates
 - (Aug/11/2025) the experiments of shunting inhibition and shunting activation on LoRA. **Please Notice:**  When the $Th$ is negative, we are using the Shunting Inhibition. Otherwise, when the $Th$ is positive, the Shunting Activation is using on LoRA.
